@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carta de Cumpleaños</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: linear-gradient(135deg, #b3c6f7 0%, #e0eafc 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .carta {
+            width: 320px;
+            height: 220px;
+            perspective: 1000px;
+            position: relative;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .tapa {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #a7c7e7 60%, #dbeafe 100%);
+            border-radius: 16px 16px 32px 32px;
+            box-shadow: 0 8px 24px rgba(80,120,200,0.18);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #3a5ba0;
+            font-family: 'Segoe UI', sans-serif;
+            transition: transform 0.8s cubic-bezier(.86,0,.07,1);
+            transform-origin: top center;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .carta.abierta .tapa {
+            transform: rotateX(-120deg);
+        }
+        .contenido {
+            width: 100%;
+            height: 100%;
+            background: #f6fbff;
+            border-radius: 16px 16px 32px 32px;
+            box-shadow: 0 8px 24px rgba(80,120,200,0.10);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            padding: 24px 18px 18px 18px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            font-family: 'Segoe UI', sans-serif;
+            color: #3a5ba0;
+            font-size: 1.1rem;
+            opacity: 0;
+            transition: opacity 0.5s 0.5s;
+        }
+        .carta.abierta .contenido {
+            opacity: 1;
+        }
+        .contenido::-webkit-scrollbar {
+            width: 8px;
+        }
+        .contenido::-webkit-scrollbar-thumb {
+            background: #b3c6f7;
+            border-radius: 8px;
+        }
+        .contenido::-webkit-scrollbar-track {
+            background: #e0eafc;
+        }
+        body, .carta, .tapa {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="carta" id="carta">
+        <div class="tapa">
+            💌
+        </div>
+        <div class="contenido">
+            <h2>¡Feliz Cumpleaños!</h2>
+            <p>
+                Que este día esté lleno de alegría, amor y momentos inolvidables. 
+                Te deseo lo mejor hoy y siempre. <br><br>
+                ¡Disfruta mucho tu día! 🎉💙<br><br>
+                (Puedes deslizar si el mensaje es largo)
+            </p>
+            <p>
+                Espero que este nuevo año de vida te traiga muchos éxitos, salud y felicidad. Que cada meta que te propongas se convierta en un logro y que siempre estés rodeado de personas que te aprecian.
+                <br><br>
+                ¡Feliz cumpleaños de nuevo!
+            </p>
+        </div>
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            // Espera un pequeño retardo para mostrar la animación
+            setTimeout(function() {
+                document.getElementById('carta').classList.add('abierta');
+            }, 400); // Puedes ajustar el tiempo si quieres
+        });
+    </script>
+</body>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        // Espera un pequeño retardo para mostrar la animación
+        setTimeout(function() {
+            document.getElementById('carta').classList.add('abierta');
+        }, 400); // Puedes ajustar el tiempo si quieres
+
+        // Permite abrir la carta manualmente si no se ha abierto aún
+        var carta = document.getElementById('carta');
+        function abrirCarta() {
+            if (!carta.classList.contains('abierta')) {
+                carta.classList.add('abierta');
+            }
+        }
+        ['click', 'touchstart', 'pointerdown'].forEach(function(evt) {
+            carta.addEventListener(evt, abrirCarta);
+        });
+    });
+</script>
