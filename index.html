@@ -349,6 +349,13 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
         }
 
         regalo.addEventListener('click', function() {
+            // Iniciar música cuando falten 3 clics (click 15, es decir clickCount == 15)
+            if (clickCount === totalClicks - 4) {
+                if (musicaRegalo) {
+                    musicaRegalo.currentTime = 0;
+                    musicaRegalo.play().catch(()=>{});
+                }
+            }
             if (clickCount < totalClicks-1) {
                 clickCount++;
                 mensaje.textContent = mensajes[clickCount % mensajes.length];
@@ -362,11 +369,7 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
                 tarjetaContainer.style.display = 'flex';
                 volverBtn.style.display = 'inline-block';
                 clickCount++;
-                // INICIAR MUSICA
-                if (musicaRegalo) {
-                    musicaRegalo.currentTime = 0;
-                    musicaRegalo.play().catch(()=>{});
-                }
+                // Ya no iniciar música aquí, se inicia antes
             }
         });
 
@@ -406,6 +409,11 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
                             carta.classList.remove('abierta');
                         }
                         window.scrollTo({top: 0, behavior: 'smooth'});
+                        // PAUSAR MUSICA (por si acaso)
+                        if (musicaRegalo) {
+                            musicaRegalo.pause();
+                            musicaRegalo.currentTime = 0;
+                        }
                     }
                 }
             }, 100);
