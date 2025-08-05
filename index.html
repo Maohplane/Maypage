@@ -324,8 +324,19 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
         const tarjetaInner = document.getElementById('tarjeta-inner');
         const volverBtn = document.getElementById('volver-carta-btn');
         let tarjetaVolteada = false;
-        // NUEVO: referencia al audio
-        const musicaRegalo = document.getElementById('musica-regalo');
+
+        // NUEVO: crea el audio por JS para mejor compatibilidad
+        let musicaRegalo = null;
+        function crearAudioRegalo() {
+            if (!musicaRegalo) {
+                musicaRegalo = new Audio('musica.mp3');
+                musicaRegalo.preload = 'auto';
+                musicaRegalo.autoplay = false;
+                musicaRegalo.loop = false;
+                musicaRegalo.volume = 1;
+                musicaRegalo.crossOrigin = "anonymous";
+            }
+        }
 
         // Inicializa mensaje y contador
         mensaje.textContent = mensajes[0];
@@ -349,6 +360,8 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
         }
 
         regalo.addEventListener('click', function() {
+            // Crear audio si no existe (por interacción de usuario)
+            crearAudioRegalo();
             // Iniciar música cuando falten 3 clics (click 15, es decir clickCount == 15)
             if (clickCount === totalClicks - 4) {
                 if (musicaRegalo) {
@@ -435,6 +448,5 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
             <button onclick="document.getElementById('mensaje-final').style.display='none';" style="margin-top:10px; padding:8px 22px; background:linear-gradient(90deg,#b3c6f7 60%,#f9e79f 100%); color:#3a5ba0; border:none; border-radius:8px; font-size:1.1rem; font-family:'Segoe UI',sans-serif; font-weight:bold; cursor:pointer;">Cerrar</button>
         </div>
     </div>
-    <audio id="musica-regalo" src="musica.mp3"></audio>
 </body>
 </html>
