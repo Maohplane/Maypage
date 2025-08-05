@@ -396,12 +396,13 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
         volverBtn.addEventListener('click', function() {
             // Mostrar mensaje especial
             document.getElementById('mensaje-final').style.display = 'flex';
-            // PAUSAR MUSICA
+            // Reproducir música al mostrar el mensaje final
+            crearAudioRegalo();
             if (musicaRegalo) {
-                musicaRegalo.pause();
                 musicaRegalo.currentTime = 0;
+                musicaRegalo.play().catch(()=>{});
             }
-            // Reiniciar todo después de cerrar el mensaje
+            // PAUSAR MUSICA cuando se cierre el mensaje final
             setTimeout(() => {
                 const cerrar = document.querySelector('#mensaje-final button');
                 if (cerrar) {
