@@ -18,16 +18,106 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            padding-top: 64px;
+            /* Ajuste para que el fondo no se vea saturado */
+            background-size: cover;
         }
+        /* Menú superior */
+        #menu {
+            width: 100vw;
+            background: linear-gradient(90deg, #b3c6f7 60%, #f9e79f 100%);
+            box-shadow: 0 2px 8px rgba(80,120,200,0.10);
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0; z-index: 10000;
+            height: 64px;
+        }
+        #menu-logo {
+            height: 48px;
+            width: 48px;
+            margin-left: 18px;
+            margin-right: 18px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(80,120,200,0.10);
+        }
+        #menu-logo img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        #menu-buttons {
+            display: flex;
+            flex: 1;
+            align-items: center;
+        }
+        #menu button {
+            background: none;
+            border: none;
+            color: #3a5ba0;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin: 0 18px;
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        #menu button.active, #menu button:hover {
+            background: #f6fbff;
+            color: #d35400;
+        }
+        .seccion { display: none; }
+        .seccion.activa { display: block; }
         .carta {
-            width: 320px;
-            min-height: 220px;
+            width: 98vw;
+            max-width: 370px;
+            min-height: 260px;
+            margin-top: 48px;
+            margin-bottom: 32px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            align-self: center;
+            /* Centrado y sombra más suave */
+            box-shadow: 0 8px 32px rgba(80,120,200,0.13);
             perspective: 1000px;
             position: relative;
-            margin-top: 48px;
-            margin-bottom: 180px;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
+        }
+        /* Centrado para la sección cumpleaños */
+        #seccion-cumple {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100vw;
+        }
+        /* Centrado para la sección F1 */
+        #seccion-f1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100vw;
+        }
+        /* Asegura que el contador esté visible y centrado */
+        #contador-f1 {
+            font-size:1.5rem;
+            color:#1e41ff;
+            background:rgba(255,255,255,0.7);
+            border-radius:8px;
+            padding:8px 18px;
+            margin-bottom:18px;
+            display: block;
+            text-align: center;
+            min-width: 220px;
         }
         .tapa {
             width: 100%;
@@ -54,20 +144,21 @@
         }
         .contenido {
             width: 100%;
-            min-height: 220px;
-            background: #f6fbff;
+            min-height: 260px;
+            padding: 28px 18px 18px 18px;
+            font-size: 1.08rem;
+            line-height: 1.6;
+            /* Mejor legibilidad */
+            background: #fafdff;
             border-radius: 16px 16px 32px 32px;
             box-shadow: 0 8px 24px rgba(80,120,200,0.10);
             position: absolute;
             top: 0;
             left: 0;
             z-index: 1;
-            padding: 24px 18px 18px 18px;
-            box-sizing: border-box;
             overflow-y: auto;
             font-family: 'Segoe UI', sans-serif;
             color: #3a5ba0;
-            font-size: 1.1rem;
             opacity: 0;
             transition: opacity 0.5s 0.5s;
         }
@@ -106,12 +197,13 @@
             align-items: center;
             z-index: 10;
             pointer-events: none;
+            padding-bottom: 8px;
         }
         #regalo-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 0;
             pointer-events: auto;
             transition: all 0.5s cubic-bezier(.86,0,.07,1);
         }
@@ -130,6 +222,12 @@
             transition: all 0.4s cubic-bezier(.86,0,.07,1);
             z-index: 11;
             margin-bottom: 8px;
+            /* Animación sutil */
+            animation: regalo-bounce 1.5s infinite alternate;
+        }
+        @keyframes regalo-bounce {
+            0% { transform: translateY(0);}
+            100% { transform: translateY(-8px);}
         }
         #regalo-mensaje {
             margin-top: 6px;
@@ -140,7 +238,7 @@
             background: rgba(255,255,255,0.7);
             border-radius: 8px;
             padding: 4px 12px;
-            font-size: 1.05rem;
+            font-size: 1.08rem;
             box-shadow: 0 2px 8px rgba(80,120,200,0.06);
             transition: all 0.3s;
         }
@@ -170,6 +268,7 @@
             perspective: 900px;
             cursor: pointer;
             margin: 0 auto;
+            max-width: 98vw;
         }
         #tarjeta-inner {
             width: 100%;
@@ -220,18 +319,146 @@
             .carta.abierta {
         z-index: 1000;
     }
+    /* Carta F1 Red Bull */
+        .carta.f1 {
+            background: linear-gradient(135deg, #002654 60%, #1e41ff 100%);
+            border-radius: 18px 18px 36px 36px;
+            box-shadow: 0 8px 32px rgba(30,65,255,0.18);
+            color: #fff;
+        }
+        .carta.f1 .tapa {
+            background: linear-gradient(135deg, #1e41ff 60%, #ffcb05 100%);
+            color: #ffcb05;
+            font-size: 2.2rem;
+            border-radius: 18px 18px 36px 36px;
+            font-family: 'Segoe UI', 'Arial Black', Arial, sans-serif;
+        }
+        .carta.f1 .contenido {
+            background: #002654;
+            color: #fff;
+            font-family: 'Segoe UI', 'Arial Black', Arial, sans-serif;
+        }
+        .carta.f1 .abrir-indicador {
+            color: #ffcb05;
+        }
+        /* Música botón F1 */
+        #musica-f1-container {
+            margin-top: 18px;
+            text-align: center;
+        }
+        #play-musica-f1 {
+            padding:8px 22px;
+            background:linear-gradient(90deg,#1e41ff 60%,#ffcb05 100%);
+            color:#002654;
+            border:none;
+            border-radius:8px;
+            font-size:1.1rem;
+            font-family:'Segoe UI',sans-serif;
+            font-weight:bold;
+            cursor:pointer;
+            margin-bottom: 10px;
+        }
+        #play-musica-f1:hover {
+            background:linear-gradient(90deg,#ffcb05 60%,#1e41ff 100%);
+            color:#fff;
+        }
+        /* Foto al cerrar carta F1 */
+        #foto-f1-modal {
+            display:none;
+            position:fixed;
+            top:0; left:0; width:100vw; height:100vh;
+            background:rgba(0,0,0,0.65);
+            z-index:9999;
+            align-items:center;
+            justify-content:center;
+        }
+        #foto-f1-modal-content {
+            background:#fff;
+            border-radius:18px;
+            max-width:90vw;
+            width:410px;
+            padding:24px 12px 18px 12px;
+            box-shadow:0 8px 32px #0006;
+            font-family:'Segoe UI',sans-serif;
+            font-size:1.18rem;
+            text-align:center;
+            position:relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #foto-f1-img {
+            width: 100%;
+            max-width: 340px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 12px #0004;
+        }
+        #foto-f1-pie {
+            color: #1e41ff;
+            font-size: 1.05rem;
+            background: rgba(255,203,5,0.13);
+            border-radius: 8px;
+            padding: 10px 12px 10px 12px;
+            margin-bottom: 10px;
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.5;
+        }
+        #foto-f1-cerrar {
+            margin-top:10px;
+            padding:8px 22px;
+            background:linear-gradient(90deg,#1e41ff 60%,#ffcb05 100%);
+            color:#fff;
+            border:none;
+            border-radius:8px;
+            font-size:1.1rem;
+            font-family:'Segoe UI',sans-serif;
+            font-weight:bold;
+            cursor:pointer;
+        }
+        #foto-f1-cerrar:hover {
+            background:linear-gradient(90deg,#ffcb05 60%,#1e41ff 100%);
+            color:#002654;
+        }
+        /* Proximamente cartel */
+        #proximamente-f1 {
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            min-height:320px;
+        }
+        #contador-f1 {
+            font-size:1.5rem;
+            color:#1e41ff;
+            background:rgba(255,255,255,0.7);
+            border-radius:8px;
+            padding:8px 18px;
+            margin-bottom:18px;
+        }
     </style>
 </head>
 <body>
-    <div class="carta" id="carta">
-        <div class="tapa">
-            💌
-            <div class="abrir-indicador">Haz click para abrir</div>
+    <nav id="menu">
+        <div id="menu-logo">
+            <img src="logo.jpg" alt="Logo">
         </div>
-        <div class="contenido">
-            <button id="cerrar-carta-btn" style="position:absolute; top:12px; right:18px; background:#f7cac9; color:#3a5ba0; border:none; border-radius:8px; font-size:1.1rem; font-family:'Segoe UI',sans-serif; font-weight:bold; cursor:pointer; padding:6px 16px; z-index:10;">Cerrar</button>
-            <h2>¡Feliz cumpleaños Mayyyyyy, la mas linda!</h2>
-            <p>
+        <div id="menu-buttons">
+            <button id="menu-cumple" class="active">Cumpleaños de la linda</button>
+            <button id="menu-f1">Secret 🤗</button>
+        </div>
+    </nav>
+    <!-- Sección Cumpleaños de la linda -->
+    <div class="seccion activa" id="seccion-cumple">
+        <div class="carta" id="carta">
+            <div class="tapa">
+                💌
+                <div class="abrir-indicador">Haz click para abrir</div>
+            </div>
+            <div class="contenido">
+                <button id="cerrar-carta-btn" style="position:absolute; top:12px; right:18px; background:#f7cac9; color:#3a5ba0; border:none; border-radius:8px; font-size:1.1rem; font-family:'Segoe UI',sans-serif; font-weight:bold; cursor:pointer; padding:6px 16px; z-index:10;">Cerrar</button>
+                <h2>¡Feliz cumpleaños Mayyyyyy, la mas linda!</h2>
+                <p>
 Se lo especial que para ti es tu cumpleaños y se me hace muy tierno lo mucho que te emocionas por que llegue ese día tan especial para ti, y quiero que sepas que ahora también lo es para mi. Jamás esperaría que un año después te estaría diciendo feliz  cumpleaños a ti, que antes no te conocía de nada;  mucho menos lo feliz que me haces cada dia y como me gustaria estar contigo en este dia tan especial. Me di cuenta de lo feliz que me hacías sentir desde hace mucho, desde esas primeras veces que compartimos clase y todavía no nos llevamos. Me gustaría saber en qué momento nos empezamos a llevar pero empiezo a creer que siempre nos llevamos incluso antes de conocernos, porque se me hace imposible acordarme de un momento en específico que marque ese momento. Esa primera vez que hablamos en el camión fue cuando me di cuenta lo especial que eras, sin siquiera conocerte realmente me abrí contigo como nunca lo había hecho con alguien, como tu también lo hiciste. Nunca te dije pero fue ahí donde sabía que tu te ibas a convertir en una persona muy especial en mi vida y si lo fue. Simplemente era la amiga, la mejor amiga, que siempre había querido tener; alguien con quien pudiera ser yo mismo, decir lo que quisiera, confiar para lo que sea, que pasara el tiempo como si no existiera, y mucho más importante para mi sonreir con ella. Sabía lo divertida que eras cuando me dijiste que jugamos a callarnos, ahora si que como diríamos un irony, porque no hay momento que al estar contigo no paremos de hablar y pase el tiempo. Te prometo que nunca ganaré ese juego, ya que siempre querré hablar contigo de lo que sea y en el momento que sea.
 Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que pasar tantos días a tu lado tanto en momento bueno como malos, me harían cada vez quererte mas. Me acostumbre a ti a acompañarte a todos lados, a tu sonrisa, a tu pelo, a tu olor (que hueles muy bien por cierto), y a tus comentarios de lo más genuinos ; que un dia sin estar contigo se siente vacío, pero a su vez hace más especial ese día en que nos volvamos a ver. Quiero que sepas que contigo no me importa la distancia, el tiempo, o las circunstancias que sucedan, que cambie lo mucho que te amo y lo especial que eres para mi. Mi novia linda, siempre me hace sentir muy enamorado cuando recuerdo que eres mi novia no sabes, no es que se me olvide que lo eres pero es que antes para mi ya eras algo así. Los recuerdos a tu lado son de lo más preciados y siempre los llevo en mente o en momentos que no se me siento tan bien recordarlos me hace sentir que estoy a tu lado una vez más.Me gustaría mucho hacer esta carta mucho más larga, pero por mas que lo intente las palabras nunca serán suficientes para expresar lo que siento por ti, como también los muchos de los momentos que vivimos juntos y que me gustaría vivir contigo en un futuro. Sería una carta infinita, como el eterno amor que siento por ti. Como también para que no me de shy, te lo juro que todo lo relacionado a ti me hace sentir así, supongo que es por lo linda que eres conmigo y lo bonita que eres todos los días. Espero qué te la pases mas que bien en este día y que sepas que siempre estaré aquí para ti, para lo que necesites, te amo con todo el corazón.
             </p>
@@ -241,13 +468,182 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
                 ATT.Tu rata apestosa y novio.
             </p>
         </div>
+        <div id="regalo-fixed-container">
+            <div id="regalo-container">
+                <div id="regalo">🎁</div>
+                <div id="regalo-mensaje"></div>
+                <div id="regalo-contador"></div>
+                <div id="tarjeta-container">
+                    <div id="tarjeta">
+                        <div id="tarjeta-inner">
+                            <!-- Cara frontal -->
+                            <div id="tarjeta-front" style="background: #18181a; display: flex; align-items: center; justify-content: center;">
+                                <img src="roblox-card.jpg" alt="Tarjeta Roblox" style="max-width: 98%; max-height: 98%; border-radius: 10px; box-shadow: 0 2px 12px #0008;">
+                            </div>
+                            <!-- Cara trasera -->
+                            <div id="tarjeta-back" style="background: linear-gradient(135deg, #23272a 70%, #b3c6f7 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Segoe UI', 'Arial Black', Arial, sans-serif; font-size: 1.25rem; color: #fff; letter-spacing: 2px; position: absolute; backface-visibility: hidden; transform: rotateY(180deg);">
+                                <div style="font-size: 1.1rem; color: #b3c6f7; margin-bottom: 10px; font-family: 'Segoe UI', Arial, sans-serif;">¡Felicidades! Aquí está tu código:</div>
+                                <div id="codigo-tarjeta" style="font-size: 1.5rem; font-family: 'Consolas', 'Courier New', monospace; background: #fff; color: #18181a; padding: 8px 18px; border-radius: 8px; box-shadow: 0 2px 8px #0004; letter-spacing: 3px; margin-bottom: 10px;">RBYZAV7D2PB5ADQU</div>
+                                <div style="font-size: 0.95rem; color: #b3c6f7;">Canjea este código en roblox.com/redeem</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 8px; color: #888; font-size: 0.95rem;">Haz click para voltear la tarjeta</div>
+                    <button id="volver-carta-btn" style="display:none;">Volver a la carta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Mensaje especial al volver a la carta -->
+    <div id="mensaje-final" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center;">
+        <div style="background:#fff; color:#3a5ba0; border-radius:18px; max-width:90vw; width:410px; padding:32px 24px; box-shadow:0 8px 32px #0006; font-family:'Segoe UI',sans-serif; font-size:1.18rem; text-align:center; position:relative;">
+            <div style="margin-bottom:18px;">
+            Gracias por todo rati, es lo que mínimo que puedo decir por todo lo que haces por mi. Simplemente nunca habrá forma de lo agradecido que estoy de haberte conocido, te quiero mucho.<br><br>
+            Aunque tu día especial haya llegado casi a su fin, quiero que sepas que me hace muy feliz lo bien que te la pasaste hoy en tu día.<br><br>
+            Me hubiera gustado estar a tu lado en este día tan especial para ti. Pero es por eso que te doy este pequeño detalle, para haber formado aunque se un poquito en este día.  espero poder pasar muchos más cumpleaños a tu lado.<br><br>
+            Te quiero mucho, rati, demasiado, no sabes... y más que tú, ni modo te. Te amo.
+            </div>
+            <button onclick="document.getElementById('mensaje-final').style.display='none';" style="margin-top:10px; padding:8px 22px; background:linear-gradient(90deg,#b3c6f7 60%,#f9e79f 100%); color:#3a5ba0; border:none; border-radius:8px; font-size:1.1rem; font-family:'Segoe UI',sans-serif; font-weight:bold; cursor:pointer;">Cerrar</button>
+        </div>
+    </div>
+    <!-- Sección F1/Red Bull 0.1 🤗 -->
+    <div class="seccion" id="seccion-f1">
+        <div id="proximamente-f1">
+            <div style="font-size:2.2rem; color:#1e41ff; margin-bottom:12px;">Próximamente</div>
+            <div style="font-size:1.2rem; color:#ffcb05; margin-bottom:18px;">Secret 🤗 estará disponible en:</div>
+            <div id="contador-f1"></div>
+        </div>
+        <div class="carta f1" id="carta-f1" style="display:none; margin-top:48px;">
+            <div class="tapa">
+                🏎️💙❤️💛 Red Bull Racing 💛❤️💙🏎️
+                <div class="abrir-indicador">Haz click para abrir</div>
+            </div>
+            <div class="contenido">
+                <button id="cerrar-carta-f1-btn" style="position:absolute; top:12px; right:18px; background:#ffcb05; color:#1e41ff; border:none; border-radius:8px; font-size:1.1rem; font-family:'Segoe UI',sans-serif; font-weight:bold; cursor:pointer; padding:6px 16px; z-index:10;">Cerrar</button>
+                <h2 style="color:#ffcb05; text-shadow: 1px 1px 6px #002654;">¡Feliz Secret, mi rati F1! 🏁</h2>
+                <p style="font-size:1.13rem;">
+                    <!-- Aquí escribe el contenido de la carta F1/Red Bull, puedes usar emojis de F1, Red Bull, etc. -->
+                    <span style="font-size:1.5rem;">🏎️💨</span> <b>Hoy celebramos nuestro Secret juntos, y como en la F1, cada vuelta contigo es especial.</b><br><br>
+                    Eres mi pole position, mi Red Bull favorito, la razón por la que acelero cada día. <span style="font-size:1.3rem;">💙❤️💛</span><br>
+                    Gracias por ser mi compañera de equipo, por cada momento a toda velocidad y por cada parada en pits llena de risas.<br><br>
+                    <span style="font-size:1.2rem;">🥇🏆</span> <b>Contigo siempre quiero ganar, pero sobre todo disfrutar la carrera a tu lado.</b><br>
+                    <span style="font-size:1.2rem;">👩‍❤️‍👨</span> <b>Te amo más que Verstappen ama ganar carreras.</b><br><br>
+                    ¡Feliz Secret, mi campeona! <span style="font-size:1.5rem;">🏁💙❤️💛</span>
+                </p>
+                <div id="musica-f1-container">
+                    <button id="play-musica-f1">Reproducir música especial</button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de foto al cerrar carta F1 -->
+        <div id="foto-f1-modal">
+            <div id="foto-f1-modal-content">
+                <img id="foto-f1-img" src="foto-f1.jpg" alt="Foto especial F1">
+                <div id="foto-f1-pie">
+                    te quiero demasiado rati,<br>
+                    a lo mejor no tendremos muchas fotos.<br>
+                    Pero eso quiere decir que los momentos contigo son tan especiales<br>
+                    que no ocupan una foto para quedarse en mi memoria por siempre.<br>
+                    <b>Feliz 0.1 la mejor y más cutie del mundo.</b>
+                </div>
+                <button id="foto-f1-cerrar">Cerrar</button>
+            </div>
+        </div>
     </div>
     <script>
-            window.addEventListener('DOMContentLoaded', function() {
+        // --- Menú ---
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
+            document.getElementById(id).classList.add('activa');
+            document.querySelectorAll('#menu button').forEach(b => b.classList.remove('active'));
+            if (id === 'seccion-cumple') document.getElementById('menu-cumple').classList.add('active');
+            if (id === 'seccion-f1') document.getElementById('menu-f1').classList.add('active');
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+        document.getElementById('menu-cumple').onclick = ()=>mostrarSeccion('seccion-cumple');
+        document.getElementById('menu-f1').onclick = ()=>mostrarSeccion('seccion-f1');
+
+        // --- Proximamente y acceso F1 ---
+        function actualizarContadorF1() {
+            const ahora = new Date();
+            // 26 de agosto, 6:00:00 hora local
+            const fechaObjetivo = new Date(ahora.getFullYear(), 7, 26, 6, 0, 0);
+            if (ahora > fechaObjetivo) fechaObjetivo.setFullYear(fechaObjetivo.getFullYear() + 1);
+            const diff = fechaObjetivo - ahora;
+            if (diff <= 0) {
+                document.getElementById('proximamente-f1').style.display = 'none';
+                document.getElementById('carta-f1').style.display = '';
+            } else {
+                const dias = Math.floor(diff/(1000*60*60*24));
+                const horas = Math.floor((diff/(1000*60*60))%24);
+                const mins = Math.floor((diff/(1000*60))%60);
+                const segs = Math.floor((diff/1000)%60);
+                document.getElementById('contador-f1').textContent =
+                    `${dias} días, ${horas} horas, ${mins} minutos, ${segs} segundos`;
+                document.getElementById('proximamente-f1').style.display = 'flex';
+                document.getElementById('carta-f1').style.display = 'none';
+            }
+        }
+        setInterval(actualizarContadorF1, 1000);
+        actualizarContadorF1();
+
+        // --- Carta F1 abrir/cerrar + música + foto ---
+        var cartaF1 = document.getElementById('carta-f1');
+        var cerrarCartaF1Btn = document.getElementById('cerrar-carta-f1-btn');
+        var musicaF1 = null;
+        var fotoF1Modal = document.getElementById('foto-f1-modal');
+        var fotoF1Cerrar = document.getElementById('foto-f1-cerrar');
+        if (cartaF1 && cerrarCartaF1Btn) {
+            function abrirCartaF1(e) {
+                if (!cartaF1.classList.contains('abierta') && (!e.target || e.target.id !== 'cerrar-carta-f1-btn')) {
+                    cartaF1.classList.add('abierta');
+                    // Reproducir música al abrir
+                    if (!musicaF1) {
+                        musicaF1 = new Audio('musica0.2mp4');
+                        musicaF1.loop = true;
+                        musicaF1.volume = 1;
+                    }
+                    musicaF1.currentTime = 0;
+                    musicaF1.play().catch(()=>{});
+                }
+            }
+            function cerrarCartaF1() {
+                cartaF1.classList.remove('abierta');
+                // Pausar música
+                if (musicaF1) {
+                    musicaF1.pause();
+                    musicaF1.currentTime = 0;
+                }
+                // Mostrar foto
+                fotoF1Modal.style.display = 'flex';
+            }
+            ['click', 'touchstart', 'pointerdown'].forEach(function(evt) {
+                cartaF1.addEventListener(evt, abrirCartaF1);
+            });
+            cerrarCartaF1Btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                cerrarCartaF1();
+            });
+        }
+        fotoF1Cerrar.onclick = function() {
+            fotoF1Modal.style.display = 'none';
+        };
+        // Botón música manual
+        document.getElementById('play-musica-f1').onclick = function() {
+            if (!musicaF1) {
+                musicaF1 = new Audio('musica0.2mp4');
+                musicaF1.loop = true;
+                musicaF1.volume = 1;
+            }
+            musicaF1.currentTime = 0;
+            musicaF1.play().catch(()=>{});
+        };
+
+        // --- Carta cumpleaños y regalo (todo tu código original) ---
+        window.addEventListener('DOMContentLoaded', function() {
             var carta = document.getElementById('carta');
             var cerrarBtn = document.getElementById('cerrar-carta-btn');
             function abrirCarta(e) {
-                // Solo abrir si no está abierta y no se hace click en el botón de cerrar
                 if (!carta.classList.contains('abierta') && (!e.target || e.target.id !== 'cerrar-carta-btn')) {
                     carta.classList.add('abierta');
                 }
@@ -262,192 +658,96 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
                 e.stopPropagation();
                 cerrarCarta();
             });
-        });
-    </script>
 
-    <!-- Regalo fijo en la parte inferior -->
-    <div id="regalo-fixed-container">
-        <div id="regalo-container">
-            <div id="regalo">🎁</div>
-            <div id="regalo-mensaje"></div>
-            <div id="regalo-contador"></div>
-            <div id="tarjeta-container">
-                <div id="tarjeta">
-                    <div id="tarjeta-inner">
-                        <!-- Cara frontal -->
-                        <div id="tarjeta-front" style="background: #18181a; display: flex; align-items: center; justify-content: center;">
-                            <img src="roblox-card.jpg" alt="Tarjeta Roblox" style="max-width: 98%; max-height: 98%; border-radius: 10px; box-shadow: 0 2px 12px #0008;">
-                        </div>
-                        <!-- Cara trasera -->
-                        <div id="tarjeta-back" style="background: linear-gradient(135deg, #23272a 70%, #b3c6f7 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Segoe UI', 'Arial Black', Arial, sans-serif; font-size: 1.25rem; color: #fff; letter-spacing: 2px; position: absolute; backface-visibility: hidden; transform: rotateY(180deg);">
-                            <div style="font-size: 1.1rem; color: #b3c6f7; margin-bottom: 10px; font-family: 'Segoe UI', Arial, sans-serif;">¡Felicidades! Aquí está tu código:</div>
-                            <div id="codigo-tarjeta" style="font-size: 1.5rem; font-family: 'Consolas', 'Courier New', monospace; background: #fff; color: #18181a; padding: 8px 18px; border-radius: 8px; box-shadow: 0 2px 8px #0004; letter-spacing: 3px; margin-bottom: 10px;">RBYZAV7D2PB5ADQU</div>
-                            <div style="font-size: 0.95rem; color: #b3c6f7;">Canjea este código en roblox.com/redeem</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-top: 8px; color: #888; font-size: 0.95rem;">Haz click para voltear la tarjeta</div>
-                <button id="volver-carta-btn" style="display:none;">Volver a la carta</button>
-            </div>
-        </div>
-    </div>
+            // --- Regalo y tarjeta ---
+            var regalo = document.getElementById('regalo');
+            var mensaje = document.getElementById('regalo-mensaje');
+            var contador = document.getElementById('regalo-contador');
+            var tarjetaContainer = document.getElementById('tarjeta-container');
+            var tarjeta = document.getElementById('tarjeta');
+            var tarjetaInner = document.getElementById('tarjeta-inner');
+            var volverBtn = document.getElementById('volver-carta-btn');
+            var mensajes = [
+                "Haz click varias veces para abrir tu regalo...",
+                "¡Sigue abriendo! Falta poco...",
+                "¡Ya casi! Un poco más...",
+                "¡Último click para abrir el regalo!"
+            ];
+            var totalClicks = 4;
+            var clickCount = 0;
+            var tarjetaVolteada = false;
+            var musicaRegalo = null;
 
-    <script>
-        // Mensajes personalizados para cada clic (puedes poner hasta 18, si hay menos se repiten)
-        const mensajes = [
-            "¡Oh! ¿Un regalo? 🤔",
-            "¿Qué será, qué será...? Seguro te gustará, pero tú me gustas más 🎁",
-            "Me gusta mucho pasar tiempo contigo, aunque sea en llamada. ¿Pista acaso? 😋",
-            "El tiempo parece no existir cuando estoy contigo ⏳",
-            "Vales mucho para mí, por eso siempre intento demostrartelo con todo... 🎉",
-            "¿Ya te cansaste? Faltan solo 13 clics... 😏",
-            "¡Qué emoción! ¿Estás lista? 😍",
-            "¿Te imaginas qué es? 🤭",
-            "Maybe una pista molaria, da clic de nuevo y te doy una 💝",
-            "Es algo que podras usar todos los dias de nuevo, (YO CREO QUE SABES) 😚",
-            "¡Ya casi! Unos clics más... 🥳",
-            "¿Te gusta la sorpresa? 😁",
-            "Por que a mi tambien me gusta, mas cuando me sorprendo al ver lo linda que eres💖",
-            "¿Lista para descubrirlo? 😱",
-            "¡Qué nervios! 😬",
-            "¡Últimos clics! 🎈",
-            "A lo mejor este regalo te hace millonaria, pero yo lo soy más porque te tengo a ti 😮 🚀",
-            "¡Ahora sí! Haz click para ver tu regalo especial y lo mucho que te amo y más que tu 🎁"
-        ];
-        const totalClicks = 18;
-        let clickCount = 0;
-        const regalo = document.getElementById('regalo');
-        const mensaje = document.getElementById('regalo-mensaje');
-        const contador = document.getElementById('regalo-contador');
-        const tarjetaContainer = document.getElementById('tarjeta-container');
-        const tarjeta = document.getElementById('tarjeta');
-        const tarjetaInner = document.getElementById('tarjeta-inner');
-        const volverBtn = document.getElementById('volver-carta-btn');
-        let tarjetaVolteada = false;
-
-        // NUEVO: crea el audio por JS para mejor compatibilidad
-        let musicaRegalo = null;
-        function crearAudioRegalo() {
-            if (!musicaRegalo) {
-                musicaRegalo = new Audio('musica.mp3');
-                musicaRegalo.preload = 'auto';
-                musicaRegalo.autoplay = false;
-                musicaRegalo.loop = false;
-                musicaRegalo.volume = 1;
-                musicaRegalo.crossOrigin = "anonymous";
+            function actualizarRegaloVisual() {
+                regalo.style.transform = `scale(${1 + clickCount*0.07})`;
             }
-        }
 
-        // Inicializa mensaje y contador
-        mensaje.textContent = mensajes[0];
-        contador.textContent = `Progreso: 1 / ${totalClicks}`;
-
-        function actualizarRegaloVisual() {
-            // El regalo crece y sube en cada clic y se mueve un poco de lado a lado
-            const minW = 70, maxW = 420;
-            const minH = 70, maxH = 420;
-            const minFont = 2.2, maxFont = 10;
-            const minMargin = 24, maxMargin = 180;
-            const p = Math.min(clickCount / (totalClicks-1), 1);
-            regalo.style.width = (minW + (maxW-minW)*p) + "px";
-            regalo.style.height = (minH + (maxH-minH)*p) + "px";
-            regalo.style.fontSize = (minFont + (maxFont-minFont)*p) + "rem";
-            // Movimiento lateral tipo zigzag
-            const zigzag = Math.sin(clickCount * 0.7) * (1-p) * 40;
-            regalo.style.transform = `translateX(${zigzag}px)`;
-            // El regalo sube hacia el centro
-            document.getElementById('regalo-container').style.marginBottom = (minMargin + (maxMargin-minMargin)*p) + "px";
-        }
-
-        regalo.addEventListener('click', function() {
-            // Crear audio si no existe (por interacción de usuario)
-            crearAudioRegalo();
-            // Iniciar música cuando falten 3 clics (click 15, es decir clickCount == 15)
-            if (clickCount === totalClicks - 4) {
-                if (musicaRegalo) {
+            regalo.onclick = function() {
+                if (tarjetaContainer.style.display === "flex") return;
+                clickCount++;
+                if (clickCount < totalClicks) {
+                    mensaje.textContent = mensajes[clickCount] || "";
+                    contador.textContent = `Progreso: ${clickCount+1} / ${totalClicks}`;
+                    actualizarRegaloVisual();
+                } else {
+                    // Mostrar tarjeta
+                    tarjetaContainer.style.display = "flex";
+                    mensaje.textContent = "";
+                    contador.textContent = "";
+                    regalo.style.display = "none";
+                    // Opcional: reproducir música
+                    if (!musicaRegalo) {
+                        musicaRegalo = new Audio('musica-regalo.mp3');
+                        musicaRegalo.volume = 0.7;
+                    }
                     musicaRegalo.currentTime = 0;
                     musicaRegalo.play().catch(()=>{});
                 }
-            }
-            if (clickCount < totalClicks-1) {
-                clickCount++;
-                mensaje.textContent = mensajes[clickCount % mensajes.length];
-                contador.textContent = `Progreso: ${clickCount+1} / ${totalClicks}`;
-                actualizarRegaloVisual();
-            } else if (clickCount === totalClicks-1) {
-                // Mostrar tarjeta
-                mensaje.textContent = "¡Sorpresa! Haz click para ver tu tarjeta de regalo 🎉";
-                contador.textContent = "";
-                regalo.style.display = 'none';
-                tarjetaContainer.style.display = 'flex';
-                volverBtn.style.display = 'inline-block';
-                clickCount++;
-                // Ya no iniciar música aquí, se inicia antes
-            }
-        });
+            };
 
-        // Voltear la tarjeta al hacer click
-        tarjeta.addEventListener('click', function() {
-            tarjetaVolteada = !tarjetaVolteada;
-            tarjetaInner.style.transform = tarjetaVolteada ? 'rotateY(180deg)' : '';
-        });
-
-        // Botón para volver a la carta
-        volverBtn.addEventListener('click', function() {
-            // Mostrar mensaje especial
-            document.getElementById('mensaje-final').style.display = 'flex';
-            // Reproducir música al mostrar el mensaje final
-            crearAudioRegalo();
-            if (musicaRegalo) {
-                musicaRegalo.currentTime = 0;
-                musicaRegalo.play().catch(()=>{});
-            }
-            // PAUSAR MUSICA cuando se cierre el mensaje final
-            setTimeout(() => {
-                const cerrar = document.querySelector('#mensaje-final button');
-                if (cerrar) {
-                    cerrar.onclick = function() {
-                        document.getElementById('mensaje-final').style.display = 'none';
-                        tarjetaContainer.style.display = 'none';
-                        regalo.style.display = 'flex';
-                        clickCount = 0;
-                        mensaje.textContent = mensajes[0];
-                        contador.textContent = `Progreso: 1 / ${totalClicks}`;
-                        tarjetaVolteada = false;
-                        tarjetaInner.style.transform = '';
-                        volverBtn.style.display = 'none';
-                        actualizarRegaloVisual();
-                        // Opcional: cerrar la carta visualmente
-                        const carta = document.getElementById('carta');
-                        if (carta && carta.classList.contains('abierta')) {
-                            carta.classList.remove('abierta');
-                        }
-                        window.scrollTo({top: 0, behavior: 'smooth'});
-                        // PAUSAR MUSICA (por si acaso)
-                        if (musicaRegalo) {
-                            musicaRegalo.pause();
-                            musicaRegalo.currentTime = 0;
-                        }
-                    }
+            tarjeta.onclick = function() {
+                if (!tarjetaVolteada) {
+                    tarjetaInner.style.transform = "rotateY(180deg)";
+                    tarjetaVolteada = true;
+                    volverBtn.style.display = "inline-block";
                 }
-            }, 100);
+            };
+
+            volverBtn.onclick = function() {
+                tarjetaContainer.style.display = "none";
+                regalo.style.display = "flex";
+                clickCount = 0;
+                mensaje.textContent = mensajes[0];
+                contador.textContent = `Progreso: 1 / ${totalClicks}`;
+                tarjetaVolteada = false;
+                tarjetaInner.style.transform = "";
+                volverBtn.style.display = "none";
+                actualizarRegaloVisual();
+                // Cerrar la carta visualmente
+                if (carta.classList.contains('abierta')) {
+                    carta.classList.remove('abierta');
+                }
+                window.scrollTo({top: 0, behavior: 'smooth'});
+                // Pausar música
+                if (musicaRegalo) {
+                    musicaRegalo.pause();
+                    musicaRegalo.currentTime = 0;
+                }
+                // Mostrar mensaje final
+                setTimeout(function() {
+                    document.getElementById('mensaje-final').style.display = 'flex';
+                }, 400);
+            };
+
+            // Inicializa estado
+            mensaje.textContent = mensajes[0];
+            contador.textContent = `Progreso: 1 / ${totalClicks}`;
+            tarjetaContainer.style.display = "none";
+            regalo.style.display = "flex";
+            actualizarRegaloVisual();
         });
-
-        // Inicializa tamaño regalo
-        actualizarRegaloVisual();
     </script>
+</body>
 
-        <!-- Mensaje especial al volver a la carta -->
-    <div id="mensaje-final" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center;">
-        <div style="background:#fff; color:#3a5ba0; border-radius:18px; max-width:90vw; width:410px; padding:32px 24px; box-shadow:0 8px 32px #0006; font-family:'Segoe UI',sans-serif; font-size:1.18rem; text-align:center; position:relative;">
-            <div style="margin-bottom:18px;">
-            Gracias por todo rati, es lo que mínimo que puedo decir por todo lo que haces por mi. Simplemente nunca habrá forma de lo agradecido que estoy de haberte conocido, te quiero mucho.<br><br>
-            Aunque tu día especial haya llegado casi a su fin, quiero que sepas que me hace muy feliz lo bien que te la pasaste hoy en tu día.<br><br>
-            Me hubiera gustado estar a tu lado en este día tan especial para ti. Pero es por eso que te doy este pequeño detalle, para haber formado aunque se un poquito en este día.  espero poder pasar muchos más cumpleaños a tu lado.<br><br>
-            Te quiero mucho, rati, demasiado, no sabes... y más que tú, ni modo te. Te amo.
-            </div>
-            <button onclick="document.getElementById('mensaje-final').style.display='none';" style="margin-top:10px; padding:8px 22px; background:linear-gradient(90deg,#b3c6f7 60%,#f9e79f 100%); color:#3a5ba0; border:none; border-radius:8px; font-size:1.1rem; font-family:'Segoe UI',sans-serif; font-weight:bold; cursor:pointer;">Cerrar</button>
-        </div>
-    </div>
 </body>
 </html>
