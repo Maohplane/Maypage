@@ -189,15 +189,17 @@
 
         /* Regalo fijo abajo */
         #regalo-fixed-container {
-            position: fixed;
-            left: 0; right: 0; bottom: 0;
+            position: static;
+            left: unset; right: unset; bottom: unset;
             width: 100vw;
             display: flex;
             flex-direction: column;
             align-items: center;
             z-index: 10;
             pointer-events: none;
-            padding-bottom: 8px;
+            padding-bottom: 0;
+            justify-content: center;
+            margin-top: 18px;
         }
         #regalo-container {
             display: flex;
@@ -206,6 +208,8 @@
             margin-bottom: 0;
             pointer-events: auto;
             transition: all 0.5s cubic-bezier(.86,0,.07,1);
+            /* Centrado horizontal */
+            align-self: center;
         }
         #regalo {
             width: 70px;
@@ -468,31 +472,6 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
                 ATT.Tu rata apestosa y novio.
             </p>
         </div>
-        <div id="regalo-fixed-container">
-            <div id="regalo-container">
-                <div id="regalo">🎁</div>
-                <div id="regalo-mensaje"></div>
-                <div id="regalo-contador"></div>
-                <div id="tarjeta-container">
-                    <div id="tarjeta">
-                        <div id="tarjeta-inner">
-                            <!-- Cara frontal -->
-                            <div id="tarjeta-front" style="background: #18181a; display: flex; align-items: center; justify-content: center;">
-                                <img src="roblox-card.jpg" alt="Tarjeta Roblox" style="max-width: 98%; max-height: 98%; border-radius: 10px; box-shadow: 0 2px 12px #0008;">
-                            </div>
-                            <!-- Cara trasera -->
-                            <div id="tarjeta-back" style="background: linear-gradient(135deg, #23272a 70%, #b3c6f7 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Segoe UI', 'Arial Black', Arial, sans-serif; font-size: 1.25rem; color: #fff; letter-spacing: 2px; position: absolute; backface-visibility: hidden; transform: rotateY(180deg);">
-                                <div style="font-size: 1.1rem; color: #b3c6f7; margin-bottom: 10px; font-family: 'Segoe UI', Arial, sans-serif;">¡Felicidades! Aquí está tu código:</div>
-                                <div id="codigo-tarjeta" style="font-size: 1.5rem; font-family: 'Consolas', 'Courier New', monospace; background: #fff; color: #18181a; padding: 8px 18px; border-radius: 8px; box-shadow: 0 2px 8px #0004; letter-spacing: 3px; margin-bottom: 10px;">RBYZAV7D2PB5ADQU</div>
-                                <div style="font-size: 0.95rem; color: #b3c6f7;">Canjea este código en roblox.com/redeem</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 8px; color: #888; font-size: 0.95rem;">Haz click para voltear la tarjeta</div>
-                    <button id="volver-carta-btn" style="display:none;">Volver a la carta</button>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- Mensaje especial al volver a la carta -->
     <div id="mensaje-final" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center;">
@@ -512,6 +491,32 @@ Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que 
             <div style="font-size:2.2rem; color:#1e41ff; margin-bottom:12px;">Próximamente</div>
             <div style="font-size:1.2rem; color:#ffcb05; margin-bottom:18px;">Secret 🤗 estará disponible en:</div>
             <div id="contador-f1"></div>
+            <!-- Regalo debajo del contador -->
+            <div id="regalo-fixed-container" style="position:static; padding-bottom:0; margin-top:18px;">
+                <div id="regalo-container">
+                    <div id="regalo">🎁</div>
+                    <div id="regalo-mensaje"></div>
+                    <div id="regalo-contador"></div>
+                    <div id="tarjeta-container">
+                        <div id="tarjeta">
+                            <div id="tarjeta-inner">
+                                <!-- Cara frontal -->
+                                <div id="tarjeta-front" style="background: #18181a; display: flex; align-items: center; justify-content: center;">
+                                    <img src="roblox-card.jpg" alt="Tarjeta Roblox" style="max-width: 98%; max-height: 98%; border-radius: 10px; box-shadow: 0 2px 12px #0008;">
+                                </div>
+                                <!-- Cara trasera -->
+                                <div id="tarjeta-back" style="background: linear-gradient(135deg, #23272a 70%, #b3c6f7 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Segoe UI', 'Arial Black', Arial, sans-serif; font-size: 1.25rem; color: #fff; letter-spacing: 2px; position: absolute; backface-visibility: hidden; transform: rotateY(180deg);">
+                                    <div style="font-size: 1.1rem; color: #b3c6f7; margin-bottom: 10px; font-family: 'Segoe UI', Arial, sans-serif;">¡Felicidades! Aquí está tu código:</div>
+                                    <div id="codigo-tarjeta" style="font-size: 1.5rem; font-family: 'Consolas', 'Courier New', monospace; background: #fff; color: #18181a; padding: 8px 18px; border-radius: 8px; box-shadow: 0 2px 8px #0004; letter-spacing: 3px; margin-bottom: 10px;">RBYZAV7D2PB5ADQU</div>
+                                    <div style="font-size: 0.95rem; color: #b3c6f7;">Canjea este código en roblox.com/redeem</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 8px; color: #888; font-size: 0.95rem;">Haz click para voltear la tarjeta</div>
+                        <button id="volver-carta-btn" style="display:none;">Volver a la carta</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="carta f1" id="carta-f1" style="display:none; margin-top:48px;">
             <div class="tapa">
