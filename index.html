@@ -1,941 +1,298 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Carta de Cumpleaños</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            background:
-                repeating-radial-gradient(circle at 20% 30%, #f9e79f 0 2px, transparent 3px 40px),
-                repeating-radial-gradient(circle at 80% 70%, #f5b7b1 0 2px, transparent 3px 40px),
-                repeating-radial-gradient(circle at 60% 20%, #aed6f1 0 2px, transparent 3px 40px),
-                repeating-radial-gradient(circle at 40% 80%, #a9dfbf 0 2px, transparent 3px 40px),
-                linear-gradient(135deg, #b3c6f7 0%, #e0eafc 100%);
-            min-height: 100vh;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 90px;
-        }
-        /* NAVBAR */
-        .navbar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 72px;
-            background: linear-gradient(90deg, #b3c6f7 60%, #f9e79f 100%);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 10000;
-            box-shadow: 0 2px 12px #0002;
-            padding: 0 32px;
-        }
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .navbar-logo img {
-            height: 48px;
-            width: 48px;
-            border-radius: 12px;
-            object-fit: cover;
-            box-shadow: 0 2px 8px #0002;
-        }
-        .navbar-title {
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 1.5rem;
-            color: #3a5ba0;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        .navbar-links {
-            display: flex;
-            gap: 24px;
-        }
-        .navbar-links a {
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 1.1rem;
-            color: #3a5ba0;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-        .navbar-links a:hover, .navbar-links a.active {
-            background: #f7cac9;
-        }
-        /* SECTIONS */
-        section {
-            width: 100%;
-            max-width: 700px;
-            margin: 0 auto 48px auto;
-            padding: 0 12px;
-            box-sizing: border-box;
-        }
-        .section-title {
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 2.2rem;
-            color: #3a5ba0;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 18px;
-            margin-top: 0;
-            letter-spacing: 1px;
-        }
-        /* INICIO */
-        #inicio .bienvenida {
-            font-size: 2.8rem;
-            font-family: 'Segoe UI', sans-serif;
-            color: #d35400;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 32px;
-            margin-bottom: 18px;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 12px #fff8;
-        }
-        #inicio .subtext {
-            font-size: 1.2rem;
-            color: #3a5ba0;
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        /* CUMPLEAÑOS LINDA */
-        .carta {
-            width: 320px;
-            min-height: 220px;
-            perspective: 1000px;
-            position: relative;
-            margin-top: 32px;
-            margin-bottom: 32px;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .tapa {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #a7c7e7 60%, #dbeafe 100%);
-            border-radius: 16px 16px 32px 32px;
-            box-shadow: 0 8px 24px rgba(80,120,200,0.18);
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #3a5ba0;
-            font-family: 'Segoe UI', sans-serif;
-            transition: transform 0.8s cubic-bezier(.86,0,.07,1);
-            transform-origin: top center;
-            user-select: none;
-        }
-        .carta.abierta .tapa {
-            transform: rotateX(-120deg);
-        }
-        .contenido {
-            width: 100%;
-            min-height: 220px;
-            background: #f6fbff;
-            border-radius: 16px 16px 32px 32px;
-            box-shadow: 0 8px 24px rgba(80,120,200,0.10);
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            padding: 24px 18px 18px 18px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            font-family: 'Segoe UI', sans-serif;
-            color: #3a5ba0;
-            font-size: 1.1rem;
-            opacity: 0;
-            transition: opacity 0.5s 0.5s;
-        }
-        .carta.abierta .contenido {
-            opacity: 1;
-        }
-        .abrir-indicador {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1rem;
-            color: #3a5ba0;
-            opacity: 0.7;
-            pointer-events: none;
-            user-select: none;
-            font-family: 'Segoe UI', sans-serif;
-            z-index: 3;
-            animation: parpadeo 1.2s infinite;
-        }
-        .carta.abierta .abrir-indicador {
-            display: none;
-        }
-        @keyframes parpadeo {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0.2; }
-        }
-
-        /* Regalo fijo abajo */
-        #regalo-fixed-container {
-            position: fixed;
-            left: 0; right: 0; bottom: 0;
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 10;
-            pointer-events: none;
-        }
-        #regalo-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 24px;
-            pointer-events: auto;
-            transition: all 0.5s cubic-bezier(.86,0,.07,1);
-        }
-        #regalo {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #f7cac9 60%, #f9e79f 100%);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(80,120,200,0.18);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.4s cubic-bezier(.86,0,.07,1);
-            z-index: 11;
-            margin-bottom: 8px;
-        }
-        #regalo-mensaje {
-            margin-top: 6px;
-            color: #3a5ba0;
-            font-family: 'Segoe UI', sans-serif;
-            min-height: 24px;
-            text-align: center;
-            background: rgba(255,255,255,0.7);
-            border-radius: 8px;
-            padding: 4px 12px;
-            font-size: 1.05rem;
-            box-shadow: 0 2px 8px rgba(80,120,200,0.06);
-            transition: all 0.3s;
-        }
-        #regalo-contador {
-            margin-top: 2px;
-            color: #d35400;
-            font-size: 1.1rem;
-            font-family: 'Segoe UI', sans-serif;
-            font-weight: bold;
-            letter-spacing: 1px;
-            background: rgba(255,255,255,0.7);
-            border-radius: 6px;
-            padding: 2px 10px;
-            box-shadow: 0 2px 8px rgba(80,120,200,0.06);
-            transition: all 0.3s;
-        }
-        #tarjeta-container {
-            margin-top: 18px;
-            display: none;
-            align-items: center;
-            flex-direction: column;
-            z-index: 12;
-        }
-        #tarjeta {
-            width: 370px;
-            height: 210px;
-            perspective: 900px;
-            cursor: pointer;
-            margin: 0 auto;
-        }
-        #tarjeta-inner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.7s;
-            transform-style: preserve-3d;
-        }
-        #tarjeta-front, #tarjeta-back {
-            border: 2px solid #d4af37;
-            border-radius: 10px;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            backface-visibility: hidden;
-        }
-        #tarjeta-front {
-            background: #fff;
-            font-size: 1.2rem;
-            color: #3a5ba0;
-        }
-        #tarjeta-back {
-            background: #f6fbff;
-            font-size: 1.3rem;
-            color: #d35400;
-            transform: rotateY(180deg);
-        }
-        #volver-carta-btn {
-            margin-top: 18px;
-            padding: 8px 22px;
-            background: linear-gradient(90deg, #b3c6f7 60%, #f9e79f 100%);
-            color: #3a5ba0;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-family: 'Segoe UI', sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(80,120,200,0.10);
-            transition: background 0.2s;
-        }
-        #volver-carta-btn:hover {
-            background: linear-gradient(90deg, #f9e79f 60%, #b3c6f7 100%);
-        }
-            .carta.abierta {
-        z-index: 1000;
-    }
-        /* SECRET SNOOPY CARD */
-        .carta-snoopy {
-            width: 320px;
-            min-height: 220px;
-            perspective: 1000px;
-            position: relative;
-            margin: 48px auto 48px auto;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .tapa-snoopy {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #f7cac9 60%, #fff 100%);
-            border-radius: 16px 16px 32px 32px;
-            box-shadow: 0 8px 24px rgba(200,120,80,0.18);
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: #d35400;
-            font-family: 'Segoe UI', sans-serif;
-            transition: transform 0.8s cubic-bezier(.86,0,.07,1);
-            transform-origin: top center;
-            user-select: none;
-            background-image: url('snoopy.png');
-            background-size: 80px 80px;
-            background-repeat: no-repeat;
-            background-position: 90% 10%;
-        }
-        .carta-snoopy.abierta .tapa-snoopy {
-            transform: rotateX(-120deg);
-        }
-        .contenido-snoopy {
-            width: 100%;
-            min-height: 220px;
-            background: #fffaf6;
-            border-radius: 16px 16px 32px 32px;
-            box-shadow: 0 8px 24px rgba(200,120,80,0.10);
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            padding: 24px 18px 18px 18px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            font-family: 'Segoe UI', sans-serif;
-            color: #d35400;
-            font-size: 1.1rem;
-            opacity: 0;
-            transition: opacity 0.5s 0.5s;
-        }
-        .carta-snoopy.abierta .contenido-snoopy {
-            opacity: 1;
-        }
-        .abrir-indicador-snoopy {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1rem;
-            color: #d35400;
-            opacity: 0.7;
-            pointer-events: none;
-            user-select: none;
-            font-family: 'Segoe UI', sans-serif;
-            z-index: 3;
-            animation: parpadeo 1.2s infinite;
-        }
-        .carta-snoopy.abierta .abrir-indicador-snoopy {
-            display: none;
-        }
-        /* F1 STYLE FOR SECRET CARD */
-        .carta-f1 {
-            width: 340px;
-            min-height: 220px;
-            perspective: 1000px;
-            position: relative;
-            margin: 48px auto 48px auto;
-            cursor: pointer;
-            opacity: 1;
-            filter: none;
-        }
-        .tapa-f1 {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #b3c6f7 60%, #ffe066 100%);
-            border-radius: 16px 16px 32px 32px;
-            box-shadow: 0 8px 24px rgba(80,120,200,0.18);
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            color: #f67280;
-            font-family: 'Segoe UI', sans-serif;
-            font-weight: bold;
-            letter-spacing: 2px;
-            transform-origin: top center;
-            user-select: none;
-            transition: transform 0.8s cubic-bezier(.86,0,.07,1);
-            opacity: 1;
-            border: 2px solid #ffe066;
-        }
-        .carta-f1.abierta .tapa-f1 {
-            transform: rotateX(-120deg);
-            opacity: 0;
-        }
-        .contenido-f1 {
-            width: 100%;
-            min-height: 220px;
-            background: linear-gradient(135deg, #ffe066 10%, #b3c6f7 60%, #f67280 100%);
-            border-radius: 16px 16px 32px 32px;
-            box-shadow: 0 8px 24px rgba(80,120,200,0.10);
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            padding: 24px 18px 18px 18px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            font-family: 'Segoe UI', sans-serif;
-            color: #3a5ba0;
-            font-size: 1.1rem;
-            opacity: 0;
-            border: 2px solid #f67280;
-            transition: opacity 0.7s 0.2s;
-        }
-        .carta-f1.abierta .contenido-f1 {
-            opacity: 1;
-            animation: fadeInContent 0.7s;
-        }
-        @keyframes fadeInContent {
-            from { opacity: 0; transform: translateY(30px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-        .abrir-indicador-f1 {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1rem;
-            color: #222;
-            opacity: 0.7;
-            pointer-events: none;
-            user-select: none;
-            font-family: 'Segoe UI', sans-serif;
-            z-index: 3;
-            animation: parpadeo 1.2s infinite;
-            text-shadow: none;
-        }
-        .carta-f1.abierta .abrir-indicador-f1 {
-            display: none;
-        }
-        #cerrar-carta-f1-btn {
-            display: block;
-            background: #eee;
-            color: #222;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-family: 'Segoe UI',sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 6px 16px;
-            z-index: 10;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            transition: background 0.2s;
-            position: absolute;
-            top: 12px;
-            right: 18px;
-        }
-        #cerrar-carta-f1-btn:hover {
-            background: #ccc;
-            color: #222;
-        }
-        /* SECRET F1 SECTION BACKGROUND */
-        #secret {
-            background: none !important;
-            border-radius: 0;
-            box-shadow: none;
-            padding-bottom: 48px;
-            padding-top: 32px;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        /* Responsive */
-        @media (max-width: 600px) {
-            .navbar { padding: 0 8px; }
-            .navbar-logo img { height: 36px; width: 36px; }
-            .section-title { font-size: 1.4rem; }
-            .carta, .carta-snoopy { width: 98vw; min-width: 0; }
-            #tarjeta { width: 98vw; min-width: 0; }
-            .carta-f1 { width: 98vw; min-width: 0; }
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Un espacio especial creado para May, lleno de cartas, música y recuerdos.">
+    <meta name="theme-color" content="#f8f5ff">
+    <title>Para May</title>
+    <link rel="icon" href="logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="navbar-logo">
-            <img src="logo.jpg" alt="Logo">
-            <span class="navbar-title">Para May</span>
-        </div>
-        <div class="navbar-links">
-            <a href="#inicio" class="active" id="nav-inicio">Inicio</a>
-            <a href="#cumple" id="nav-cumple">Cumpleaños linda</a>
-            <a href="#secret" id="nav-secret">Secret</a>
-            <a href="#carro" id="nav-carro">Carta amor</a>
-        </div>
-    </nav>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-    <!-- INICIO -->
-    <section id="inicio">
-        <div class="bienvenida">Bienvenida cutie</div>
-        <div class="subtext">Esta es una página especial solo para ti, explora cada sección y descubre lo mucho que te quiero 💖</div>
-    </section>
+    <header class="site-header">
+        <div class="nav-shell">
+            <a class="brand" href="#inicio" aria-label="Ir al inicio">
+                <img src="logo.jpg" alt="" width="48" height="48">
+                <span>
+                    <strong>Para May</strong>
+                    <small>Un lugar solo para ti</small>
+                </span>
+            </a>
 
-    <!-- CUMPLEAÑOS LINDA -->
-    <section id="cumple" style="display:none;">
-        <h2 class="section-title">Cumpleaños linda</h2>
-        <div class="carta" id="carta">
-            <div class="tapa">
-                💌
-                <div class="abrir-indicador">Haz click para abrir</div>
-            </div>
-            <div class="contenido">
-                <button id="cerrar-carta-btn" style="position:absolute; top:12px; right:18px; background:#f7cac9; color:#3a5ba0; border:none; border-radius:8px; font-size:1.1rem; font-family:'Segoe UI',sans-serif; font-weight:bold; cursor:pointer; padding:6px 16px; z-index:10;">Cerrar</button>
-                <h2>¡Feliz cumpleaños Mayyyyyy, la mas linda!</h2>
-                <p>
-Se lo especial que para ti es tu cumpleaños y se me hace muy tierno lo mucho que te emocionas por que llegue ese día tan especial para ti, y quiero que sepas que ahora también lo es para mi. Jamás esperaría que un año después te estaría diciendo feliz  cumpleaños a ti, que antes no te conocía de nada;  mucho menos lo feliz que me haces cada dia y como me gustaria estar contigo en este dia tan especial. Me di cuenta de lo feliz que me hacías sentir desde hace mucho, desde esas primeras veces que compartimos clase y todavía no nos llevamos. Me gustaría saber en qué momento nos empezamos a llevar pero empiezo a creer que siempre nos llevamos incluso antes de conocernos, porque se me hace imposible acordarme de un momento en específico que marque ese momento. Esa primera vez que hablamos en el camión fue cuando me di cuenta lo especial que eras, sin siquiera conocerte realmente me abrí contigo como nunca lo había hecho con alguien, como tu también lo hiciste. Nunca te dije pero fue ahí donde sabía que tu te ibas a convertir en una persona muy especial en mi vida y si lo fue. Simplemente era la amiga, la mejor amiga, que siempre había querido tener; alguien con quien pudiera ser yo mismo, decir lo que quisiera, confiar para lo que sea, que pasara el tiempo como si no existiera, y mucho más importante para mi sonreir con ella. Sabía lo divertida que eras cuando me dijiste que jugamos a callarnos, ahora si que como diríamos un irony, porque no hay momento que al estar contigo no paremos de hablar y pase el tiempo. Te prometo que nunca ganaré ese juego, ya que siempre querré hablar contigo de lo que sea y en el momento que sea.
-Jamas me imagine que iba querer tanto alguien así de la nada, pero supongo que pasar tantos días a tu lado tanto en momento bueno como malos, me harían cada vez quererte mas. Me acostumbre a ti a acompañarte a todos lados, a tu sonrisa, a tu pelo, a tu olor (que hueles muy bien por cierto), y a tus comentarios de lo más genuinos ; que un dia sin estar contigo se siente vacío, pero a su vez hace más especial ese día en que nos volvamos a ver. Quiero que sepas que contigo no me importa la distancia, el tiempo, o las circunstancias que sucedan, que cambie lo mucho que te amo y lo especial que eres para mi. Mi novia linda, siempre me hace sentir muy enamorado cuando recuerdo que eres mi novia no sabes, no es que se me olvide que lo eres pero es que antes para mi ya eras algo así. Los recuerdos a tu lado son de lo más preciados y siempre los llevo en mente o en momentos que no se me siento tan bien recordarlos me hace sentir que estoy a tu lado una vez más.Me gustaría mucho hacer esta carta mucho más larga, pero por mas que lo intente las palabras nunca serán suficientes para expresar lo que siento por ti, como también los muchos de los momentos que vivimos juntos y que me gustaría vivir contigo en un futuro. Sería una carta infinita, como el eterno amor que siento por ti. Como también para que no me de shy, te lo juro que todo lo relacionado a ti me hace sentir así, supongo que es por lo linda que eres conmigo y lo bonita que eres todos los días. Espero qué te la pases mas que bien en este día y que sepas que siempre estaré aquí para ti, para lo que necesites, te amo con todo el corazón.
-            </p>
-            <p>
-               Cumpleaños porque feliz lo que tu me haces sentir. Te amo feliz cumpleaños may, linda, mi novia, rati, la que mas quiero.
-                <br><br>
-                ATT.Tu rata apestosa y novio.
-            </p>
+            <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false">
+                <span class="sr-only">Abrir menú</span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
+                <a href="#inicio">Inicio</a>
+                <a href="#cumple">Cumpleaños</a>
+                <a href="#secret">Secreto</a>
+                <a href="#carro">Carta de amor</a>
+            </nav>
         </div>
-    </div>
-    <div id="regalo-fixed-container">
-        <div id="regalo-container">
-            <div id="regalo">🎁</div>
-            <div id="regalo-mensaje"></div>
-            <div id="regalo-contador"></div>
-            <div id="tarjeta-container">
-                <div id="tarjeta">
-                    <div id="tarjeta-inner">
-                        <div id="tarjeta-front" style="background: #18181a; display: flex; align-items: center; justify-content: center;">
-                            <img src="roblox-card.jpg" alt="Tarjeta Roblox" style="max-width: 98%; max-height: 98%; border-radius: 10px; box-shadow: 0 2px 12px #0008;">
-                        </div>
-                        <div id="tarjeta-back" style="background: linear-gradient(135deg, #23272a 70%, #b3c6f7 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Segoe UI', 'Arial Black', Arial, sans-serif; font-size: 1.25rem; color: #fff; letter-spacing: 2px; position: absolute; backface-visibility: hidden; transform: rotateY(180deg);">
-                            <div style="font-size: 1.1rem; color: #b3c6f7; margin-bottom: 10px; font-family: 'Segoe UI', Arial, sans-serif;">¡Felicidades! Aquí está tu código:</div>
-                            <div id="codigo-tarjeta" style="font-size: 1.5rem; font-family: 'Consolas', 'Courier New', monospace; background: #fff; color: #18181a; padding: 8px 18px; border-radius: 8px; box-shadow: 0 2px 8px #0004; letter-spacing: 3px; margin-bottom: 10px;">RBYZAV7D2PB5ADQU</div>
-                            <div style="font-size: 0.95rem; color: #b3c6f7;">Canjea este código en roblox.com/redeem</div>
-                        </div>
+    </header>
+
+    <main id="contenido">
+        <section class="page-section home-section" id="inicio" data-page>
+            <div class="hero card-surface">
+                <div class="hero-copy">
+                    <p class="eyebrow">Un pequeño mundo para nosotros</p>
+                    <h1>Bienvenida, cutie <span aria-hidden="true">💗</span></h1>
+                    <p class="hero-text">Esta página guarda algunas de las cosas que me haces sentir. Explora cada sección con calma: cada detalle fue pensado para ti.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#cumple">Abrir primera carta</a>
+                        <a class="button button-secondary" href="#secret">Descubrir el secreto</a>
                     </div>
                 </div>
-                <div style="margin-top: 8px; color: #888; font-size: 0.95rem;">Haz click para voltear la tarjeta</div>
-                <button id="volver-carta-btn" style="display:none;">Volver a la carta</button>
-            </div>
-        </div>
-    </div>
 
-    <div id="mensaje-final" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center;">
-        <div style="background:#fff; color:#3a5ba0; border-radius:18px; max-width:90vw; width:410px; padding:32px 24px; box-shadow:0 8px 32px #0006; font-family:'Segoe UI',sans-serif; font-size:1.18rem; text-align:center; position:relative;">
-            <div style="margin-bottom:18px;">
-            Gracias por todo rati, es lo que mínimo que puedo decir por todo lo que haces por mi. Simplemente nunca habrá forma de lo agradecido que estoy de haberte conocido, te quiero mucho.<br><br>
-            Aunque tu día especial haya llegado casi a su fin, quiero que sepas que me hace muy feliz lo bien que te la pasaste hoy en tu día.<br><br>
-            Me hubiera gustado estar a tu lado en este día tan especial para ti. Pero es por eso que te doy este pequeño detalle, para haber formado aunque se un poquito en este día.  espero poder pasar muchos más cumpleaños a tu lado.<br><br>
-            Te quiero mucho, rati, demasiado, no sabes... y más que tú, ni modo te. Te amo.
-            </div>
-            <button onclick="document.getElementById('mensaje-final').style.display='none';" style="margin-top:10px; padding:8px 22px; background:linear-gradient(90deg,#b3c6f7 60%,#f9e79f 100%); color:#3a5ba0; border:none; border-radius:8px; font-size:1.1rem; font-family:'Segoe UI',sans-serif; font-weight:bold; cursor:pointer;">Cerrar</button>
-        </div>
-    </div>
-    </section>
-
-    <!-- SECRET F1 -->
-    <section id="secret" style="display:none;">
-        <h2 class="section-title" style="color:#222;">Secret</h2>
-        <div class="carta-f1" id="carta-f1">
-            <div class="tapa-f1" id="tapa-f1">
-                🏎️💙💛❤️
-                <div class="abrir-indicador-f1">Haz click para abrir</div>
-            </div>
-            <div class="contenido-f1">
-                <button id="cerrar-carta-f1-btn">Cerrar</button>
-                <h2>¡Secreto que sera, 0.1 o 1/12!</h2>
-                <p>Este es un contenido secreto, que funny, pero seguramente ya sabes que 😋😋. No sabes lo mucho que me gusta hacerte detalles y matarme para que simplemente sea lo más perfecto. Antes que nada quiero que sepas que esto lo hago sin esperar nada a cambio simplemente tu ya eres lo mejor que puedo tener. Me gustaria mucho poder tenerte ahorita a mi lado para poder decirte todo esto que voy a escribir, y para poder hacer que veas lo mucho que te quiero. A partir de esto lo siguiente es lo que me haces sentir:
-
-Ahora si ya sabes que es no? Sería muy repetitivo decirte una vez lo sorprendemente que se me hace que el tiempo contigo parece no existir. Hace un mes hice una de las mejores decisiones y fue preguntarte que fueras mi novia. No puedo creer que ya haya pasado tan rápido, siento como si fuera ayer. Se me hace que funny de repente pensar en que lo eres simplemente no me lo puedo creer, porque eres muy perfecta para mi. Jamás pensé en que llegaríamos a esto porque tu fueras mi amiga, ya era perfecto. Pero ahora es incluso más perfecto mejor amiga y novia.
-
-Ya que hora que ya sabes que wuuuuuuuu UN MEEEEES cutieeeeee te quiero mucho mucho y mas que tu para cuando leas esto que lo sepas. Realmente nunca me voy a cansar de decírtelo, como lo linda que estás, lista, ocurrente, divertida, y como me gustas mucho. Todavía me pones muy shy te lo juro y hay muchas cosas que me gustaría darte y a lo mejor decirte, pero te prometo que poco a poco se me va quitando. En este mes logre ver que contigo la distancia no es algo importante en lo absoluto, obviamente me gustaría mucho verte todos los días. Pero más que nada quiero decir que no es un obstáculo para nosotros, y a su vez hace que esa vez que nos volvamos a ver sea aún más especial de lo que ya es. Disfruto mucho el tiempo contigo desde siempre, en Canadá no te lo dije pero realmente disfrutaba mucho verte todas las mañanas y abrazarte. Eres la primera persona que me abrazaba todos los días y me llenaba el corazón. Los momentos en el bus también era uno de ellos en el que hablamos y reímos juntos. Las clases y que en los momentos más de estrés estábamos uno con el otro para apoyarnos en lo que fuera, incluso si teníamos que hacer trampa. Cuando íbamos por agua para poder hablar simplemente era maravilloso. Entre muchas más cosas tu haces especial lo que sea y no puedo esperar por todas las nuevas cosas que haremos juntos.
-
-Feliz mes linda, aunque este no sea el mayor regalo, es un pequeño detalle que se quedará aquí escrito para siempre. Te amo demasiado, y simplemente no logro comprender en qué momento fue la primera vez que empecé a sentir esto por ti, pero lo que sí sé is que te amare siempre y te lo haré saber cada que pueda. Gracias May por todo y como siempre estas ahi para mi, que puedo contar contigo para cualquier cosa, y por dejarme amarte tanto. Puedes contar conmigo para lo que quieras no lo dudes tu novio siempre esta para ti para lo que sea.
-
-TE AMO MUCHO NOVIA.😁
-
-Que pases un buen dia hoy y se que te iria super bien lo que te propongas.
-
-Te quiero mucho tu rati, novio, y rata apestosa.
-Y más que tú.
-
-(PISTA PUEDE QUE LOS COLORES DE ESTA CARTA SE ALGO QUE TE LLEGARA O YA TE LLEGO, NO SE 😏)
-</p>
-            </div>
-        </div>
-        <!-- Audio para la carta F1 -->
-        <audio id="audio-tqm-f1" src="tqm.mp3" preload="auto"></audio>
-    </section>
-
-    <!-- NUEVA CARTA CARRO (MODIFICADA) -->
-    <section id="carro" style="display:none;">
-        <h2 class="section-title" style="color:#1b5e20;">Amor es lo que yo siento</h2>
-        <div class="carta" id="carta-carro" style="background:linear-gradient(135deg,#fffde4 60%,#ffe7b2 100%); border:2px solid #ffd54f; box-shadow:0 8px 24px #ffd54f44; margin-top:32px; margin-bottom:32px;">
-            <div class="tapa" style="background:linear-gradient(135deg,#ffd54f 60%,#fffde4 100%); color:#1b5e20; font-size:2.5rem;">
-                🚗🌽🍿
-                <div class="abrir-indicador" style="color:#1b5e20;">Haz click para abrir</div>
-            </div>
-            <div class="contenido" style="background:#fffde4; color:#1b5e20;">
-                <button id="cerrar-carta-carro-btn" style="position:absolute; top:12px; right:18px; background:#ffd54f; color:#1b5e20; border:none; border-radius:8px; font-size:1.1rem; font-family:'Segoe UI',sans-serif; font-weight:bold; cursor:pointer; padding:6px 16px; z-index:10;">Cerrar</button>
-                <h2 style="color:#388e3c;">Esto es mi amor</h2>
-                <p>
-                Simplemente no sé en qué momento voy a parar de quererte tanto que simplemente pensarlo parece imposible. Pareciera que cada día te viera como si no te conociera y me enamora a simple vista de ti. Ni un millón de palabras pueden explicar lo que realmente siento, y me duele mucho que nunca lo podrás saber, pero lo que sí sé es que nunca lo podrás cambiar. Este pequeño mensaje quiero que sea de lo más genuino por lo que no se cuando es que estés leyendo esto, porque no te voy a decir de la existencia de este mensaje . No es que no quiera que lo leas, si no que el mensaje quede como un inmenso sentimiento, que no espera una respuesta, si no que simplemente ama. Ya que contigo he aprendido algo que no sabía que podía sentir. Un amor que no espera ser amado, un sentimiento que no espera ser encontrado,  simplemente siente y no se arrepiente. Cada momento y cada instante lo siento, y me hace sentir una conexión muy fuerte contigo. Eres la razón de mis sonrisas, pensar en ti resulta una solución a todos mis problemas, porque fuera de ti no necesito nada más. Siempre aprendo muchas cosas a tu lado, pero especialmente aprendo a amar cada día. Considero que a alguien no se le puede amar igual todos los días, si no ese amor sería simple y constante. Sería de ese amor que solo se ama porque quiere ser amado, y no el amor que se ama porque siente y no teme a ya no ser amado. Simplemente te amo y no espero que me ames o que me quieras; si no que lo sientas. Porque este amor no es simple, y mucho menos constante; es el amor que te quiere de un millón de formas, que existe solo para ti y extraña estar cerca de ti.
-
-                Te quiero como un millón de palabras que no explican lo mucho que te amo. Te amo amor.
-
-                Esto de aquí lo hice porque no sabes lo que me hizo sentir que me lo hicieras. La escucho en todo momento y cada canción la escucho detalladamente y confirma mucho lo que te amo. Es por eso que de igual forma yo te hice una, pero esta vez escogí una canción cada día de este mes, expresando lo que me hiciste sentir cada día de estos. Te amé estos dos meses y te amare todo lo que haga falta que sea incapaz de sentir.
-
-               
-
-                </p>
-                <p>
-                     Att Tu amor.
-                </p>
-                <div style="margin-top:24px;">
-                    <h3 style="color:#388e3c; font-size:1.15rem;">Playlist de Apple Music para ti:</h3>
-                    <!-- Apple Music embed: reemplaza el src con el enlace de tu playlist -->
-                    <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150"
-    style="width:100%;max-width:400px;border-radius:12px;box-shadow:0 2px 8px #ffd54f44;"
-    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
-    src="https://embed.music.apple.com/mx/playlist/may/pl.u-RRbV04JtmMp5rVG"></iframe>
-                    <div style="font-size:0.95rem; color:#888; margin-top:6px;">Te amo mucho amor aqui un pequeño recordatorio de lo que siento por ti</div>
+                <div class="hero-art" aria-hidden="true">
+                    <span class="orbit orbit-one">♡</span>
+                    <span class="orbit orbit-two">✦</span>
+                    <span class="orbit orbit-three">♡</span>
+                    <div class="hero-envelope">
+                        <span>Para May</span>
+                    </div>
                 </div>
-                <!-- Audio para la carta carro -->
-                <audio id="audio-amor-carro" src="amor.mp3" preload="auto"></audio>
             </div>
-        </div>
-    </section>
 
-    <!-- SCRIPTS -->
-    <script>
-        // NAVBAR ACTIVE LINK & SECTION DISPLAY
-        function setActiveNav() {
-            const hash = location.hash || "#inicio";
-            document.querySelectorAll('.navbar-links a').forEach(a => {
-                a.classList.toggle('active', a.getAttribute('href') === hash);
-            });
-            // Mostrar solo la sección activa
-            document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
-            if (hash === "#cumple") {
-                document.getElementById('cumple').style.display = '';
-                document.getElementById('regalo-fixed-container').style.display = 'flex';
-            } else if (hash === "#secret") {
-                document.getElementById('secret').style.display = '';
-                document.getElementById('regalo-fixed-container').style.display = 'none';
-            // } else if (hash === "#extra") {
-            //     document.getElementById('extra').style.display = '';
-            //     document.getElementById('regalo-fixed-container').style.display = 'none';
-            } else if (hash === "#carro") {
-                document.getElementById('carro').style.display = '';
-                document.getElementById('regalo-fixed-container').style.display = 'none';
-            } else {
-                document.getElementById('inicio').style.display = '';
-                document.getElementById('regalo-fixed-container').style.display = 'none';
-            }
-        }
-        window.addEventListener('hashchange', setActiveNav);
-        setActiveNav();
+            <div class="section-intro">
+                <p class="eyebrow">Explora</p>
+                <h2>Tres rincones, muchas formas de quererte</h2>
+            </div>
 
-        // SCROLL TO SECTION ON NAV CLICK
-        document.querySelectorAll('.navbar-links a').forEach(a => {
-            a.addEventListener('click', function(e) {
-                const href = a.getAttribute('href');
-                if (href.startsWith('#')) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({behavior: 'smooth'});
-                    history.replaceState(null, '', href);
-                    setActiveNav();
-                }
-            });
-        });
+            <div class="feature-grid">
+                <a class="feature-card feature-birthday" href="#cumple">
+                    <span class="feature-icon" aria-hidden="true">🎂</span>
+                    <span>
+                        <strong>Cumpleaños linda</strong>
+                        <small>Una carta y una sorpresa especial.</small>
+                    </span>
+                    <span class="feature-arrow" aria-hidden="true">→</span>
+                </a>
 
-        // CARTA CUMPLEAÑOS LINDA
-        window.addEventListener('DOMContentLoaded', function() {
-            var carta = document.getElementById('carta');
-            var cerrarBtn = document.getElementById('cerrar-carta-btn');
-            var audioTqm = document.getElementById('audio-tqm');
-            function abrirCarta(e) {
-                if (!carta.classList.contains('abierta') && (!e.target || e.target.id !== 'cerrar-carta-btn')) {
-                    carta.classList.add('abierta');
-                    // Reproducir canción tqm.mp4
-                    if (audioTqm) {
-                        audioTqm.currentTime = 0;
-                        audioTqm.play().catch(()=>{});
-                    }
-                }
-            }
-            function cerrarCarta() {
-                carta.classList.remove('abierta');
-                // Pausar canción tqm.mp4
-                if (audioTqm) {
-                    audioTqm.pause();
-                    audioTqm.currentTime = 0;
-                }
-            }
-            ['click', 'touchstart', 'pointerdown'].forEach(function(evt) {
-                carta.addEventListener(evt, abrirCarta);
-            });
-            cerrarBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                cerrarCarta();
-            });
-        });
+                <a class="feature-card feature-secret" href="#secret">
+                    <span class="feature-icon" aria-hidden="true">🏎️</span>
+                    <span>
+                        <strong>Nuestro secreto</strong>
+                        <small>Un mensaje que celebra nuestro primer mes.</small>
+                    </span>
+                    <span class="feature-arrow" aria-hidden="true">→</span>
+                </a>
 
-        // REGALO INTERACTIVO (CUMPLEAÑOS LINDA)
-        // Mensajes personalizados para cada clic (puedes poner hasta 18, si hay menos se repiten)
-        const mensajes = [
-            "¡Oh! ¿Un regalo? 🤔",
-            "¿Qué será, qué será...? Seguro te gustará, pero tú me gustas más 🎁",
-            "Me gusta mucho pasar tiempo contigo, aunque sea en llamada. ¿Pista acaso? 😋",
-            "El tiempo parece no existir cuando estoy contigo ⏳",
-            "Vales mucho para mí, por eso siempre intento demostrartelo con todo... 🎉",
-            "¿Ya te cansaste? Faltan solo 13 clics... 😏",
-            "¡Qué emoción! ¿Estás lista? 😍",
-            "¿Te imaginas qué es? 🤭",
-            "Maybe una pista molaria, da clic de nuevo y te doy una 💝",
-            "Es algo que podras usar todos los dias de nuevo, (YO CREO QUE SABES) 😚",
-            "¡Ya casi! Unos clics más... 🥳",
-            "¿Te gusta la sorpresa? 😁",
-            "Por que a mi tambien me gusta, mas cuando me sorprendo al ver lo linda que eres💖",
-            "¿Lista para descubrirlo? 😱",
-            "¡Qué nervios! 😬",
-            "¡Últimos clics! 🎈",
-            "A lo mejor este regalo te hace millonaria, pero yo lo soy más porque te tengo a ti 😮 🚀",
-            "¡Ahora sí! Haz click para ver tu regalo especial y lo mucho que te amo y más que tu 🎁"
-        ];
-        const totalClicks = 18;
-        let clickCount = 0;
-        const regalo = document.getElementById('regalo');
-        const mensaje = document.getElementById('regalo-mensaje');
-        const contador = document.getElementById('regalo-contador');
-        const tarjetaContainer = document.getElementById('tarjeta-container');
-        const tarjeta = document.getElementById('tarjeta');
-        const tarjetaInner = document.getElementById('tarjeta-inner');
-        const volverBtn = document.getElementById('volver-carta-btn');
-        let tarjetaVolteada = false;
+                <a class="feature-card feature-love" href="#carro">
+                    <span class="feature-icon" aria-hidden="true">💌</span>
+                    <span>
+                        <strong>Carta de amor</strong>
+                        <small>Palabras, recuerdos y una playlist para ti.</small>
+                    </span>
+                    <span class="feature-arrow" aria-hidden="true">→</span>
+                </a>
+            </div>
+        </section>
 
-        // NUEVO: crea el audio por JS para mejor compatibilidad
-        let musicaRegalo = null;
-        function crearAudioRegalo() {
-            if (!musicaRegalo) {
-                musicaRegalo = new Audio('musica.mp3');
-                musicaRegalo.preload = 'auto';
-                musicaRegalo.autoplay = false;
-                musicaRegalo.loop = false;
-                musicaRegalo.volume = 1;
-                musicaRegalo.crossOrigin = "anonymous";
-            }
-        }
+        <section class="page-section" id="cumple" data-page hidden>
+            <div class="page-heading">
+                <a class="back-link" href="#inicio">← Volver al inicio</a>
+                <p class="eyebrow">Una fecha muy especial</p>
+                <h1>Feliz cumpleaños, linda <span aria-hidden="true">🎂</span></h1>
+                <p>Abre la carta y después descubre el regalo.</p>
+            </div>
 
-        // Inicializa mensaje y contador
-        mensaje.textContent = mensajes[0];
-        contador.textContent = `Progreso: 1 / ${totalClicks}`;
+            <article class="letter letter-birthday" data-letter>
+                <button class="letter-cover" type="button" data-open-letter aria-expanded="false">
+                    <span class="letter-stamp" aria-hidden="true">💌</span>
+                    <strong>Para Mayyyyyy</strong>
+                    <small>Toca para abrir</small>
+                </button>
 
-        function actualizarRegaloVisual() {
-            // El regalo crece y sube en cada clic y se mueve un poco de lado a lado
-            const minW = 70, maxW = 420;
-            const minH = 70, maxH = 420;
-            const minFont = 2.2, maxFont = 10;
-            const minMargin = 24, maxMargin = 180;
-            const p = Math.min(clickCount / (totalClicks-1), 1);
-            regalo.style.width = (minW + (maxW-minW)*p) + "px";
-            regalo.style.height = (minH + (maxH-minH)*p) + "px";
-            regalo.style.fontSize = (minFont + (maxFont-minFont)*p) + "rem";
-            // Movimiento lateral tipo zigzag
-            const zigzag = Math.sin(clickCount * 0.7) * (1-p) * 40;
-            regalo.style.transform = `translateX(${zigzag}px)`;
-            // El regalo sube hacia el centro
-            document.getElementById('regalo-container').style.marginBottom = (minMargin + (maxMargin-minMargin)*p) + "px";
-        }
+                <div class="letter-paper" data-letter-paper aria-hidden="true">
+                    <button class="icon-button close-letter" type="button" data-close-letter aria-label="Cerrar carta">×</button>
+                    <p class="letter-date">Para la más linda</p>
+                    <h2>¡Feliz cumpleaños, Mayyyyyy!</h2>
+                    <div class="letter-copy">
+                        <p>Sé lo especial que es para ti tu cumpleaños y se me hace muy tierno lo mucho que te emocionas porque llegue ese día. Quiero que sepas que ahora también es una fecha especial para mí. Jamás habría esperado que, un año después, te estaría deseando feliz cumpleaños a ti, que antes no conocía de nada; mucho menos imaginaba lo feliz que me harías cada día y cuánto me gustaría estar contigo en un día tan importante.</p>
 
-        regalo.addEventListener('click', function() {
-            // Crear audio si no existe (por interacción de usuario)
-            crearAudioRegalo();
-            // Iniciar música cuando falten 3 clics (click 15, es decir clickCount == 15)
-            if (clickCount === totalClicks - 4) {
-                if (musicaRegalo) {
-                    musicaRegalo.currentTime = 0;
-                    musicaRegalo.play().catch(()=>{});
-                }
-            }
-            if (clickCount < totalClicks-1) {
-                clickCount++;
-                mensaje.textContent = mensajes[clickCount % mensajes.length];
-                contador.textContent = `Progreso: ${clickCount+1} / ${totalClicks}`;
-                actualizarRegaloVisual();
-            } else if (clickCount === totalClicks-1) {
-                // Mostrar tarjeta
-                mensaje.textContent = "¡Sorpresa! Haz click para ver tu tarjeta de regalo 🎉";
-                contador.textContent = "";
-                regalo.style.display = 'none';
-                tarjetaContainer.style.display = 'flex';
-                volverBtn.style.display = 'inline-block';
-                clickCount++;
-            }
-        });
+                        <p>Me di cuenta de lo feliz que me hacías sentir desde hace mucho, desde esas primeras veces que compartimos clase y todavía no nos llevábamos. Me gustaría saber en qué momento nos empezamos a llevar, pero empiezo a creer que siempre nos llevamos, incluso antes de conocernos, porque se me hace imposible acordarme de un momento específico que marque el inicio.</p>
 
-        tarjeta.addEventListener('click', function() {
-            tarjetaVolteada = !tarjetaVolteada;
-            tarjetaInner.style.transform = tarjetaVolteada ? 'rotateY(180deg)' : '';
-        });
+                        <p>Esa primera vez que hablamos en el camión fue cuando me di cuenta de lo especial que eras. Sin siquiera conocerte realmente, me abrí contigo como nunca lo había hecho con alguien, como tú también lo hiciste. Nunca te lo dije, pero fue ahí cuando supe que te ibas a convertir en una persona muy especial en mi vida, y así fue. Simplemente eras la amiga, la mejor amiga, que siempre había querido tener: alguien con quien pudiera ser yo mismo, decir lo que quisiera, confiar para lo que fuera, sentir que el tiempo no existía y, mucho más importante para mí, sonreír.</p>
 
-        volverBtn.addEventListener('click', function() {
-            document.getElementById('mensaje-final').style.display = 'flex';
-            crearAudioRegalo();
-            if (musicaRegalo) {
-                musicaRegalo.currentTime = 0;
-                musicaRegalo.play().catch(()=>{});
-            }
-            setTimeout(() => {
-                const cerrar = document.querySelector('#mensaje-final button');
-                if (cerrar) {
-                    cerrar.onclick = function() {
-                        document.getElementById('mensaje-final').style.display = 'none';
-                        tarjetaContainer.style.display = 'none';
-                        regalo.style.display = 'flex';
-                        clickCount = 0;
-                        mensaje.textContent = mensajes[0];
-                        contador.textContent = `Progreso: 1 / ${totalClicks}`;
-                        tarjetaVolteada = false;
-                        tarjetaInner.style.transform = '';
-                        volverBtn.style.display = 'none';
-                        actualizarRegaloVisual();
-                        const carta = document.getElementById('carta');
-                        if (carta && carta.classList.contains('abierta')) {
-                            carta.classList.remove('abierta');
-                        }
-                        window.scrollTo({top: 0, behavior: 'smooth'});
-                        if (musicaRegalo) {
-                            musicaRegalo.pause();
-                            musicaRegalo.currentTime = 0;
-                        }
-                    }
-                }
-            }, 100);
-        });
+                        <p>Sabía lo divertida que eras cuando me dijiste que jugáramos a callarnos. Ahora sí que, como diríamos, una ironía, porque no hay momento en que estemos juntos y paremos de hablar. Te prometo que nunca ganaré ese juego, ya que siempre querré hablar contigo de lo que sea y en el momento que sea.</p>
 
-        actualizarRegaloVisual();
+                        <p>Jamás imaginé que iba a querer tanto a alguien así, de la nada, pero supongo que pasar tantos días a tu lado, tanto en momentos buenos como malos, haría que cada vez te quisiera más. Me acostumbré a ti: a acompañarte a todos lados, a tu sonrisa, a tu pelo, a tu olor —que hueles muy bien, por cierto— y a tus comentarios de lo más genuinos. Un día sin estar contigo se siente vacío, pero a su vez hace más especial el día en que nos volvemos a ver.</p>
 
-        // CARTA SECRET F1 FUNCIONALIDAD (igual que carta principal)
-        const cartaF1 = document.getElementById('carta-f1');
-        const tapaF1 = document.getElementById('tapa-f1');
-        const cerrarF1Btn = document.getElementById('cerrar-carta-f1-btn');
-        const audioTqmF1 = document.getElementById('audio-tqm-f1');
-        tapaF1.addEventListener('click', function(e) {
-            if (!cartaF1.classList.contains('abierta')) {
-                cartaF1.classList.add('abierta');
-                // Reproducir canción tqm.mp4
-                if (audioTqmF1) {
-                    audioTqmF1.currentTime = 0;
-                    audioTqmF1.play().catch(()=>{});
-                }
-            }
-        });
-        cerrarF1Btn.addEventListener('click', function(e) {
-            cartaF1.classList.remove('abierta');
-            // Pausar canción tqm.mp4
-            if (audioTqmF1) {
-                audioTqmF1.pause();
-                audioTqmF1.currentTime = 0;
-            }
-            e.stopPropagation();
-        });
+                        <p>Quiero que sepas que contigo no me importan la distancia, el tiempo ni las circunstancias: nada cambia lo mucho que te amo y lo especial que eres para mí. Me hace sentir muy enamorado recordar que eres mi novia. No es que se me olvide, sino que antes, para mí, ya eras algo así. Los recuerdos a tu lado son de los más preciados y siempre los llevo en mente; cuando no me siento tan bien, recordarlos me hace sentir que estoy a tu lado una vez más.</p>
 
-        // NUEVA CARTA CARRO FUNCIONALIDAD CON AUDIO
-        window.addEventListener('DOMContentLoaded', function() {
-            var cartaCarro = document.getElementById('carta-carro');
-            var cerrarCarroBtn = document.getElementById('cerrar-carta-carro-btn');
-            var audioAmorCarro = document.getElementById('audio-amor-carro');
-            function abrirCartaCarro(e) {
-                if (!cartaCarro.classList.contains('abierta') && (!e.target || e.target.id !== 'cerrar-carta-carro-btn')) {
-                    cartaCarro.classList.add('abierta');
-                    // Reproducir canción amor.mp3
-                    if (audioAmorCarro) {
-                        audioAmorCarro.currentTime = 0;
-                        audioAmorCarro.play().catch(()=>{});
-                    }
-                }
-            }
-            function cerrarCartaCarro() {
-                cartaCarro.classList.remove('abierta');
-                // Pausar canción amor.mp3
-                if (audioAmorCarro) {
-                    audioAmorCarro.pause();
-                    audioAmorCarro.currentTime = 0;
-                }
-            }
-            ['click', 'touchstart', 'pointerdown'].forEach(function(evt) {
-                cartaCarro.addEventListener(evt, abrirCartaCarro);
-            });
-            cerrarCarroBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                cerrarCartaCarro();
-            });
-        });
-    </script>
+                        <p>Me gustaría hacer esta carta mucho más larga, pero, por más que lo intente, las palabras nunca serán suficientes para expresar lo que siento por ti, todos los momentos que vivimos juntos y los que me gustaría vivir contigo en el futuro. Sería una carta infinita, como el amor que siento por ti.</p>
+
+                        <p>Espero que la pases más que bien en este día y que sepas que siempre estaré aquí para ti, para lo que necesites. Te amo con todo el corazón.</p>
+
+                        <p class="letter-signature">Cumpleaños, porque feliz es lo que tú me haces sentir.<br>Te amo. Feliz cumpleaños, May: linda, mi novia, rati, la que más quiero.<br><br>Att. Tu rata apestosa y novio.</p>
+                    </div>
+                </div>
+            </article>
+
+            <section class="gift-panel card-surface" aria-labelledby="gift-title">
+                <div class="gift-copy">
+                    <p class="eyebrow">Una sorpresa más</p>
+                    <h2 id="gift-title">Tu regalo</h2>
+                    <p id="gift-message" aria-live="polite">Hay algo esperando por ti. Toca el regalo para comenzar.</p>
+                    <div class="progress-track" aria-hidden="true">
+                        <span id="gift-progress-bar"></span>
+                    </div>
+                    <p class="progress-label" id="gift-progress">0 de 18 pistas</p>
+                </div>
+
+                <button class="gift-button" id="gift-button" type="button" aria-label="Descubrir la siguiente pista">
+                    <span aria-hidden="true">🎁</span>
+                </button>
+
+                <div class="gift-reveal" id="gift-reveal" hidden>
+                    <button class="gift-card" id="gift-card" type="button" aria-pressed="false" aria-label="Voltear tarjeta de regalo">
+                        <span class="gift-card-inner">
+                            <span class="gift-card-face gift-card-front">
+                                <img src="roblox-card.jpg" alt="Tarjeta de regalo de Roblox">
+                            </span>
+                            <span class="gift-card-face gift-card-back">
+                                <strong>¡Sorpresa!</strong>
+                                <span>Tu código está guardado en privado para que solo tú puedas usarlo.</span>
+                            </span>
+                        </span>
+                    </button>
+                    <p>Toca la tarjeta para voltearla.</p>
+                    <button class="button button-secondary" id="finish-gift" type="button">Terminar sorpresa</button>
+                </div>
+            </section>
+
+            <dialog class="final-dialog" id="final-dialog">
+                <button class="icon-button dialog-close" type="button" data-close-dialog aria-label="Cerrar mensaje">×</button>
+                <p class="eyebrow">Un último mensaje</p>
+                <h2>Gracias por todo, rati</h2>
+                <p>Es lo mínimo que puedo decir por todo lo que haces por mí. Nunca habrá forma de explicar lo agradecido que estoy de haberte conocido. Te quiero mucho.</p>
+                <p>Aunque tu día especial haya llegado casi a su fin, me hace muy feliz saber lo bien que la pasaste. Me habría gustado estar a tu lado, pero por eso te doy este pequeño detalle: para formar, aunque sea un poquito, parte de tu día. Espero pasar muchos cumpleaños más a tu lado.</p>
+                <p class="letter-signature">Te quiero demasiado, no sabes… y más que tú, ni modo. Te amo.</p>
+            </dialog>
+
+            <audio id="gift-audio" src="musica.mp3" preload="metadata"></audio>
+        </section>
+
+        <section class="page-section" id="secret" data-page hidden>
+            <div class="page-heading">
+                <a class="back-link" href="#inicio">← Volver al inicio</a>
+                <p class="eyebrow">Nuestro primer capítulo</p>
+                <h1>Secreto <span aria-hidden="true">🏎️💙💛❤️</span></h1>
+                <p>Una carta que viaja rápido, pero se lee sin prisa.</p>
+            </div>
+
+            <article class="letter letter-racing" data-letter data-audio="secret-audio">
+                <button class="letter-cover" type="button" data-open-letter aria-expanded="false">
+                    <span class="racing-stripe" aria-hidden="true"></span>
+                    <span class="letter-stamp" aria-hidden="true">🏁</span>
+                    <strong>0.1 o 1/12</strong>
+                    <small>Toca para abrir</small>
+                </button>
+
+                <div class="letter-paper" data-letter-paper aria-hidden="true">
+                    <button class="icon-button close-letter" type="button" data-close-letter aria-label="Cerrar carta">×</button>
+                    <p class="letter-date">Un mes contigo</p>
+                    <h2>¡Secreto! ¿Qué será, 0.1 o 1/12?</h2>
+                    <div class="letter-copy">
+                        <p>Este es un contenido secreto —qué funny—, pero seguramente ya sabes qué es. No sabes lo mucho que me gusta hacerte detalles y matarme para que simplemente sean lo más perfectos posible. Antes que nada, quiero que sepas que lo hago sin esperar nada a cambio; tú ya eres lo mejor que puedo tener.</p>
+
+                        <p>Me gustaría mucho poder tenerte a mi lado para decirte todo esto y para que veas lo mucho que te quiero. El tiempo contigo parece no existir. Hace un mes tomé una de las mejores decisiones: preguntarte si querías ser mi novia. No puedo creer que haya pasado tan rápido; siento como si hubiera sido ayer.</p>
+
+                        <p>A veces pienso en que eres mi novia y simplemente no me lo puedo creer, porque eres muy perfecta para mí. Jamás pensé que llegaríamos a esto porque, cuando eras mi amiga, ya era perfecto. Pero ahora es incluso más perfecto: mejor amiga y novia.</p>
+
+                        <p>Wuuuuuuuu, ¡un meeeees, cutieeeeee! Te quiero mucho, mucho, y más que tú. Nunca me voy a cansar de decírtelo, como tampoco de decirte lo linda, lista, ocurrente y divertida que eres, y cuánto me gustas. Todavía me pones muy shy, te lo juro. Hay muchas cosas que me gustaría darte y decirte, pero te prometo que poco a poco se me va quitando.</p>
+
+                        <p>En este mes vi que contigo la distancia no es importante en lo absoluto. Obviamente me gustaría verte todos los días, pero no es un obstáculo para nosotros; a su vez, hace que volvernos a ver sea aún más especial. Disfruto mucho el tiempo contigo desde siempre. En Canadá no te lo dije, pero realmente disfrutaba verte todas las mañanas y abrazarte. Eres la primera persona que me abrazaba todos los días y me llenaba el corazón.</p>
+
+                        <p>También amaba los momentos en el bus, cuando hablábamos y reíamos juntos; las clases, donde en los momentos de más estrés estábamos uno con el otro para apoyarnos en lo que fuera; o cuando íbamos por agua solo para poder hablar. Tú haces especial cualquier cosa y no puedo esperar por todas las cosas nuevas que haremos juntos.</p>
+
+                        <p>Feliz mes, linda. Aunque este no sea el mayor regalo, es un pequeño detalle que se quedará aquí escrito para siempre. Te amo demasiado. No logro comprender en qué momento empecé a sentir esto por ti, pero sé que te amaré siempre y te lo haré saber cada vez que pueda.</p>
+
+                        <p>Gracias, May, por todo y por estar siempre ahí para mí. Puedes contar conmigo para lo que quieras; no lo dudes, tu novio siempre está para ti.</p>
+
+                        <p class="letter-signature">TE AMO MUCHO, NOVIA. 😁<br><br>Te quiero mucho: tu rati, novio y rata apestosa.<br>Y más que tú.</p>
+
+                        <aside class="letter-note">Pista: puede que los colores de esta carta sean algo que te llegará… o que ya te llegó. 😏</aside>
+                    </div>
+                </div>
+            </article>
+
+            <audio id="secret-audio" src="tqm.mp3" preload="metadata"></audio>
+        </section>
+
+        <section class="page-section" id="carro" data-page hidden>
+            <div class="page-heading">
+                <a class="back-link" href="#inicio">← Volver al inicio</a>
+                <p class="eyebrow">Lo que yo siento</p>
+                <h1>Una carta de amor <span aria-hidden="true">💌</span></h1>
+                <p>Para leer con nuestra música de fondo.</p>
+            </div>
+
+            <article class="letter letter-love" data-letter data-audio="love-audio">
+                <button class="letter-cover" type="button" data-open-letter aria-expanded="false">
+                    <span class="letter-stamp" aria-hidden="true">🚗🌽🍿</span>
+                    <strong>Para mi amor</strong>
+                    <small>Toca para abrir</small>
+                </button>
+
+                <div class="letter-paper" data-letter-paper aria-hidden="true">
+                    <button class="icon-button close-letter" type="button" data-close-letter aria-label="Cerrar carta">×</button>
+                    <p class="letter-date">Amor es lo que yo siento</p>
+                    <h2>Esto es mi amor</h2>
+                    <div class="letter-copy">
+                        <p>Simplemente no sé en qué momento voy a parar de quererte tanto; pensarlo parece imposible. Pareciera que cada día te viera como si no te conociera y me enamorara a primera vista de ti. Ni un millón de palabras pueden explicar lo que realmente siento y me duele que nunca puedas saberlo por completo, pero lo que sí sé es que nunca lo podrás cambiar.</p>
+
+                        <p>Quiero que este pequeño mensaje sea de lo más genuino, por lo que no sé cuándo estarás leyendo esto. No te voy a decir que existe; no porque no quiera que lo leas, sino para que el mensaje quede como un sentimiento inmenso que no espera una respuesta, sino que simplemente ama.</p>
+
+                        <p>Contigo aprendí algo que no sabía que podía sentir: un amor que no espera ser amado, un sentimiento que no espera ser encontrado; simplemente siente y no se arrepiente. Lo siento a cada momento y me hace tener una conexión muy fuerte contigo. Eres la razón de mis sonrisas. Pensar en ti resulta una solución a todos mis problemas, porque fuera de ti no necesito nada más.</p>
+
+                        <p>Siempre aprendo muchas cosas a tu lado, pero especialmente aprendo a amar cada día. Considero que a alguien no se le puede amar igual todos los días; si no, ese amor sería simple y constante. Sería un amor que solo ama porque quiere ser amado y no el amor que ama porque siente y no teme dejar de ser correspondido.</p>
+
+                        <p>Simplemente te amo y no espero que me ames o me quieras, sino que lo sientas. Porque este amor no es simple, mucho menos constante: es el amor que te quiere de un millón de formas, que existe solo para ti y extraña estar cerca de ti.</p>
+
+                        <p>Te quiero como un millón de palabras que no explican lo mucho que te amo. Te amo, amor.</p>
+
+                        <p>Hice esto porque no sabes lo que me hizo sentir que tú lo hicieras. Escucho cada canción con atención y cada una confirma cuánto te amo. Por eso yo también te hice una playlist: escogí una canción por cada día de este mes, expresando lo que me hiciste sentir. Te amé estos dos meses y te amaré todo lo que haga falta que sea incapaz de sentir.</p>
+
+                        <p class="letter-signature">Att. Tu amor.</p>
+                    </div>
+
+                    <section class="playlist-card" aria-labelledby="playlist-title">
+                        <div>
+                            <p class="eyebrow">Nuestra música</p>
+                            <h3 id="playlist-title">Una canción para cada día</h3>
+                        </div>
+                        <iframe
+                            title="Playlist May en Apple Music"
+                            allow="autoplay *; encrypted-media *;"
+                            height="175"
+                            loading="lazy"
+                            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+                            src="https://embed.music.apple.com/mx/playlist/may/pl.u-RRbV04JtmMp5rVG"></iframe>
+                        <p>Te amo mucho, amor. Aquí tienes un pequeño recordatorio de lo que siento por ti.</p>
+                    </section>
+                </div>
+            </article>
+
+            <audio id="love-audio" src="amor.mp3" preload="metadata"></audio>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Hecho con mucho amor para May <span aria-hidden="true">♡</span></p>
+    </footer>
+
+    <noscript>
+        <div class="noscript-message">Activa JavaScript para abrir las cartas y descubrir las sorpresas.</div>
+    </noscript>
 </body>
 </html>
-
-
