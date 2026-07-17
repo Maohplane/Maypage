@@ -89,6 +89,48 @@
     }
     showCurrentPage();
 
+    const anniversaryCountdown = document.querySelector("[data-countdown]");
+
+    if (anniversaryCountdown) {
+        const targetDate = new Date(anniversaryCountdown.dataset.targetDate);
+        const timer = anniversaryCountdown.querySelector('[role="timer"]');
+        const message = anniversaryCountdown.querySelector("[data-countdown-message]");
+        const fields = {
+            days: anniversaryCountdown.querySelector("[data-countdown-days]"),
+            hours: anniversaryCountdown.querySelector("[data-countdown-hours]"),
+            minutes: anniversaryCountdown.querySelector("[data-countdown-minutes]"),
+            seconds: anniversaryCountdown.querySelector("[data-countdown-seconds]")
+        };
+
+        function updateAnniversaryCountdown() {
+            const remaining = Math.max(0, targetDate.getTime() - Date.now());
+            const totalSeconds = Math.floor(remaining / 1000);
+            const days = Math.floor(totalSeconds / 86400);
+            const hours = Math.floor((totalSeconds % 86400) / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            fields.days.textContent = String(days).padStart(2, "0");
+            fields.hours.textContent = String(hours).padStart(2, "0");
+            fields.minutes.textContent = String(minutes).padStart(2, "0");
+            fields.seconds.textContent = String(seconds).padStart(2, "0");
+            timer?.setAttribute("aria-label", `${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos para nuestro primer aniversario`);
+
+            if (remaining === 0) {
+                anniversaryCountdown.classList.add("is-complete");
+                if (message) message.textContent = "¡Ya llegó nuestro primer aniversario! ✨";
+                return false;
+            }
+
+            return true;
+        }
+
+        updateAnniversaryCountdown();
+        const countdownInterval = window.setInterval(() => {
+            if (!updateAnniversaryCountdown()) window.clearInterval(countdownInterval);
+        }, 1000);
+    }
+
     document.querySelectorAll("[data-letter]").forEach((letter) => {
         const openButton = letter.querySelector("[data-open-letter]");
         const closeButton = letter.querySelector("[data-close-letter]");
