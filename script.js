@@ -1,7 +1,7 @@
 (() => {
     "use strict";
 
-    const pageIds = ["inicio", "cumple", "secret", "carro"];
+    const pageIds = ["inicio", "album", "constelaciones", "carro", "cumple", "secret"];
     const pages = [...document.querySelectorAll("[data-page]")];
     const navLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')];
     const menuButton = document.querySelector(".menu-toggle");
