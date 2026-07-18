@@ -3,23 +3,40 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Un espacio especial creado para May, lleno de cartas, música y recuerdos.">
-    <meta name="theme-color" content="#f8f5ff">
+    <meta name="description" content="Un cielo especial creado para May, lleno de estrellas, recuerdos y pequeños secretos.">
+    <meta name="theme-color" content="#06142d">
     <title>Para May</title>
     <link rel="icon" href="logo.jpg" type="image/jpeg">
-    <link rel="stylesheet" href="styles.css?v=20260717">
-    <script src="script.js?v=20260717" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260718">
+    <link rel="stylesheet" href="cosmic.css?v=20260718">
+    <script src="script.js?v=20260718" defer></script>
+    <script src="experiences.js?v=20260718" defer></script>
 </head>
-<body>
+<body class="entry-pending">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <div class="entry-gate" data-entry-gate role="dialog" aria-modal="true" aria-labelledby="entry-title">
+        <div class="entry-sky" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="entry-card">
+            <span class="entry-emblem" aria-hidden="true">✦</span>
+            <p class="eyebrow">Un cielo hecho solo para ti</p>
+            <h1 id="entry-title">Para May</h1>
+            <p>Hay recuerdos, estrellas y un pedacito de mí esperándote aquí.</p>
+            <button class="button button-primary entry-button" type="button" data-enter-site>
+                Entrar <span aria-hidden="true">✦</span>
+            </button>
+        </div>
+    </div>
 
     <header class="site-header">
         <div class="nav-shell">
             <a class="brand" href="#inicio" aria-label="Ir al inicio">
-                <img src="logo.jpg" alt="" width="48" height="48">
+                <span class="brand-star" aria-hidden="true">✦</span>
                 <span>
                     <strong>Para May</strong>
-                    <small>Un lugar solo para ti</small>
+                    <small>Nuestro pequeño universo</small>
                 </span>
             </a>
 
@@ -32,9 +49,11 @@
 
             <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
                 <a href="#inicio">Inicio</a>
+                <a href="#album">Nuestro cielo</a>
+                <a href="#constelaciones">Constelaciones</a>
+                <a href="#carro">Carta</a>
                 <a href="#cumple">Cumpleaños</a>
-                <a href="#secret">Secreto</a>
-                <a href="#carro">Carta de amor</a>
+                <a href="#secret">Primer mes</a>
             </nav>
         </div>
     </header>
@@ -43,28 +62,31 @@
         <section class="page-section home-section" id="inicio" data-page>
             <div class="hero card-surface">
                 <div class="hero-copy">
-                    <p class="eyebrow">Un pequeño mundo para nosotros</p>
-                    <h1>Bienvenida, cutie <span aria-hidden="true">💗</span></h1>
-                    <p class="hero-text">Esta página guarda algunas de las cosas que me haces sentir. Explora cada sección con calma: cada detalle fue pensado para ti.</p>
+                    <p class="eyebrow">Nuestro pequeño universo</p>
+                    <h1>Bienvenida, cutie <span aria-hidden="true">✦</span></h1>
+                    <p class="hero-text">Este cielo guarda lo que hemos vivido, lo que siento por ti y todo lo bonito que todavía nos falta descubrir.</p>
                     <div class="hero-actions">
-                        <a class="button button-primary" href="#cumple">Abrir primera carta</a>
-                        <a class="button button-secondary" href="#secret">Descubrir el secreto</a>
+                        <a class="button button-primary" href="#constelaciones">Jugar Constelaciones</a>
+                        <a class="button button-secondary" href="#album">Ver nuestro cielo</a>
                     </div>
                 </div>
 
-                <div class="hero-art" aria-hidden="true">
-                    <span class="orbit orbit-one">♡</span>
-                    <span class="orbit orbit-two">✦</span>
-                    <span class="orbit orbit-three">♡</span>
-                    <div class="hero-envelope">
-                        <span>Para May</span>
+                <div class="hero-art cosmic-hero-art" aria-hidden="true">
+                    <div class="cosmic-orbit cosmic-orbit-one"></div>
+                    <div class="cosmic-orbit cosmic-orbit-two"></div>
+                    <div class="cosmic-core">
+                        <span>✦</span>
+                        <small>May</small>
                     </div>
+                    <span class="orbit-star orbit-star-one">✦</span>
+                    <span class="orbit-star orbit-star-two">✧</span>
+                    <span class="orbit-star orbit-star-three">✦</span>
                 </div>
             </div>
 
             <section class="anniversary-countdown card-surface" data-countdown data-target-date="2026-07-26T00:00:00-06:00" aria-labelledby="anniversary-title">
                 <div class="countdown-copy">
-                    <p class="eyebrow">Nuestra próxima fecha</p>
+                <p class="eyebrow">Cuando las estrellas se alineen</p>
                     <h2 id="anniversary-title">Nuestro primer aniversario <span aria-hidden="true">✨</span></h2>
                     <p>26 de julio de 2026</p>
                 </div>
@@ -91,41 +113,170 @@
                     </span>
                 </div>
 
-                <p class="countdown-message" data-countdown-message aria-live="polite">Cada segundo nos acerca un poquito más.</p>
+                <p class="countdown-message" data-countdown-message aria-live="polite">Cada segundo enciende una estrella más de nuestra historia.</p>
             </section>
 
             <div class="section-intro">
-                <p class="eyebrow">Explora</p>
-                <h2>Tres rincones, muchas formas de quererte</h2>
+                <p class="eyebrow">Elige una estrella</p>
+                <h2>Todo nuestro universo en un solo lugar</h2>
             </div>
 
-            <div class="feature-grid">
-                <a class="feature-card feature-birthday" href="#cumple">
-                    <span class="feature-icon" aria-hidden="true">🎂</span>
+            <div class="home-grid">
+                <a class="cosmic-feature cosmic-feature-wide" href="#album">
+                    <span class="cosmic-feature-icon" aria-hidden="true">✦</span>
                     <span>
-                        <strong>Cumpleaños linda</strong>
-                        <small>Una carta y una sorpresa especial.</small>
+                        <small>Se abre en nuestro aniversario</small>
+                        <strong>Nuestro cielo</strong>
+                        <span>Veintiséis recuerdos unidos como una sola constelación.</span>
                     </span>
-                    <span class="feature-arrow" aria-hidden="true">→</span>
+                    <span class="cosmic-feature-arrow" aria-hidden="true">→</span>
                 </a>
 
-                <a class="feature-card feature-secret" href="#secret">
-                    <span class="feature-icon" aria-hidden="true">🏎️</span>
+                <a class="cosmic-feature cosmic-feature-wide" href="#constelaciones">
+                    <span class="cosmic-feature-icon game-icon" aria-hidden="true">✧</span>
                     <span>
-                        <strong>Nuestro secreto</strong>
-                        <small>Un mensaje que celebra nuestro primer mes.</small>
+                        <small>Disponible siempre</small>
+                        <strong>Constelaciones</strong>
+                        <span>Une estrellas, supera tu récord y abre espacios para nuevas pistas.</span>
                     </span>
-                    <span class="feature-arrow" aria-hidden="true">→</span>
+                    <span class="cosmic-feature-arrow" aria-hidden="true">→</span>
                 </a>
 
-                <a class="feature-card feature-love" href="#carro">
-                    <span class="feature-icon" aria-hidden="true">💌</span>
+                <a class="cosmic-feature" href="#carro">
+                    <span class="cosmic-feature-icon" aria-hidden="true">♡</span>
                     <span>
+                        <small>Palabras y música</small>
                         <strong>Carta de amor</strong>
-                        <small>Palabras, recuerdos y una playlist para ti.</small>
                     </span>
-                    <span class="feature-arrow" aria-hidden="true">→</span>
+                    <span class="cosmic-feature-arrow" aria-hidden="true">→</span>
                 </a>
+
+                <a class="cosmic-feature" href="#cumple">
+                    <span class="cosmic-feature-icon" aria-hidden="true">✺</span>
+                    <span>
+                        <small>Una fecha especial</small>
+                        <strong>Cumpleaños</strong>
+                    </span>
+                    <span class="cosmic-feature-arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a class="cosmic-feature" href="#secret">
+                    <span class="cosmic-feature-icon" aria-hidden="true">☄</span>
+                    <span>
+                        <small>Donde empezó todo</small>
+                        <strong>Nuestro primer mes</strong>
+                    </span>
+                    <span class="cosmic-feature-arrow" aria-hidden="true">→</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="page-section" id="album" data-page hidden>
+            <div class="page-heading cosmic-page-heading">
+                <a class="back-link" href="#inicio">← Volver al inicio</a>
+                <p class="eyebrow">Veintiséis estrellas, una sola historia</p>
+                <h1>Nuestro cielo <span aria-hidden="true">✦</span></h1>
+                <p>Cada estrella guarda un momento que nos trajo hasta aquí.</p>
+            </div>
+
+            <section class="album-gate card-surface" data-album-gate aria-live="polite">
+                <div class="album-wait" data-album-wait>
+                    <span class="album-lock-star" aria-hidden="true">✦</span>
+                    <p class="eyebrow">Todavía no es el momento</p>
+                    <h2>Las estrellas siguen buscando su lugar</h2>
+                    <p>Este cielo se alineará el 26 de julio de 2026.</p>
+                    <a class="button button-secondary" href="#inicio">Volver al contador</a>
+                </div>
+
+                <form class="anniversary-quiz" data-anniversary-quiz hidden>
+                    <span class="album-lock-star is-ready" aria-hidden="true">✦</span>
+                    <p class="eyebrow">Las estrellas se alinearon</p>
+                    <h2>Solo falta recordar algo</h2>
+                    <p>¿Qué pasó hace un año, justo en este día?</p>
+                    <label for="anniversary-answer">Nuestro recuerdo</label>
+                    <div class="quiz-answer-row">
+                        <input id="anniversary-answer" name="answer" type="text" autocomplete="off" placeholder="Escribe aquí…" required>
+                        <button class="button button-primary" type="submit">Abrir el cielo</button>
+                    </div>
+                    <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+                </form>
+            </section>
+
+            <div class="memory-experience" data-memory-experience hidden>
+                <div class="memory-intro">
+                    <p class="eyebrow">Nuestra constelación</p>
+                    <h2>Todo nos estaba llevando el uno al otro</h2>
+                    <p>Toca cualquier estrella para abrir el recuerdo que guarda.</p>
+                </div>
+
+                <div class="constellation-map" data-constellation-map>
+                    <svg class="constellation-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <polyline data-memory-path points=""></polyline>
+                    </svg>
+                    <div class="memory-stars" data-memory-stars></div>
+                </div>
+            </div>
+
+            <dialog class="memory-dialog" id="memory-dialog" aria-labelledby="memory-title">
+                <button class="icon-button memory-close" type="button" data-close-memory aria-label="Cerrar recuerdo">×</button>
+                <div class="memory-photo-wrap">
+                    <img data-memory-image src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Recuerdo de Miguel y May">
+                </div>
+                <div class="memory-dialog-copy">
+                    <p class="memory-position" data-memory-position></p>
+                    <time data-memory-date></time>
+                    <h2 id="memory-title" data-memory-title>Recuerdo</h2>
+                    <div class="memory-dialog-actions">
+                        <button class="button button-secondary" type="button" data-memory-previous>← Anterior</button>
+                        <button class="button button-primary" type="button" data-memory-next>Siguiente →</button>
+                    </div>
+                </div>
+            </dialog>
+        </section>
+
+        <section class="page-section" id="constelaciones" data-page hidden>
+            <div class="page-heading cosmic-page-heading">
+                <a class="back-link" href="#inicio">← Volver al inicio</a>
+                <p class="eyebrow">Un juego que siempre estará aquí</p>
+                <h1>Constelaciones <span aria-hidden="true">✧</span></h1>
+                <p>Une dos estrellas iguales para crear una cada vez más brillante.</p>
+            </div>
+
+            <div class="game-layout">
+                <section class="game-panel card-surface" aria-labelledby="game-title">
+                    <div class="game-toolbar">
+                        <div>
+                            <p class="eyebrow">El cielo de May</p>
+                            <h2 id="game-title">Haz crecer las estrellas</h2>
+                        </div>
+                        <div class="game-stats" aria-live="polite">
+                            <span><small>Puntos</small><strong data-game-score>0</strong></span>
+                            <span><small>Récord</small><strong data-game-best>0</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="game-board" data-game-board tabindex="0" aria-label="Tablero de Constelaciones. Usa las flechas, WASD o desliza con el dedo.">
+                        <div class="game-grid" data-game-grid></div>
+                        <div class="game-over" data-game-over hidden>
+                            <span aria-hidden="true">☄</span>
+                            <strong>Este cielo se llenó</strong>
+                            <p>Tu constelación puede comenzar de nuevo.</p>
+                            <button class="button button-primary" type="button" data-restart-game>Nuevo cielo</button>
+                        </div>
+                    </div>
+
+                    <div class="game-controls">
+                        <p><strong>Computadora:</strong> flechas o WASD. <strong>Celular:</strong> desliza sobre el tablero.</p>
+                        <button class="button button-secondary" type="button" data-new-game>Reiniciar partida</button>
+                    </div>
+                </section>
+
+                <aside class="clue-vault card-surface" aria-labelledby="clue-title">
+                    <p class="eyebrow">Para futuros regalos</p>
+                    <h2 id="clue-title">Pistas del cielo</h2>
+                    <p>Supera nuevos niveles para preparar espacios donde aparecerán próximas pistas.</p>
+                    <div class="clue-list" data-clue-list></div>
+                </aside>
             </div>
         </section>
 
@@ -253,7 +404,7 @@
 
                         <p class="letter-signature">TE AMO MUCHO, NOVIA. 😁<br><br>Te quiero mucho: tu rati, novio y rata apestosa.<br>Y más que tú.</p>
 
-                        <aside class="letter-note">Pista: puede que los colores de esta carta sean algo que te llegará… o que ya te llegó. 😏</aside>
+                        <aside class="letter-note" aria-label="Pista de la carta">Pista: puede que los colores de esta carta sean algo que te llegará… o que ya te llegó. 😏</aside>
                     </div>
                 </div>
             </article>
@@ -320,7 +471,7 @@
     </main>
 
     <footer class="site-footer">
-        <p>Hecho con mucho amor para May <span aria-hidden="true">♡</span></p>
+        <p>Hecho por Miguel, con mucho amor para May <span aria-hidden="true">✦</span></p>
     </footer>
 
     <noscript>
