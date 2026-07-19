@@ -911,6 +911,56 @@ body.entry-pending {
     font-variant-numeric: tabular-nums;
 }
 
+.game-preferences {
+    display: flex;
+    margin: -4px 0 22px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.game-mode-switch {
+    display: inline-flex;
+    padding: 4px;
+    border: 1px solid rgba(141, 204, 255, 0.16);
+    border-radius: 999px;
+    background: rgba(1, 12, 31, 0.55);
+}
+
+.game-mode-switch button,
+.game-sound-toggle {
+    min-height: 38px;
+    border: 0;
+    color: var(--muted);
+    background: transparent;
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.game-mode-switch button {
+    padding: 8px 14px;
+    border-radius: 999px;
+}
+
+.game-mode-switch button[aria-pressed="true"] {
+    color: #03152f;
+    background: linear-gradient(135deg, #d8f1ff, #79c7ff);
+    box-shadow: 0 5px 18px rgba(80, 166, 237, 0.2);
+}
+
+.game-sound-toggle {
+    padding: 8px 11px;
+    border-radius: 12px;
+}
+
+.game-sound-toggle:hover {
+    color: var(--text);
+    background: rgba(119, 190, 246, 0.09);
+}
+
 .game-board {
     position: relative;
     width: min(100%, 600px);
@@ -980,6 +1030,55 @@ body.entry-pending {
     letter-spacing: 0.04em;
 }
 
+.game-panel[data-game-mode="cupcakes"] .game-stats > span {
+    border-color: rgba(246, 112, 152, 0.42);
+    background: #f67098;
+}
+
+.game-panel[data-game-mode="cupcakes"] .game-stats small,
+.game-panel[data-game-mode="cupcakes"] .game-stats strong {
+    color: #401d24;
+}
+
+.game-panel[data-game-mode="cupcakes"] .game-mode-switch button[aria-pressed="true"] {
+    color: #4d2523;
+    background: #f8a0ba;
+    box-shadow: 0 5px 18px rgba(246, 112, 152, 0.22);
+}
+
+.game-panel[data-game-mode="cupcakes"] .game-board {
+    border-color: rgba(255, 255, 255, 0.28);
+    border-radius: 12px;
+    background: #f67098;
+    box-shadow: 0 22px 50px rgba(44, 5, 29, 0.25);
+}
+
+.game-panel[data-game-mode="cupcakes"] .game-grid {
+    gap: clamp(7px, 1.6vw, 15px);
+}
+
+.game-panel[data-game-mode="cupcakes"] .game-cell {
+    border: 0;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.star-tile.is-cupcake {
+    border: 0;
+    border-radius: 3px;
+    place-content: stretch;
+    background: #fff;
+    box-shadow: none;
+}
+
+.star-tile.is-cupcake img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+}
+
 .tile-level-2 { background: radial-gradient(circle, rgba(104, 190, 255, 0.34), #174878 68%); }
 .tile-level-3 { background: radial-gradient(circle, rgba(88, 205, 255, 0.38), #135b85 70%); }
 .tile-level-4 { background: radial-gradient(circle, rgba(114, 191, 255, 0.42), #284f8f 70%); }
@@ -1013,6 +1112,19 @@ body.entry-pending {
     text-align: center;
 }
 
+.game-over[hidden] {
+    display: none;
+}
+
+.game-panel[data-game-mode="cupcakes"] .game-over {
+    color: #4d2523;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.game-panel[data-game-mode="cupcakes"] .game-over p {
+    color: #6c4543;
+}
+
 .game-over > span {
     color: #aadaff;
     font-size: 3.7rem;
@@ -1041,6 +1153,71 @@ body.entry-pending {
     margin: 0;
     color: var(--muted);
     font-size: 0.82rem;
+}
+
+.cupcake-legend {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(246, 112, 152, 0.22);
+}
+
+.cupcake-legend summary {
+    color: #f5bfd0;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.cupcake-legend-grid {
+    display: grid;
+    margin-top: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.cupcake-legend-grid article {
+    display: flex;
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid rgba(246, 112, 152, 0.18);
+    border-radius: 12px;
+    align-items: center;
+    gap: 9px;
+    background: rgba(246, 112, 152, 0.08);
+}
+
+.cupcake-legend-grid img {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.cupcake-legend-grid span {
+    display: grid;
+    min-width: 0;
+}
+
+.cupcake-legend-grid strong {
+    overflow: hidden;
+    color: #ffe5ed;
+    font-size: 0.67rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cupcake-legend-grid small {
+    color: #d895a9;
+    font-size: 0.62rem;
+}
+
+.cupcake-legend > p {
+    margin: 15px 0 0;
+    color: var(--muted);
+    font-size: 0.7rem;
+}
+
+.cupcake-legend a {
+    color: #ffc4d5;
 }
 
 .clue-vault {
@@ -1454,6 +1631,24 @@ body.entry-pending {
 
     .game-controls .button {
         width: 100%;
+    }
+
+    .game-preferences {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .game-mode-switch {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .game-sound-toggle {
+        align-self: flex-start;
+    }
+
+    .cupcake-legend-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .clue-list {
