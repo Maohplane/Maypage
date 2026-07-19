@@ -270,9 +270,9 @@
         8192: "Rainbow"
     };
     const CLUES = [
-        { id: "clue-1", score: 10000, label: "Primera pista", requirement: "Consigue 10,000 puntos" },
-        { id: "clue-2", score: 20000, label: "Segunda pista", requirement: "Consigue 20,000 puntos" },
-        { id: "clue-3", score: 36000, label: "Tercera pista", requirement: "Consigue 36,000 puntos" },
+        { id: "clue-1", score: 7500, label: "Primera pista", requirement: "Consigue 7,500 puntos" },
+        { id: "clue-2", score: 15000, label: "Segunda pista", requirement: "Consigue 15,000 puntos" },
+        { id: "clue-3", score: 25000, label: "Tercera pista", requirement: "Consigue 25,000 puntos" },
         { id: "clue-4", tile: 2048, label: "Pista estelar", requirement: "Crea la Estrella de May" }
     ];
 
