@@ -270,8 +270,20 @@
         8192: "Rainbow"
     };
     const CLUES = [
-        { id: "clue-1", score: 7500, label: "Primera pista", requirement: "Consigue 7,500 puntos" },
-        { id: "clue-2", score: 15000, label: "Segunda pista", requirement: "Consigue 15,000 puntos" },
+        {
+            id: "clue-1",
+            score: 7500,
+            label: "Primera pista",
+            requirement: "Consigue 7,500 puntos",
+            unlockedText: "Personas es lo que soy,\nacomodadas es que están.\nNo pierdas el control,\nque me tienes que arrancar.\nTodas al inicio no están;\nme tienes que buscar.\nSi me copio,\nme tienes que cambiar."
+        },
+        {
+            id: "clue-2",
+            score: 15000,
+            label: "Segunda pista",
+            requirement: "Consigue 15,000 puntos",
+            unlockedText: "Te ayudo a mirar y a tocar,\nno me confundas, que te puedo espantar.\nEn el día a día me puedes usar;\nsiempre intenta apuntar."
+        },
         { id: "clue-3", score: 25000, label: "Tercera pista", requirement: "Consigue 25,000 puntos" },
         { id: "clue-4", tile: 2048, label: "Pista estelar", requirement: "Crea la Estrella de May" }
     ];
@@ -302,11 +314,17 @@
     let gameOver = false;
     let gameMode = readStorage("maypage-game-mode", "stars") === "cupcakes" ? "cupcakes" : "stars";
     let soundEnabled = readStorage("maypage-game-sound", "true") !== "false";
-    let audioContext = null;
+    const moveSound = new Audio("assets/sounds/move-pop.mp3");
+    const mergeSound = new Audio("assets/sounds/merge-leaf.mp3");
     let pointerStart = null;
     let previousUnlockedClues = 0;
     let cupcakeLegendRendered = false;
     let lastClueSignature = "";
+
+    moveSound.preload = "auto";
+    moveSound.volume = 0.06;
+    mergeSound.preload = "auto";
+    mergeSound.volume = 0.1;
 
     function isPowerOfTwo(value) {
         return value === 0 || (Number.isInteger(value) && value > 0 && (value & (value - 1)) === 0);
@@ -425,7 +443,8 @@
         gameOver = !canMove();
         renderGame();
         saveGame();
-        if (merges > 0) playMergeSound(gained, merges);
+        playGameSound(moveSound);
+        if (merges > 0) playGameSound(mergeSound);
         return true;
     }
 
@@ -433,31 +452,11 @@
         return Math.min(12, Math.max(1, Math.log2(value)));
     }
 
-    function playMergeSound(gained, merges) {
+    function playGameSound(audio) {
         if (!soundEnabled) return;
-
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContextClass) return;
-
         try {
-            audioContext ??= new AudioContextClass();
-            if (audioContext.state === "suspended") audioContext.resume().catch(() => {});
-
-            const now = audioContext.currentTime;
-            const oscillator = audioContext.createOscillator();
-            const gain = audioContext.createGain();
-            const pitch = 390 + Math.min(260, Math.log2(Math.max(4, gained)) * 28) + Math.min(60, merges * 8);
-
-            oscillator.type = "sine";
-            oscillator.frequency.setValueAtTime(pitch, now);
-            oscillator.frequency.exponentialRampToValueAtTime(pitch * 1.12, now + 0.09);
-            gain.gain.setValueAtTime(0.0001, now);
-            gain.gain.exponentialRampToValueAtTime(0.018, now + 0.012);
-            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.13);
-            oscillator.connect(gain);
-            gain.connect(audioContext.destination);
-            oscillator.start(now);
-            oscillator.stop(now + 0.14);
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
         } catch {
             // El juego sigue funcionando si el navegador bloquea el audio.
         }
@@ -491,8 +490,8 @@
         if (!soundToggle) return;
         soundToggle.setAttribute("aria-pressed", String(soundEnabled));
         soundToggle.setAttribute("aria-label", soundEnabled
-            ? "Desactivar sonido de las fusiones"
-            : "Activar sonido de las fusiones");
+            ? "Desactivar sonidos del juego"
+            : "Activar sonidos del juego");
         soundToggle.innerHTML = `<span aria-hidden="true">${soundEnabled ? "♪" : "×"}</span> ${soundEnabled ? "Sonido suave" : "Sin sonido"}`;
     }
 
@@ -548,7 +547,7 @@
             icon.textContent = isUnlocked ? "✦" : "◈";
             title.textContent = clue.label;
             description.textContent = isUnlocked
-                ? "Las pistas todavía no están listas, hermosa. Vuelve pronto. ✦"
+                ? (clue.unlockedText || "Las pistas todavía no están listas, hermosa. Vuelve pronto. ✦")
                 : clue.requirement;
             copy.append(title, description);
             item.append(icon, copy);
@@ -700,6 +699,12 @@
     soundToggle?.addEventListener("click", () => {
         soundEnabled = !soundEnabled;
         writeStorage("maypage-game-sound", String(soundEnabled));
+        if (!soundEnabled) {
+            [moveSound, mergeSound].forEach((audio) => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+        }
         updateSoundButton();
     });
 
