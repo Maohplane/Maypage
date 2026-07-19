@@ -8,9 +8,9 @@
     <title>Para May</title>
     <link rel="icon" href="logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="styles.css?v=20260718">
-    <link rel="stylesheet" href="cosmic.css?v=20260718">
+    <link rel="stylesheet" href="cosmic.css?v=20260718-2">
     <script src="script.js?v=20260718" defer></script>
-    <script src="experiences.js?v=20260718" defer></script>
+    <script src="experiences.js?v=20260718-2" defer></script>
 </head>
 <body class="entry-pending">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -239,15 +239,15 @@
                 <a class="back-link" href="#inicio">← Volver al inicio</a>
                 <p class="eyebrow">Un juego que siempre estará aquí</p>
                 <h1>Constelaciones <span aria-hidden="true">✧</span></h1>
-                <p>Une dos estrellas iguales para crear una cada vez más brillante.</p>
+                <p data-game-page-description>Une dos estrellas iguales para crear una cada vez más brillante.</p>
             </div>
 
             <div class="game-layout">
-                <section class="game-panel card-surface" aria-labelledby="game-title">
+                <section class="game-panel card-surface" data-game-panel data-game-mode="stars" aria-labelledby="game-title">
                     <div class="game-toolbar">
                         <div>
-                            <p class="eyebrow">El cielo de May</p>
-                            <h2 id="game-title">Haz crecer las estrellas</h2>
+                            <p class="eyebrow" data-game-eyebrow>El cielo de May</p>
+                            <h2 id="game-title" data-game-title>Haz crecer las estrellas</h2>
                         </div>
                         <div class="game-stats" aria-live="polite">
                             <span><small>Puntos</small><strong data-game-score>0</strong></span>
@@ -255,12 +255,22 @@
                         </div>
                     </div>
 
+                    <div class="game-preferences">
+                        <div class="game-mode-switch" role="group" aria-label="Elegir apariencia del juego">
+                            <button type="button" data-game-mode-option="stars" aria-pressed="true">✦ Estrellas</button>
+                            <button type="button" data-game-mode-option="cupcakes" aria-pressed="false">🧁 Cupcakes</button>
+                        </div>
+                        <button class="game-sound-toggle" type="button" data-game-sound aria-pressed="true" aria-label="Desactivar sonido de las fusiones">
+                            <span aria-hidden="true">♪</span> Sonido suave
+                        </button>
+                    </div>
+
                     <div class="game-board" data-game-board tabindex="0" aria-label="Tablero de Constelaciones. Usa las flechas, WASD o desliza con el dedo.">
                         <div class="game-grid" data-game-grid></div>
-                        <div class="game-over" data-game-over hidden>
-                            <span aria-hidden="true">☄</span>
-                            <strong>Este cielo se llenó</strong>
-                            <p>Tu constelación puede comenzar de nuevo.</p>
+                        <div class="game-over" data-game-over role="alert" aria-live="assertive" hidden>
+                            <span data-game-over-icon aria-hidden="true">☄</span>
+                            <strong data-game-over-title>Este cielo se llenó</strong>
+                            <p data-game-over-copy>Ya no quedan movimientos. Tu constelación puede comenzar de nuevo.</p>
                             <button class="button button-primary" type="button" data-restart-game>Nuevo cielo</button>
                         </div>
                     </div>
@@ -269,6 +279,12 @@
                         <p><strong>Computadora:</strong> flechas o WASD. <strong>Celular:</strong> desliza sobre el tablero.</p>
                         <button class="button button-secondary" type="button" data-new-game>Reiniciar partida</button>
                     </div>
+
+                    <details class="cupcake-legend" data-cupcake-legend hidden>
+                        <summary>Leyenda de cupcakes</summary>
+                        <div class="cupcake-legend-grid" data-cupcake-legend-grid></div>
+                        <p>Modo inspirado en <a href="https://0x0800.github.io/2048-CUPCAKES/" target="_blank" rel="noreferrer">2048 Cupcakes</a>. Imágenes de Georgetown Cupcake; juego original 2048 de Gabriele Cirulli.</p>
+                    </details>
                 </section>
 
                 <aside class="clue-vault card-surface" aria-labelledby="clue-title">

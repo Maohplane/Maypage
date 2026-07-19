@@ -254,6 +254,21 @@
         2048: "Estrella de May",
         4096: "Nuestro universo"
     };
+    const CUPCAKE_NAMES = {
+        2: "Vanilla Birthday",
+        4: "Bubblegum Pink",
+        8: "Sunshine Vanilla",
+        16: "Valrhona Blonde Ganache",
+        32: "Chocolate Peanut Butter Cheesecake",
+        64: "Chocolate Mint Fudge",
+        128: "Chocolate Spider Web",
+        256: "Toasted Marshmallow",
+        512: "Cookies and Creme",
+        1024: "Chocolate Sundae",
+        2048: "White Chocolate Peppermint",
+        4096: "2017 Confetti Vanilla",
+        8192: "Rainbow"
+    };
     const CLUES = [
         { id: "clue-1", score: 5000, label: "Primera pista", requirement: "Consigue 5,000 puntos" },
         { id: "clue-2", score: 10000, label: "Segunda pista", requirement: "Consigue 10,000 puntos" },
@@ -263,9 +278,21 @@
 
     const gameBoard = document.querySelector("[data-game-board]");
     const gameGrid = document.querySelector("[data-game-grid]");
+    const gamePanel = document.querySelector("[data-game-panel]");
     const scoreDisplay = document.querySelector("[data-game-score]");
     const bestDisplay = document.querySelector("[data-game-best]");
     const gameOverPanel = document.querySelector("[data-game-over]");
+    const gamePageDescription = document.querySelector("[data-game-page-description]");
+    const gameEyebrow = document.querySelector("[data-game-eyebrow]");
+    const gameTitle = document.querySelector("[data-game-title]");
+    const gameOverIcon = document.querySelector("[data-game-over-icon]");
+    const gameOverTitle = document.querySelector("[data-game-over-title]");
+    const gameOverCopy = document.querySelector("[data-game-over-copy]");
+    const restartGameButton = document.querySelector("[data-restart-game]");
+    const gameModeButtons = [...document.querySelectorAll("[data-game-mode-option]")];
+    const soundToggle = document.querySelector("[data-game-sound]");
+    const cupcakeLegend = document.querySelector("[data-cupcake-legend]");
+    const cupcakeLegendGrid = document.querySelector("[data-cupcake-legend-grid]");
     const clueList = document.querySelector("[data-clue-list]");
     const numberFormat = new Intl.NumberFormat("es-MX");
     let board = Array(SIZE * SIZE).fill(0);
@@ -273,8 +300,12 @@
     let bestScore = 0;
     let highestEver = 0;
     let gameOver = false;
+    let gameMode = readStorage("maypage-game-mode", "stars") === "cupcakes" ? "cupcakes" : "stars";
+    let soundEnabled = readStorage("maypage-game-sound", "true") !== "false";
+    let audioContext = null;
     let pointerStart = null;
     let previousUnlockedClues = 0;
+    let cupcakeLegendRendered = false;
 
     function isPowerOfTwo(value) {
         return value === 0 || (Number.isInteger(value) && value > 0 && (value & (value - 1)) === 0);
@@ -291,7 +322,6 @@
             if (Number.isFinite(saved?.score) && saved.score >= 0) score = saved.score;
             if (Number.isFinite(saved?.bestScore) && saved.bestScore >= 0) bestScore = saved.bestScore;
             if (Number.isFinite(saved?.highestEver) && saved.highestEver >= 0) highestEver = saved.highestEver;
-            gameOver = Boolean(saved?.gameOver);
         } catch {
             // A malformed save starts a fresh, valid game.
         }
@@ -300,6 +330,8 @@
             addRandomStar();
             addRandomStar();
         }
+
+        gameOver = !canMove();
     }
 
     function saveGame() {
@@ -320,12 +352,14 @@
         const compact = values.filter(Boolean);
         const merged = [];
         let gained = 0;
+        let merges = 0;
 
         for (let index = 0; index < compact.length; index += 1) {
             if (compact[index] === compact[index + 1]) {
                 const combined = compact[index] * 2;
                 merged.push(combined);
                 gained += combined;
+                merges += 1;
                 index += 1;
             } else {
                 merged.push(compact[index]);
@@ -333,7 +367,7 @@
         }
 
         while (merged.length < SIZE) merged.push(0);
-        return { values: merged, gained };
+        return { values: merged, gained, merges };
     }
 
     function lineIndices(line, direction) {
@@ -357,9 +391,13 @@
     }
 
     function move(direction) {
-        if (gameOver) return false;
+        if (gameOver) {
+            renderGame();
+            return false;
+        }
         const before = [...board];
         let gained = 0;
+        let merges = 0;
 
         for (let line = 0; line < SIZE; line += 1) {
             const indices = lineIndices(line, direction);
@@ -368,6 +406,7 @@
                 board[indices[position]] = value;
             });
             gained += result.gained;
+            merges += result.merges;
         }
 
         const changed = board.some((value, index) => value !== before[index]);
@@ -385,11 +424,103 @@
         gameOver = !canMove();
         renderGame();
         saveGame();
+        if (merges > 0) playMergeSound(gained, merges);
         return true;
     }
 
     function tileLevel(value) {
         return Math.min(12, Math.max(1, Math.log2(value)));
+    }
+
+    function playMergeSound(gained, merges) {
+        if (!soundEnabled) return;
+
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+
+        try {
+            audioContext ??= new AudioContextClass();
+            if (audioContext.state === "suspended") audioContext.resume().catch(() => {});
+
+            const now = audioContext.currentTime;
+            const oscillator = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            const pitch = 390 + Math.min(260, Math.log2(Math.max(4, gained)) * 28) + Math.min(60, merges * 8);
+
+            oscillator.type = "sine";
+            oscillator.frequency.setValueAtTime(pitch, now);
+            oscillator.frequency.exponentialRampToValueAtTime(pitch * 1.12, now + 0.09);
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.018, now + 0.012);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.13);
+            oscillator.connect(gain);
+            gain.connect(audioContext.destination);
+            oscillator.start(now);
+            oscillator.stop(now + 0.14);
+        } catch {
+            // El juego sigue funcionando si el navegador bloquea el audio.
+        }
+    }
+
+    function renderCupcakeLegend() {
+        if (cupcakeLegendRendered || !cupcakeLegendGrid) return;
+
+        Object.entries(CUPCAKE_NAMES).forEach(([value, name]) => {
+            const item = document.createElement("article");
+            const image = document.createElement("img");
+            const copy = document.createElement("span");
+            const title = document.createElement("strong");
+            const number = document.createElement("small");
+
+            image.src = `assets/cupcakes/${value}.jpg`;
+            image.alt = "";
+            image.loading = "lazy";
+            title.textContent = name;
+            number.textContent = value;
+            copy.append(title, number);
+            item.append(image, copy);
+            cupcakeLegendGrid.append(item);
+        });
+
+        cupcakeLegendRendered = true;
+    }
+
+    function updateSoundButton() {
+        if (!soundToggle) return;
+        soundToggle.setAttribute("aria-pressed", String(soundEnabled));
+        soundToggle.setAttribute("aria-label", soundEnabled
+            ? "Desactivar sonido de las fusiones"
+            : "Activar sonido de las fusiones");
+        soundToggle.innerHTML = `<span aria-hidden="true">${soundEnabled ? "♪" : "×"}</span> ${soundEnabled ? "Sonido suave" : "Sin sonido"}`;
+    }
+
+    function updateGameModeUi() {
+        const cupcakes = gameMode === "cupcakes";
+
+        if (gamePanel) gamePanel.dataset.gameMode = gameMode;
+        if (gamePageDescription) gamePageDescription.textContent = cupcakes
+            ? "Une dos cupcakes iguales para descubrir el siguiente sabor."
+            : "Une dos estrellas iguales para crear una cada vez más brillante.";
+        if (gameEyebrow) gameEyebrow.textContent = cupcakes ? "La pastelería de May" : "El cielo de May";
+        if (gameTitle) gameTitle.textContent = cupcakes ? "Junta los cupcakes" : "Haz crecer las estrellas";
+        if (gameBoard) gameBoard.setAttribute("aria-label", cupcakes
+            ? "Tablero de Cupcakes. Usa las flechas, WASD o desliza con el dedo."
+            : "Tablero de Constelaciones. Usa las flechas, WASD o desliza con el dedo.");
+        if (gameOverIcon) gameOverIcon.textContent = cupcakes ? "🧁" : "☄";
+        if (gameOverTitle) gameOverTitle.textContent = cupcakes ? "Se acabaron los movimientos" : "Este cielo se llenó";
+        if (gameOverCopy) gameOverCopy.textContent = cupcakes
+            ? "Ya no puedes juntar más cupcakes. ¿Jugamos otra vez?"
+            : "Ya no quedan movimientos. Tu constelación puede comenzar de nuevo.";
+        if (restartGameButton) restartGameButton.textContent = cupcakes ? "Jugar de nuevo" : "Nuevo cielo";
+
+        gameModeButtons.forEach((button) => {
+            button.setAttribute("aria-pressed", String(button.dataset.gameModeOption === gameMode));
+        });
+
+        if (cupcakeLegend) {
+            cupcakeLegend.hidden = !cupcakes;
+            if (cupcakes) renderCupcakeLegend();
+        }
     }
 
     function renderClues({ announce = false } = {}) {
@@ -450,15 +581,29 @@
                 const tile = document.createElement("div");
                 const star = document.createElement("span");
                 const number = document.createElement("small");
-                const name = STAR_NAMES[value] || `Estrella ${value}`;
+                const cupcakeAssetValue = CUPCAKE_NAMES[value] ? value : 8192;
+                const name = gameMode === "cupcakes"
+                    ? (CUPCAKE_NAMES[value] || `${CUPCAKE_NAMES[8192]} ${value}`)
+                    : (STAR_NAMES[value] || `Estrella ${value}`);
 
                 tile.className = `star-tile tile-level-${tileLevel(value)}`;
                 tile.setAttribute("aria-label", `${name}, valor ${value}`);
                 tile.title = name;
-                star.setAttribute("aria-hidden", "true");
-                star.textContent = value >= 1024 ? "✷" : value >= 128 ? "✦" : "✧";
                 number.textContent = String(value);
-                tile.append(star, number);
+
+                if (gameMode === "cupcakes") {
+                    const image = document.createElement("img");
+                    tile.classList.add("is-cupcake");
+                    image.src = `assets/cupcakes/${cupcakeAssetValue}.jpg`;
+                    image.alt = "";
+                    image.draggable = false;
+                    number.className = "sr-only";
+                    tile.append(image, number);
+                } else {
+                    star.setAttribute("aria-hidden", "true");
+                    star.textContent = value >= 1024 ? "✷" : value >= 128 ? "✦" : "✧";
+                    tile.append(star, number);
+                }
                 cell.append(tile);
             }
 
@@ -529,6 +674,26 @@
     document.querySelector("[data-new-game]")?.addEventListener("click", newGame);
     document.querySelector("[data-restart-game]")?.addEventListener("click", newGame);
 
+    gameModeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const nextMode = button.dataset.gameModeOption;
+            if (!nextMode || nextMode === gameMode) return;
+            gameMode = nextMode;
+            writeStorage("maypage-game-mode", gameMode);
+            updateGameModeUi();
+            renderGame();
+            gameBoard?.focus({ preventScroll: true });
+        });
+    });
+
+    soundToggle?.addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        writeStorage("maypage-game-sound", String(soundEnabled));
+        updateSoundButton();
+    });
+
+    updateGameModeUi();
+    updateSoundButton();
     loadGame();
     highestEver = Math.max(highestEver, ...board);
     renderGame();
