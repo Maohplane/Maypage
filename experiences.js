@@ -270,9 +270,9 @@
         8192: "Rainbow"
     };
     const CLUES = [
-        { id: "clue-1", score: 5000, label: "Primera pista", requirement: "Consigue 5,000 puntos" },
-        { id: "clue-2", score: 10000, label: "Segunda pista", requirement: "Consigue 10,000 puntos" },
-        { id: "clue-3", score: 18000, label: "Tercera pista", requirement: "Consigue 18,000 puntos" },
+        { id: "clue-1", score: 10000, label: "Primera pista", requirement: "Consigue 10,000 puntos" },
+        { id: "clue-2", score: 20000, label: "Segunda pista", requirement: "Consigue 20,000 puntos" },
+        { id: "clue-3", score: 36000, label: "Tercera pista", requirement: "Consigue 36,000 puntos" },
         { id: "clue-4", tile: 2048, label: "Pista estelar", requirement: "Crea la Estrella de May" }
     ];
 
@@ -306,6 +306,7 @@
     let pointerStart = null;
     let previousUnlockedClues = 0;
     let cupcakeLegendRendered = false;
+    let lastClueSignature = "";
 
     function isPowerOfTwo(value) {
         return value === 0 || (Number.isInteger(value) && value > 0 && (value & (value - 1)) === 0);
@@ -475,6 +476,7 @@
             image.src = `assets/cupcakes/${value}.jpg`;
             image.alt = "";
             image.loading = "lazy";
+            image.decoding = "async";
             title.textContent = name;
             number.textContent = value;
             copy.append(title, number);
@@ -528,8 +530,11 @@
         const unlocked = CLUES.filter((clue) =>
             (clue.score && bestScore >= clue.score) || (clue.tile && highestEver >= clue.tile)
         );
+        const signature = CLUES.map((clue) => unlocked.includes(clue) ? "1" : "0").join("");
 
-        clueList.replaceChildren();
+        if (signature === lastClueSignature) return;
+
+        const fragment = document.createDocumentFragment();
         CLUES.forEach((clue, index) => {
             const isUnlocked = unlocked.includes(clue);
             const item = document.createElement("article");
@@ -543,17 +548,20 @@
             icon.textContent = isUnlocked ? "✦" : "◈";
             title.textContent = clue.label;
             description.textContent = isUnlocked
-                ? "Espacio desbloqueado. Aquí aparecerá una pista cuando haya un nuevo regalo en camino."
+                ? "Las pistas todavía no están listas, hermosa. Vuelve pronto. ✦"
                 : clue.requirement;
             copy.append(title, description);
             item.append(icon, copy);
-            clueList.append(item);
+            fragment.append(item);
 
             if (isUnlocked) item.style.setProperty("--clue-delay", `${index * 80}ms`);
         });
 
+        clueList.replaceChildren(fragment);
+
         if (announce && unlocked.length > previousUnlockedClues) showGameToast("¡Desbloqueaste un nuevo espacio para pistas! ✦");
         previousUnlockedClues = unlocked.length;
+        lastClueSignature = signature;
     }
 
     function showGameToast(message) {
@@ -571,7 +579,7 @@
 
     function renderGame({ announceClues = false } = {}) {
         if (!gameGrid) return;
-        gameGrid.replaceChildren();
+        const fragment = document.createDocumentFragment();
 
         board.forEach((value) => {
             const cell = document.createElement("div");
@@ -596,6 +604,7 @@
                     tile.classList.add("is-cupcake");
                     image.src = `assets/cupcakes/${cupcakeAssetValue}.jpg`;
                     image.alt = "";
+                    image.decoding = "async";
                     image.draggable = false;
                     number.className = "sr-only";
                     tile.append(image, number);
@@ -607,8 +616,10 @@
                 cell.append(tile);
             }
 
-            gameGrid.append(cell);
+            fragment.append(cell);
         });
+
+        gameGrid.replaceChildren(fragment);
 
         if (scoreDisplay) scoreDisplay.textContent = numberFormat.format(score);
         if (bestDisplay) bestDisplay.textContent = numberFormat.format(bestScore);
