@@ -1273,6 +1273,7 @@ body.entry-pending {
     color: #718aa7;
     font-size: 0.72rem;
     line-height: 1.4;
+    white-space: pre-line;
 }
 
 .clue-item.is-unlocked {
