@@ -89,20 +89,20 @@
     }
     showCurrentPage();
 
-    const anniversaryCountdown = document.querySelector("[data-countdown]");
-
-    if (anniversaryCountdown) {
-        const targetDate = new Date(anniversaryCountdown.dataset.targetDate);
-        const timer = anniversaryCountdown.querySelector('[role="timer"]');
-        const message = anniversaryCountdown.querySelector("[data-countdown-message]");
+    document.querySelectorAll("[data-countdown]").forEach((countdown) => {
+        const targetDate = new Date(countdown.dataset.targetDate);
+        const countdownLabel = countdown.dataset.countdownLabel || "la fecha especial";
+        const completeMessage = countdown.dataset.completeMessage || "¡Ya llegó el día! ✨";
+        const timer = countdown.querySelector('[role="timer"]');
+        const message = countdown.querySelector("[data-countdown-message]");
         const fields = {
-            days: anniversaryCountdown.querySelector("[data-countdown-days]"),
-            hours: anniversaryCountdown.querySelector("[data-countdown-hours]"),
-            minutes: anniversaryCountdown.querySelector("[data-countdown-minutes]"),
-            seconds: anniversaryCountdown.querySelector("[data-countdown-seconds]")
+            days: countdown.querySelector("[data-countdown-days]"),
+            hours: countdown.querySelector("[data-countdown-hours]"),
+            minutes: countdown.querySelector("[data-countdown-minutes]"),
+            seconds: countdown.querySelector("[data-countdown-seconds]")
         };
 
-        function updateAnniversaryCountdown() {
+        function updateCountdown() {
             const remaining = Math.max(0, targetDate.getTime() - Date.now());
             const totalSeconds = Math.floor(remaining / 1000);
             const days = Math.floor(totalSeconds / 86400);
@@ -114,22 +114,23 @@
             fields.hours.textContent = String(hours).padStart(2, "0");
             fields.minutes.textContent = String(minutes).padStart(2, "0");
             fields.seconds.textContent = String(seconds).padStart(2, "0");
-            timer?.setAttribute("aria-label", `${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos para nuestro primer aniversario`);
+            timer?.setAttribute("aria-label", `${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos para ${countdownLabel}`);
 
             if (remaining === 0) {
-                anniversaryCountdown.classList.add("is-complete");
-                if (message) message.textContent = "¡Ya llegó nuestro primer aniversario! ✨";
+                countdown.classList.add("is-complete");
+                if (message) message.textContent = completeMessage;
                 return false;
             }
 
             return true;
         }
 
-        updateAnniversaryCountdown();
-        const countdownInterval = window.setInterval(() => {
-            if (!updateAnniversaryCountdown()) window.clearInterval(countdownInterval);
-        }, 1000);
-    }
+        if (updateCountdown()) {
+            const countdownInterval = window.setInterval(() => {
+                if (!updateCountdown()) window.clearInterval(countdownInterval);
+            }, 1000);
+        }
+    });
 
     document.querySelectorAll("[data-letter]").forEach((letter) => {
         const openButton = letter.querySelector("[data-open-letter]");

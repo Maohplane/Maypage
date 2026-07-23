@@ -284,7 +284,13 @@
             requirement: "Consigue 15,000 puntos",
             unlockedText: "Te ayudo a mirar y a tocar,\nno me confundas, que te puedo espantar.\nEn el día a día me puedes usar;\nsiempre intenta apuntar."
         },
-        { id: "clue-3", score: 25000, label: "Tercera pista", requirement: "Consigue 25,000 puntos" },
+        {
+            id: "clue-3",
+            score: 25000,
+            label: "Tercera pista",
+            requirement: "Consigue 25,000 puntos",
+            unlockedText: "Tal como las estrellas se alinean,\nel amor entre tú y yo así parece estar.\nSé lo abstracto que puede sonar,\npero lleno de estrellas mi corazón está.\n\nEn el día y en la noche siempre están,\npero es en la noche cuando me doy cuenta\nde cuánto te puedo extrañar.\n\nComo en un lugar se puede inmortalizar,\nyo contigo muchos años me quiero quedar.\n\nFeliz año, amor.\nQue sepas que tu novio siempre te amará mucho,\na pesar de lo que pase,\ncon todo su corazón."
+        },
         { id: "clue-4", tile: 2048, label: "Pista estelar", requirement: "Crea la Estrella de May" }
     ];
 
