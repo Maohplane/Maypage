@@ -878,6 +878,96 @@ body.entry-pending {
     gap: 10px;
 }
 
+.anniversary-finale {
+    margin: 88px auto 10px;
+    scroll-margin-top: 110px;
+}
+
+.anniversary-finale-intro {
+    max-width: 720px;
+    margin: 0 auto 38px;
+    text-align: center;
+}
+
+.anniversary-finale-intro > span {
+    display: inline-grid;
+    width: 82px;
+    height: 82px;
+    margin-bottom: 22px;
+    border: 1px solid rgba(148, 211, 255, 0.24);
+    border-radius: 28px;
+    place-items: center;
+    color: #effaff;
+    background: radial-gradient(circle, rgba(87, 180, 249, 0.3), transparent 70%);
+    box-shadow: 0 0 48px rgba(76, 165, 239, 0.24);
+    font-size: 3rem;
+    animation: star-pulse 2.4s ease-in-out infinite;
+}
+
+.anniversary-finale-intro h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 5vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1.08;
+}
+
+.anniversary-finale-intro > p:last-child {
+    color: var(--muted);
+}
+
+.letter-anniversary .letter-cover {
+    background:
+        radial-gradient(circle at 50% 30%, rgba(125, 207, 255, 0.3), transparent 16rem),
+        radial-gradient(circle at 12% 88%, rgba(113, 118, 239, 0.22), transparent 14rem),
+        linear-gradient(145deg, #123f79, #061a3c 58%, #141946);
+}
+
+.letter-anniversary .letter-paper {
+    background:
+        radial-gradient(circle at 86% 8%, rgba(121, 191, 244, 0.16), transparent 17rem),
+        linear-gradient(rgba(72, 124, 174, 0.06) 1px, transparent 1px),
+        #f8fbff;
+    background-size: auto, 100% 32px, auto;
+}
+
+.letter-anniversary .letter-paper h2 {
+    max-width: 700px;
+}
+
+.anniversary-emphasis {
+    color: #214f88;
+    letter-spacing: 0.025em;
+}
+
+.anniversary-letter-photo {
+    position: relative;
+    width: min(100%, 430px);
+    margin: 38px auto;
+    padding: 10px;
+    border: 1px solid rgba(49, 95, 154, 0.14);
+    border-radius: 26px;
+    background: #fff;
+    box-shadow: 0 24px 55px rgba(20, 50, 90, 0.2);
+    transform: rotate(-1.2deg);
+}
+
+.anniversary-letter-photo::before {
+    position: absolute;
+    inset: 10px;
+    z-index: 1;
+    border-radius: 17px;
+    background: linear-gradient(145deg, rgba(8, 34, 71, 0.06), transparent 36%, rgba(71, 132, 184, 0.05));
+    content: "";
+    pointer-events: none;
+}
+
+.anniversary-letter-photo img {
+    width: 100%;
+    border-radius: 17px;
+    filter: brightness(0.88) contrast(0.94) saturate(0.94);
+}
+
 .game-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 330px;
