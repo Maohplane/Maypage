@@ -98,6 +98,9 @@
     const memoryDate = document.querySelector("[data-memory-date]");
     const memoryTitle = document.querySelector("[data-memory-title]");
     const memoryPosition = document.querySelector("[data-memory-position]");
+    const memoryNextButton = document.querySelector("[data-memory-next]");
+    const anniversaryFinale = document.querySelector("[data-anniversary-finale]");
+    const anniversaryLetterCover = anniversaryFinale?.querySelector("[data-open-letter]");
     let activeMemoryIndex = 0;
     let memoriesRendered = false;
 
@@ -145,6 +148,11 @@
         if (memoryDate) memoryDate.textContent = memory.date;
         if (memoryTitle) memoryTitle.textContent = memory.title;
         if (memoryPosition) memoryPosition.textContent = `Recuerdo ${safeIndex + 1} de ${memories.length}`;
+        if (memoryNextButton) {
+            memoryNextButton.textContent = safeIndex === memories.length - 1
+                ? "Leer nuestra carta →"
+                : "Siguiente →";
+        }
 
         if (typeof memoryDialog?.showModal === "function") memoryDialog.showModal();
         else memoryDialog?.setAttribute("open", "");
@@ -155,9 +163,22 @@
         else memoryDialog?.removeAttribute("open");
     }
 
+    function revealAnniversaryFinale() {
+        closeMemory();
+        writeStorage("maypage-anniversary-letter-revealed", "true");
+        anniversaryFinale?.removeAttribute("hidden");
+        window.requestAnimationFrame(() => {
+            anniversaryFinale?.scrollIntoView({ behavior: "smooth", block: "start" });
+            anniversaryLetterCover?.focus({ preventScroll: true });
+        });
+    }
+
     document.querySelector("[data-close-memory]")?.addEventListener("click", closeMemory);
     document.querySelector("[data-memory-previous]")?.addEventListener("click", () => openMemory(activeMemoryIndex - 1));
-    document.querySelector("[data-memory-next]")?.addEventListener("click", () => openMemory(activeMemoryIndex + 1));
+    memoryNextButton?.addEventListener("click", () => {
+        if (activeMemoryIndex === memories.length - 1) revealAnniversaryFinale();
+        else openMemory(activeMemoryIndex + 1);
+    });
 
     memoryDialog?.addEventListener("click", (event) => {
         if (event.target === memoryDialog) closeMemory();
@@ -165,7 +186,10 @@
 
     memoryDialog?.addEventListener("keydown", (event) => {
         if (event.key === "ArrowLeft") openMemory(activeMemoryIndex - 1);
-        if (event.key === "ArrowRight") openMemory(activeMemoryIndex + 1);
+        if (event.key === "ArrowRight") {
+            if (activeMemoryIndex === memories.length - 1) revealAnniversaryFinale();
+            else openMemory(activeMemoryIndex + 1);
+        }
     });
 
     function normalizeAnswer(value) {
@@ -188,6 +212,9 @@
     function revealMemorySky() {
         albumGate?.setAttribute("hidden", "");
         memoryExperience?.removeAttribute("hidden");
+        if (readStorage("maypage-anniversary-letter-revealed") === "true") {
+            anniversaryFinale?.removeAttribute("hidden");
+        }
         renderMemories();
     }
 
