@@ -450,6 +450,86 @@ body.entry-pending {
     color: #f4dd9e;
 }
 
+.birthday-countdown-reveal {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    padding-top: 20px;
+    border-top: 1px solid rgba(151, 211, 255, 0.14);
+    grid-column: 1 / -1;
+    justify-content: center;
+    animation: birthday-reveal 700ms ease both;
+}
+
+.birthday-countdown-reveal .button {
+    box-shadow: 0 12px 34px rgba(75, 167, 242, 0.2);
+}
+
+.birthday-wait-card {
+    display: grid;
+    width: min(100%, 850px);
+    min-height: 430px;
+    margin: 0 auto;
+    padding: clamp(34px, 7vw, 74px);
+    place-content: center;
+    place-items: center;
+    text-align: center;
+}
+
+.birthday-wait-star {
+    display: grid;
+    width: 86px;
+    height: 86px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(156, 210, 255, 0.2);
+    border-radius: 50%;
+    place-items: center;
+    color: #f4dd9e;
+    background: radial-gradient(circle, rgba(105, 175, 239, 0.24), rgba(24, 67, 121, 0.12) 58%, transparent 60%);
+    box-shadow: 0 0 38px rgba(75, 167, 242, 0.16);
+    font-size: 2.25rem;
+    animation: birthday-star-pulse 2.8s ease-in-out infinite;
+}
+
+.birthday-wait-card h2 {
+    max-width: 650px;
+    margin: 2px 0 14px;
+    color: #f3f9ff;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.birthday-wait-card > p:not(.eyebrow) {
+    max-width: 560px;
+    margin: 0 0 26px;
+    color: var(--muted);
+}
+
+.birthday-content {
+    animation: birthday-reveal 800ms ease both;
+}
+
+.birthday-letter-emphasis {
+    color: #214f88;
+    font-size: 1.08em;
+}
+
+@keyframes birthday-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+}
+
+@keyframes birthday-star-pulse {
+    50% {
+        box-shadow: 0 0 55px rgba(75, 167, 242, 0.3);
+        transform: scale(1.06);
+    }
+}
+
 .section-intro h2,
 .cosmic-page-heading h1 {
     color: #f3f9ff;
@@ -1777,7 +1857,10 @@ body.entry-pending {
     .hero h1 span,
     .orbit-star,
     .album-lock-star.is-ready,
-    .memory-star-shape {
+    .memory-star-shape,
+    .birthday-countdown-reveal,
+    .birthday-content,
+    .birthday-wait-star {
         animation: none !important;
     }
 }
