@@ -8,8 +8,8 @@
     <title>Para May</title>
     <link rel="icon" href="logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="styles.css?v=20260718">
-    <link rel="stylesheet" href="cosmic.css?v=20260725-1">
-    <script src="script.js?v=20260722-1" defer></script>
+    <link rel="stylesheet" href="cosmic.css?v=20260802-1">
+    <script src="script.js?v=20260802-1" defer></script>
     <script src="experiences.js?v=20260725-1" defer></script>
 </head>
 <body class="entry-pending">
@@ -116,7 +116,7 @@
                 <p class="countdown-message" data-countdown-message aria-live="polite">Cada segundo enciende una estrella más de nuestra historia.</p>
             </section>
 
-            <section class="anniversary-countdown birthday-countdown card-surface" data-countdown data-target-date="2026-08-04T00:00:00-06:00" data-countdown-label="el cumpleaños de mi ratis" data-complete-message="¡Ya llegó el cumpleaños de mi ratis! 🎂" aria-labelledby="birthday-countdown-title">
+            <section class="anniversary-countdown birthday-countdown card-surface" data-countdown data-target-date="2026-08-04T00:00:00-06:00" data-countdown-label="el cumpleaños de mi ratis" data-complete-message="¡Ya llegó el cumpleaños de mi ratis! 🎂" data-unlock-selector="[data-birthday-unlock]" data-lock-selector="[data-birthday-wait]" aria-labelledby="birthday-countdown-title">
                 <div class="countdown-copy">
                     <p class="eyebrow">La próxima estrella especial</p>
                     <h2 id="birthday-countdown-title">El cumpleaños de mi ratis <span aria-hidden="true">✦</span></h2>
@@ -146,6 +146,10 @@
                 </div>
 
                 <p class="countdown-message" data-countdown-message aria-live="polite">Cada segundo nos acerca a celebrar a mi ratis.</p>
+
+                <div class="birthday-countdown-reveal" data-birthday-unlock hidden>
+                    <a class="button button-primary" href="#cumple">Abrir la carta de cumpleaños →</a>
+                </div>
             </section>
 
             <div class="section-intro">
@@ -186,7 +190,7 @@
                 <a class="cosmic-feature" href="#cumple">
                     <span class="cosmic-feature-icon" aria-hidden="true">✺</span>
                     <span>
-                        <small>Una fecha especial</small>
+                        <small>Se abre el 4 de agosto</small>
                         <strong>Cumpleaños</strong>
                     </span>
                     <span class="cosmic-feature-arrow" aria-hidden="true">→</span>
@@ -383,85 +387,95 @@
             <div class="page-heading">
                 <a class="back-link" href="#inicio">← Volver al inicio</a>
                 <p class="eyebrow">Una fecha muy especial</p>
-                <h1>Feliz cumpleaños, linda <span aria-hidden="true">🎂</span></h1>
-                <p>Abre la carta y después descubre el regalo.</p>
+                <h1>Feliz cumpleaños, May de 19 <span aria-hidden="true">🎂</span></h1>
+                <p>Una carta espera por ti entre las estrellas.</p>
             </div>
 
-            <article class="letter letter-birthday" data-letter>
-                <button class="letter-cover" type="button" data-open-letter aria-expanded="false">
-                    <span class="letter-stamp" aria-hidden="true">💌</span>
-                    <strong>Para Mayyyyyy</strong>
-                    <small>Toca para abrir</small>
-                </button>
-
-                <div class="letter-paper" data-letter-paper aria-hidden="true">
-                    <button class="icon-button close-letter" type="button" data-close-letter aria-label="Cerrar carta">×</button>
-                    <p class="letter-date">Para la más linda</p>
-                    <h2>¡Feliz cumpleaños, Mayyyyyy!</h2>
-                    <div class="letter-copy">
-                        <p>Sé lo especial que es para ti tu cumpleaños y se me hace muy tierno lo mucho que te emocionas porque llegue ese día. Quiero que sepas que ahora también es una fecha especial para mí. Jamás habría esperado que, un año después, te estaría deseando feliz cumpleaños a ti, que antes no conocía de nada; mucho menos imaginaba lo feliz que me harías cada día y cuánto me gustaría estar contigo en un día tan importante.</p>
-
-                        <p>Me di cuenta de lo feliz que me hacías sentir desde hace mucho, desde esas primeras veces que compartimos clase y todavía no nos llevábamos. Me gustaría saber en qué momento nos empezamos a llevar, pero empiezo a creer que siempre nos llevamos, incluso antes de conocernos, porque se me hace imposible acordarme de un momento específico que marque el inicio.</p>
-
-                        <p>Esa primera vez que hablamos en el camión fue cuando me di cuenta de lo especial que eras. Sin siquiera conocerte realmente, me abrí contigo como nunca lo había hecho con alguien, como tú también lo hiciste. Nunca te lo dije, pero fue ahí cuando supe que te ibas a convertir en una persona muy especial en mi vida, y así fue. Simplemente eras la amiga, la mejor amiga, que siempre había querido tener: alguien con quien pudiera ser yo mismo, decir lo que quisiera, confiar para lo que fuera, sentir que el tiempo no existía y, mucho más importante para mí, sonreír.</p>
-
-                        <p>Sabía lo divertida que eras cuando me dijiste que jugáramos a callarnos. Ahora sí que, como diríamos, una ironía, porque no hay momento en que estemos juntos y paremos de hablar. Te prometo que nunca ganaré ese juego, ya que siempre querré hablar contigo de lo que sea y en el momento que sea.</p>
-
-                        <p>Jamás imaginé que iba a querer tanto a alguien así, de la nada, pero supongo que pasar tantos días a tu lado, tanto en momentos buenos como malos, haría que cada vez te quisiera más. Me acostumbré a ti: a acompañarte a todos lados, a tu sonrisa, a tu pelo, a tu olor —que hueles muy bien, por cierto— y a tus comentarios de lo más genuinos. Un día sin estar contigo se siente vacío, pero a su vez hace más especial el día en que nos volvemos a ver.</p>
-
-                        <p>Quiero que sepas que contigo no me importan la distancia, el tiempo ni las circunstancias: nada cambia lo mucho que te amo y lo especial que eres para mí. Me hace sentir muy enamorado recordar que eres mi novia. No es que se me olvide, sino que antes, para mí, ya eras algo así. Los recuerdos a tu lado son de los más preciados y siempre los llevo en mente; cuando no me siento tan bien, recordarlos me hace sentir que estoy a tu lado una vez más.</p>
-
-                        <p>Me gustaría hacer esta carta mucho más larga, pero, por más que lo intente, las palabras nunca serán suficientes para expresar lo que siento por ti, todos los momentos que vivimos juntos y los que me gustaría vivir contigo en el futuro. Sería una carta infinita, como el amor que siento por ti.</p>
-
-                        <p>Espero que la pases más que bien en este día y que sepas que siempre estaré aquí para ti, para lo que necesites. Te amo con todo el corazón.</p>
-
-                        <p class="letter-signature">Cumpleaños, porque feliz es lo que tú me haces sentir.<br>Te amo. Feliz cumpleaños, May: linda, mi novia, rati, la que más quiero.<br><br>Att. Tu rata apestosa y novio.</p>
-                    </div>
-                </div>
-            </article>
-
-            <section class="gift-panel card-surface" aria-labelledby="gift-title">
-                <div class="gift-copy">
-                    <p class="eyebrow">Una sorpresa más</p>
-                    <h2 id="gift-title">Tu regalo</h2>
-                    <p id="gift-message" aria-live="polite">Hay algo esperando por ti. Toca el regalo para comenzar.</p>
-                    <div class="progress-track" aria-hidden="true">
-                        <span id="gift-progress-bar"></span>
-                    </div>
-                    <p class="progress-label" id="gift-progress">0 de 18 pistas</p>
-                </div>
-
-                <button class="gift-button" id="gift-button" type="button" aria-label="Descubrir la siguiente pista">
-                    <span aria-hidden="true">🎁</span>
-                </button>
-
-                <div class="gift-reveal" id="gift-reveal" hidden>
-                    <button class="gift-card" id="gift-card" type="button" aria-pressed="false" aria-label="Voltear tarjeta de regalo">
-                        <span class="gift-card-inner">
-                            <span class="gift-card-face gift-card-front">
-                                <img src="roblox-card.jpg" alt="Tarjeta de regalo de Roblox">
-                            </span>
-                            <span class="gift-card-face gift-card-back">
-                                <strong>¡Sorpresa!</strong>
-                                <span>Tu código está guardado en privado para que solo tú puedas usarlo.</span>
-                            </span>
-                        </span>
-                    </button>
-                    <p>Toca la tarjeta para voltearla.</p>
-                    <button class="button button-secondary" id="finish-gift" type="button">Terminar sorpresa</button>
-                </div>
+            <section class="birthday-wait-card card-surface" data-birthday-wait aria-live="polite">
+                <span class="birthday-wait-star" aria-hidden="true">✦</span>
+                <p class="eyebrow">Todavía falta un poquito</p>
+                <h2>Esta estrella se encenderá el 4 de agosto</h2>
+                <p>Cuando el contador llegue a cero, tu carta estará lista para abrirse.</p>
+                <a class="button button-secondary" href="#inicio">Volver al contador</a>
             </section>
 
-            <dialog class="final-dialog" id="final-dialog">
-                <button class="icon-button dialog-close" type="button" data-close-dialog aria-label="Cerrar mensaje">×</button>
-                <p class="eyebrow">Un último mensaje</p>
-                <h2>Gracias por todo, rati</h2>
-                <p>Es lo mínimo que puedo decir por todo lo que haces por mí. Nunca habrá forma de explicar lo agradecido que estoy de haberte conocido. Te quiero mucho.</p>
-                <p>Aunque tu día especial haya llegado casi a su fin, me hace muy feliz saber lo bien que la pasaste. Me habría gustado estar a tu lado, pero por eso te doy este pequeño detalle: para formar, aunque sea un poquito, parte de tu día. Espero pasar muchos cumpleaños más a tu lado.</p>
-                <p class="letter-signature">Te quiero demasiado, no sabes… y más que tú, ni modo. Te amo.</p>
-            </dialog>
+            <div class="birthday-content" data-birthday-unlock hidden>
+                <article class="letter letter-birthday" data-letter>
+                    <button class="letter-cover" type="button" data-open-letter aria-expanded="false">
+                        <span class="letter-stamp" aria-hidden="true">🎂</span>
+                        <strong>Para May de 19</strong>
+                        <small>Toca para abrir</small>
+                    </button>
 
-            <audio id="gift-audio" src="musica.mp3" preload="metadata"></audio>
+                    <div class="letter-paper" data-letter-paper aria-hidden="true">
+                        <button class="icon-button close-letter" type="button" data-close-letter aria-label="Cerrar carta">×</button>
+                        <p class="letter-date">4 de agosto de 2026</p>
+                        <h2>¡Amooooooooouuuuur míooo, feliz cumpleañooos!</h2>
+                        <div class="letter-copy">
+                            <p>Hoy cumples un año más —de muchos más— y no sabes cuánto me gusta poder estar a tu lado.</p>
+
+                            <p>Aunque hoy no esté ahí contigo, créeme que estoy presente de todas las maneras posibles, aunque físicamente no pueda estarlo por ahora.</p>
+
+                            <p>Yo tengo por seguro que este será el único cumpleaños en el que no podré estar contigo en un día tan especial. En los próximos podremos disfrutar juntos y podré darte todas esas sorpresotas que tanto me gusta prepararte.</p>
+
+                            <p>Muchas gracias por dejarme acompañarte durante este año, por permitirme ver lo mucho que has crecido y por aprender juntos de todo lo que se nos atraviesa.</p>
+
+                            <p>Estoy muy orgulloso de quien eres y de la persona en la que te convertirás, amor. Recuerda siempre lo valiosa que eres como persona, como novia y como amiga.</p>
+
+                            <p>Te amo tanto, tanto, y créeme que no hay nada —ni siquiera el tiempo— que pueda hacer que eso cambie.</p>
+
+                            <p>Que tengas un cumpleaños muy feliz, amor, y que lo disfrutes muchísimo.</p>
+
+                            <p><strong class="birthday-letter-emphasis">Byeee, May de 18. Hola, May de 19.</strong><br>¡Feliz, pero muy feliz cumpleaños, hermosa!</p>
+
+                            <p class="letter-signature">Att. Tu rati, que te ama con toda el alma y mucho más.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <section class="gift-panel card-surface" aria-labelledby="gift-title">
+                    <div class="gift-copy">
+                        <p class="eyebrow">Una sorpresa más</p>
+                        <h2 id="gift-title">Tu regalo</h2>
+                        <p id="gift-message" aria-live="polite">Hay algo esperando por ti. Toca el regalo para comenzar.</p>
+                        <div class="progress-track" aria-hidden="true">
+                            <span id="gift-progress-bar"></span>
+                        </div>
+                        <p class="progress-label" id="gift-progress">0 de 18 pistas</p>
+                    </div>
+
+                    <button class="gift-button" id="gift-button" type="button" aria-label="Descubrir la siguiente pista">
+                        <span aria-hidden="true">🎁</span>
+                    </button>
+
+                    <div class="gift-reveal" id="gift-reveal" hidden>
+                        <button class="gift-card" id="gift-card" type="button" aria-pressed="false" aria-label="Voltear tarjeta de regalo">
+                            <span class="gift-card-inner">
+                                <span class="gift-card-face gift-card-front">
+                                    <img src="roblox-card.jpg" alt="Tarjeta de regalo de Roblox">
+                                </span>
+                                <span class="gift-card-face gift-card-back">
+                                    <strong>¡Sorpresa!</strong>
+                                    <span>Tu código está guardado en privado para que solo tú puedas usarlo.</span>
+                                </span>
+                            </span>
+                        </button>
+                        <p>Toca la tarjeta para voltearla.</p>
+                        <button class="button button-secondary" id="finish-gift" type="button">Terminar sorpresa</button>
+                    </div>
+                </section>
+
+                <dialog class="final-dialog" id="final-dialog">
+                    <button class="icon-button dialog-close" type="button" data-close-dialog aria-label="Cerrar mensaje">×</button>
+                    <p class="eyebrow">Un último mensaje</p>
+                    <h2>Gracias por todo, rati</h2>
+                    <p>Es lo mínimo que puedo decir por todo lo que haces por mí. Nunca habrá forma de explicar lo agradecido que estoy de haberte conocido. Te quiero mucho.</p>
+                    <p>Aunque tu día especial haya llegado casi a su fin, me hace muy feliz saber lo bien que la pasaste. Me habría gustado estar a tu lado, pero por eso te doy este pequeño detalle: para formar, aunque sea un poquito, parte de tu día. Espero pasar muchos cumpleaños más a tu lado.</p>
+                    <p class="letter-signature">Te quiero demasiado, no sabes… y más que tú, ni modo. Te amo.</p>
+                </dialog>
+
+                <audio id="gift-audio" src="musica.mp3" preload="metadata"></audio>
+            </div>
         </section>
 
         <section class="page-section" id="secret" data-page hidden>

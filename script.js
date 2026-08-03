@@ -95,6 +95,13 @@
         const completeMessage = countdown.dataset.completeMessage || "¡Ya llegó el día! ✨";
         const timer = countdown.querySelector('[role="timer"]');
         const message = countdown.querySelector("[data-countdown-message]");
+        const unlockElements = countdown.dataset.unlockSelector
+            ? [...document.querySelectorAll(countdown.dataset.unlockSelector)]
+            : [];
+        const lockElements = countdown.dataset.lockSelector
+            ? [...document.querySelectorAll(countdown.dataset.lockSelector)]
+            : [];
+        let previousLockedState = null;
         const fields = {
             days: countdown.querySelector("[data-countdown-days]"),
             hours: countdown.querySelector("[data-countdown-hours]"),
@@ -102,8 +109,21 @@
             seconds: countdown.querySelector("[data-countdown-seconds]")
         };
 
+        function setCountdownLocked(isLocked) {
+            if (previousLockedState === isLocked) return;
+
+            unlockElements.forEach((element) => {
+                element.toggleAttribute("hidden", isLocked);
+            });
+            lockElements.forEach((element) => {
+                element.toggleAttribute("hidden", !isLocked);
+            });
+            previousLockedState = isLocked;
+        }
+
         function updateCountdown() {
             const remaining = Math.max(0, targetDate.getTime() - Date.now());
+            const isLocked = remaining > 0;
             const totalSeconds = Math.floor(remaining / 1000);
             const days = Math.floor(totalSeconds / 86400);
             const hours = Math.floor((totalSeconds % 86400) / 3600);
@@ -115,9 +135,10 @@
             fields.minutes.textContent = String(minutes).padStart(2, "0");
             fields.seconds.textContent = String(seconds).padStart(2, "0");
             timer?.setAttribute("aria-label", `${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos para ${countdownLabel}`);
+            countdown.classList.toggle("is-complete", !isLocked);
+            setCountdownLocked(isLocked);
 
             if (remaining === 0) {
-                countdown.classList.add("is-complete");
                 if (message) message.textContent = completeMessage;
                 return false;
             }
