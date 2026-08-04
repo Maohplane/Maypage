@@ -2,9 +2,9 @@
 
 ## Birthday letter soundtrack
 
-The birthday letter streams “Butterflies (feat. AURORA)” by Tom Odell through
-the artist's official SoundCloud embed. The project does not host or redistribute
-the recording.
+The birthday letter uses “Butterflies (feat. AURORA)” by Tom Odell as background
+music. The recording was provided by the site owner; all rights remain with its
+respective rights holders.
 
 ## 2048 Cupcakes assets
 
