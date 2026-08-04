@@ -1669,6 +1669,92 @@ body.entry-pending {
     color: #8fcfff;
 }
 
+.birthday-soundtrack-frame {
+    display: block;
+    width: min(100%, 680px);
+    height: 120px;
+    margin: 18px auto 10px;
+    border: 0;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 14px 34px rgba(0, 5, 24, 0.2);
+}
+
+.birthday-soundtrack {
+    display: flex;
+    max-width: 680px;
+    margin: 0 auto 30px;
+    padding: 13px 14px;
+    border: 1px solid rgba(153, 209, 255, 0.2);
+    border-radius: 18px;
+    align-items: center;
+    gap: 12px;
+    color: #eaf6ff;
+    background: rgba(26, 64, 112, 0.28);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.04), 0 12px 36px rgba(0, 5, 24, 0.16);
+}
+
+.birthday-soundtrack-star {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    place-items: center;
+    color: #f4dd9e;
+    background: rgba(96, 181, 255, 0.17);
+    box-shadow: 0 0 24px rgba(100, 188, 255, 0.18);
+    font-size: 1.15rem;
+}
+
+.birthday-soundtrack-copy {
+    display: grid;
+    min-width: 0;
+    margin-right: auto;
+    gap: 2px;
+}
+
+.birthday-soundtrack-copy small {
+    color: #8fcfff;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.birthday-soundtrack-copy strong {
+    overflow: hidden;
+    color: #f5fbff;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.birthday-soundtrack-actions {
+    display: flex;
+    gap: 7px;
+}
+
+.birthday-soundtrack-actions button {
+    padding: 8px 10px;
+    border: 1px solid rgba(171, 219, 255, 0.2);
+    border-radius: 999px;
+    color: #e9f7ff;
+    background: rgba(7, 27, 58, 0.7);
+    font: 750 0.75rem var(--font-body);
+    cursor: pointer;
+    transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.birthday-soundtrack-actions button:hover,
+.birthday-soundtrack-actions button:focus-visible {
+    border-color: rgba(171, 219, 255, 0.48);
+    background: rgba(34, 83, 139, 0.82);
+    transform: translateY(-1px);
+}
+
 .letter-birthday-galaxy .letter-paper .icon-button {
     border-color: rgba(171, 219, 255, 0.2);
     color: #e9f7ff;
@@ -1703,6 +1789,26 @@ body.entry-pending {
     50% {
         opacity: 0.55;
         transform: translateY(-9px) rotate(8deg) scale(0.88);
+    }
+}
+
+@media (max-width: 640px) {
+    .birthday-soundtrack {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .birthday-soundtrack-copy {
+        width: calc(100% - 54px);
+    }
+
+    .birthday-soundtrack-actions {
+        width: 100%;
+        padding-left: 54px;
+    }
+
+    .birthday-soundtrack-actions button {
+        flex: 1;
     }
 }
 

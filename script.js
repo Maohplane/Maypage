@@ -7,10 +7,26 @@
     const menuButton = document.querySelector(".menu-toggle");
     const menu = document.querySelector(".site-nav");
     const header = document.querySelector(".site-header");
+    const soundtrackWidgets = new WeakMap();
+
+    function getSoundtrackWidget(frame) {
+        if (!frame || !window.SC?.Widget) return null;
+        if (!soundtrackWidgets.has(frame)) {
+            soundtrackWidgets.set(frame, window.SC.Widget(frame));
+        }
+        return soundtrackWidgets.get(frame);
+    }
+
+    function pauseAllEmbeddedSoundtracks(exceptFrame = null) {
+        document.querySelectorAll("[data-letter-soundtrack]").forEach((frame) => {
+            if (frame === exceptFrame) return;
+            getSoundtrackWidget(frame)?.pause();
+        });
+    }
 
     function currentPageId() {
         const requestedPage = window.location.hash.slice(1);
-        return pageIds.includes(requestedPage) ? requestedPage : "inicio";
+        return pageIds.includes(requestedPage) ? requestedPage : "cumple";
     }
 
     function closeMenu() {
@@ -47,6 +63,7 @@
             : `${document.querySelector(`#${activeId} h1`)?.textContent.trim() || "Para May"} · Para May`;
 
         pauseAllAudio();
+        pauseAllEmbeddedSoundtracks();
         closeMenu();
         window.scrollTo({ top: 0, behavior: "auto" });
 
@@ -85,7 +102,7 @@
     }, { passive: true });
 
     if (!window.location.hash || !pageIds.includes(window.location.hash.slice(1))) {
-        history.replaceState(null, "", "#inicio");
+        history.replaceState(null, "", "#cumple");
     }
     showCurrentPage();
 
@@ -94,6 +111,35 @@
         const closeButton = letter.querySelector("[data-close-letter]");
         const paper = letter.querySelector("[data-letter-paper]");
         const audio = letter.dataset.audio ? document.getElementById(letter.dataset.audio) : null;
+        const soundtrack = letter.querySelector("[data-letter-soundtrack]");
+        const musicPlayButton = letter.querySelector("[data-letter-music-play]");
+        const musicPauseButton = letter.querySelector("[data-letter-music-pause]");
+        const soundtrackApiScript = document.querySelector("[data-soundcloud-api]");
+        let soundtrackReadyBound = false;
+
+        function bindSoundtrackReady() {
+            const widget = getSoundtrackWidget(soundtrack);
+            if (!widget || soundtrackReadyBound) return;
+            soundtrackReadyBound = true;
+            widget.bind(window.SC.Widget.Events.READY, () => {
+                if (letter.classList.contains("is-open")) playSoundtrack();
+            });
+        }
+
+        function playSoundtrack() {
+            if (!soundtrack) return;
+            pauseAllAudio();
+            pauseAllEmbeddedSoundtracks(soundtrack);
+            bindSoundtrackReady();
+            getSoundtrackWidget(soundtrack)?.play();
+        }
+
+        function pauseSoundtrack({ rewind = false } = {}) {
+            if (!soundtrack) return;
+            const widget = getSoundtrackWidget(soundtrack);
+            widget?.pause();
+            if (rewind) widget?.seekTo(0);
+        }
 
         function openLetter() {
             letter.classList.add("is-open");
@@ -102,12 +148,15 @@
             closeButton?.focus({ preventScroll: true });
 
             if (audio) {
+                pauseAllEmbeddedSoundtracks();
                 pauseAllAudio(audio.id);
                 audio.currentTime = 0;
                 audio.play().catch(() => {
                     // Some browsers can still block playback; the letter remains usable.
                 });
             }
+
+            playSoundtrack();
         }
 
         function closeLetter() {
@@ -120,10 +169,16 @@
                 audio.pause();
                 audio.currentTime = 0;
             }
+
+            pauseSoundtrack({ rewind: true });
         }
 
         openButton?.addEventListener("click", openLetter);
         closeButton?.addEventListener("click", closeLetter);
+        musicPlayButton?.addEventListener("click", playSoundtrack);
+        musicPauseButton?.addEventListener("click", () => pauseSoundtrack());
+        bindSoundtrackReady();
+        soundtrackApiScript?.addEventListener("load", bindSoundtrackReady, { once: true });
     });
 
 })();
