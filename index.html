@@ -8,8 +8,9 @@
     <title>Para May</title>
     <link rel="icon" href="logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="styles.css?v=20260804-1">
-    <link rel="stylesheet" href="cosmic.css?v=20260804-1">
-    <script src="script.js?v=20260804-1" defer></script>
+    <link rel="stylesheet" href="cosmic.css?v=20260804-2">
+    <script src="https://w.soundcloud.com/player/api.js" data-soundcloud-api async></script>
+    <script src="script.js?v=20260804-2" defer></script>
     <script src="experiences.js?v=20260725-1" defer></script>
 </head>
 <body class="entry-pending">
@@ -21,18 +22,18 @@
         </div>
         <div class="entry-card">
             <span class="entry-emblem" aria-hidden="true">✦</span>
-            <p class="eyebrow">Un cielo hecho solo para ti</p>
-            <h1 id="entry-title">Para May</h1>
-            <p>Hay recuerdos, estrellas y un pedacito de mí esperándote aquí.</p>
+            <p class="eyebrow">Hoy toda la galaxia celebra contigo</p>
+            <h1 id="entry-title">Feliz cumpleaños, May</h1>
+            <p>Tu carta y un cielo entero de estrellas están esperándote aquí.</p>
             <button class="button button-primary entry-button" type="button" data-enter-site>
-                Entrar <span aria-hidden="true">✦</span>
+                Abrir tu carta <span aria-hidden="true">✦</span>
             </button>
         </div>
     </div>
 
     <header class="site-header">
         <div class="nav-shell">
-            <a class="brand" href="#inicio" aria-label="Ir al inicio">
+            <a class="brand" href="#cumple" aria-label="Ir a la carta de cumpleaños">
                 <span class="brand-star" aria-hidden="true">✦</span>
                 <span>
                     <strong>Para May</strong>
@@ -48,11 +49,11 @@
             </button>
 
             <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
+                <a href="#cumple">Cumpleaños</a>
                 <a href="#inicio">Inicio</a>
                 <a href="#album">Nuestro cielo</a>
                 <a href="#constelaciones">Constelaciones</a>
                 <a href="#carro">Carta</a>
-                <a href="#cumple">Cumpleaños</a>
                 <a href="#secret">Primer mes</a>
             </nav>
         </div>
@@ -356,6 +357,26 @@
                 <div class="letter-paper" data-letter-paper aria-hidden="true">
                     <button class="icon-button close-letter" type="button" data-close-letter aria-label="Cerrar carta">×</button>
                     <p class="letter-date">4 de agosto de 2026</p>
+                    <iframe
+                        class="birthday-soundtrack-frame"
+                        data-letter-soundtrack
+                        src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ftomodell%2Ftom-odell-aurora-butterflies&amp;color=%238fcfff&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false"
+                        title="Butterflies de Tom Odell con AURORA"
+                        allow="autoplay"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        loading="eager"
+                        height="120"></iframe>
+                    <div class="birthday-soundtrack" aria-label="Música de la carta">
+                        <span class="birthday-soundtrack-star" aria-hidden="true">♫</span>
+                        <span class="birthday-soundtrack-copy">
+                            <small>Música de esta carta</small>
+                            <strong>Butterflies · Tom Odell feat. AURORA</strong>
+                        </span>
+                        <span class="birthday-soundtrack-actions">
+                            <button type="button" data-letter-music-play aria-label="Reproducir Butterflies">▶ <span>Reproducir</span></button>
+                            <button type="button" data-letter-music-pause aria-label="Pausar Butterflies">Ⅱ <span>Pausar</span></button>
+                        </span>
+                    </div>
                     <h2>¡Amooooooooouuuuur míooo, feliz cumpleañooos!</h2>
                     <div class="letter-copy">
                         <p>Hoy cumples un año más —de muchos más— y no sabes cuánto me gusta poder estar a tu lado.</p>

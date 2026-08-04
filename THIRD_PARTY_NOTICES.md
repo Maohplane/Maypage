@@ -1,5 +1,11 @@
 # Third-party notices
 
+## Birthday letter soundtrack
+
+The birthday letter streams “Butterflies (feat. AURORA)” by Tom Odell through
+the artist's official SoundCloud embed. The project does not host or redistribute
+the recording.
+
 ## 2048 Cupcakes assets
 
 The cupcake tile images in `assets/cupcakes/` come from the public
