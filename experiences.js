@@ -41,13 +41,22 @@
     function enterSite({ remember = true } = {}) {
         document.body.classList.remove("entry-pending");
         document.body.classList.add("site-entered");
+        document.querySelectorAll(".site-header, main, .site-footer, [data-christmas-player]").forEach((element) => { element.inert = false; });
+        if (entryGate) entryGate.inert = true;
+        const heading = document.querySelector("[data-page]:not([hidden]) h1");
+        if (heading) {
+            heading.tabIndex = -1;
+            heading.focus({ preventScroll: true });
+        }
+        window.scrollTo({ top: 0, behavior: "instant" });
         entryGate?.setAttribute("aria-hidden", "true");
         entryGate?.classList.add("is-leaving");
-        if (remember) writeSession("maypage-entered", "true");
+        if (remember) writeSession("maypage-entered-christmas-2026", "true");
+        document.dispatchEvent(new Event("maypage:entered"));
         window.setTimeout(() => entryGate?.setAttribute("hidden", ""), 520);
     }
 
-    if (readSession("maypage-entered") === "true") {
+    if (readSession("maypage-entered-christmas-2026") === "true") {
         enterSite({ remember: false });
     } else {
         window.requestAnimationFrame(() => enterButton?.focus({ preventScroll: true }));

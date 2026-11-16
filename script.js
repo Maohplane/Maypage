@@ -10,7 +10,7 @@
 
     function currentPageId() {
         const requestedPage = window.location.hash.slice(1);
-        return pageIds.includes(requestedPage) ? requestedPage : "cumple";
+        return pageIds.includes(requestedPage) ? requestedPage : "inicio";
     }
 
     function closeMenu() {
@@ -20,7 +20,7 @@
 
     function pauseAllAudio(exceptId = "") {
         document.querySelectorAll("audio").forEach((audio) => {
-            if (audio.id === exceptId) return;
+            if (audio.id === exceptId || audio.hasAttribute("data-seasonal-audio")) return;
             audio.pause();
             audio.currentTime = 0;
         });
@@ -85,9 +85,12 @@
     }, { passive: true });
 
     if (!window.location.hash || !pageIds.includes(window.location.hash.slice(1))) {
-        history.replaceState(null, "", "#cumple");
+        history.replaceState(null, "", "#inicio");
     }
     showCurrentPage();
+    // The browser may follow the initial #inicio fragment after deferred
+    // scripts run; keep the welcome and header at the top on first load.
+    window.addEventListener("load", () => window.scrollTo({ top: 0, behavior: "instant" }), { once: true });
 
     document.querySelectorAll("[data-letter]").forEach((letter) => {
         const openButton = letter.querySelector("[data-open-letter]");

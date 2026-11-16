@@ -1,0 +1,354 @@
+/* The seasonal layer keeps the original pages and their content intact. */
+:root {
+    --ink: #fbf3e4;
+    --muted: #b9c9ba;
+    --surface: rgba(20, 56, 44, .88);
+    --surface-solid: #193e31;
+    --line: rgba(221, 199, 152, .2);
+    --lavender-50: #102b23;
+    --lavender-100: #214537;
+    --lavender-300: #d9bc82;
+    --lavender-500: #b89052;
+    --lavender-700: #edd3a1;
+    --rose-50: #38251f;
+    --rose-100: #65302e;
+    --rose-300: #da8d7d;
+    --rose-500: #bd5d51;
+    --gold-100: #3e3d25;
+    --gold-400: #e5c68b;
+    --green-100: #244b38;
+    --green-500: #a4c7a5;
+    --shadow-sm: 0 12px 32px #061a1840;
+    --shadow-md: 0 28px 80px #04181350;
+}
+
+html { background: #0b211b; }
+body {
+    background:
+        radial-gradient(ellipse at 8% 0, #51683c30, transparent 48rem),
+        radial-gradient(ellipse at 100% 38%, #793e2920, transparent 40rem),
+        linear-gradient(150deg, #132f27, #0b211b 70%, #16362a);
+}
+body::before {
+    background-image: radial-gradient(circle, #eed4a0 0 .65px, transparent 1px);
+    background-size: 67px 83px;
+    opacity: .16;
+}
+body::after { background: radial-gradient(ellipse at 50% 20%, transparent 40%, #05181244); }
+::selection { color: #132f27; background: #efd4a1; }
+:focus-visible { outline-color: #efd4a1; }
+.page-section h1[tabindex="-1"]:focus { outline: none; }
+
+.site-header {
+    border-color: var(--line);
+    background: #102c24ed;
+}
+.site-header::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, #d3b471 0 12px, #a1493f 12px 24px, #567858 24px 36px);
+    content: "";
+    opacity: .8;
+}
+.brand-star {
+    border-color: var(--line);
+    color: #eed4a0;
+    background: #254a37;
+    box-shadow: none;
+}
+.site-nav a { color: #c4cebd; }
+.site-nav a:hover, .site-nav a[aria-current="page"] {
+    color: #fae8c6;
+    background: #ead09d16;
+}
+.menu-toggle { background: #234332; }
+.menu-toggle span:not(.sr-only) { background: var(--ink); }
+.eyebrow { color: #ddbe85; }
+.page-section { padding-top: 38px; }
+.card-surface {
+    border-color: var(--line);
+    background: linear-gradient(135deg, #1b4032e6, #122f25f5);
+    box-shadow: var(--shadow-md), inset 0 1px #fff6df08;
+}
+.button-primary {
+    border-color: #bf6556;
+    color: #fff7e8;
+    background: #ab4b40;
+    box-shadow: 0 8px 22px #40191533;
+}
+.button-primary:hover { background: #be594a; box-shadow: 0 12px 28px #40191544; }
+.button-secondary { border-color: #dcc28e45; color: #f1ddba; background: #eed4a00a; }
+.button-secondary:hover { background: #eed4a015; }
+
+/* Welcome */
+.entry-gate {
+    background:
+        radial-gradient(ellipse at 50% 35%, #385a3933, transparent 35rem),
+        linear-gradient(150deg, #0b211b, #1b3b2c 60%, #0b211b);
+}
+.entry-sky::before, .entry-sky::after { background-image: radial-gradient(circle, #f7e6bd 0 1.2px, transparent 1.8px); }
+.entry-sky span { background: #efd4a1; box-shadow: 0 0 16px 5px #d9b97244; }
+.entry-card {
+    width: min(100%, 660px);
+    border-color: #d9bd8038;
+    border-radius: 180px 180px 28px 28px;
+    background: linear-gradient(150deg, #274635f5, #153124f5);
+    box-shadow: 0 30px 100px #04110d77;
+}
+.entry-card::before { border-color: #d9bd8024; border-radius: 167px 167px 18px 18px; }
+.entry-emblem {
+    width: 66px;
+    height: 66px;
+    margin-bottom: 24px;
+    border: 0;
+    color: #e1c28a;
+    background: transparent;
+    box-shadow: none;
+}
+.entry-card h1 { font-size: clamp(3.1rem, 9vw, 5.3rem); line-height: 1.06; letter-spacing: -.05em; }
+.entry-card h1 em { color: #e5c68b; font-weight: inherit; }
+.entry-card > p:not(.eyebrow) { color: #ccd5c2; }
+.entry-music-note { display: block; max-width: 280px; margin: 18px auto 0; color: #b1c0aa; font-size: .72rem; line-height: 1.6; }
+
+/* Home: a countdown and an illustrated Christmas postcard. */
+.season-heading { display: flex; margin: 0 4px 18px; align-items: center; justify-content: space-between; gap: 16px; }
+.season-heading .eyebrow { margin: 0; font-size: .64rem; letter-spacing: .14em; }
+.season-heading .eyebrow span { margin-right: 9px; }
+.season-edition { flex-shrink: 0; color: #aebeaa; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }
+.christmas-hero {
+    min-height: 660px;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+    border-radius: 24px;
+    background: radial-gradient(ellipse at 80% 30%, #69754b1c, transparent 30rem), #17392c;
+}
+.christmas-hero::before { display: none; }
+.christmas-hero::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 21px;
+    background: radial-gradient(ellipse at 20px 0, #eacb8f 0 3px, #ddba7130 4px, transparent 14px) 0 0 / 62px 21px repeat-x;
+    content: "";
+    pointer-events: none;
+    opacity: .65;
+}
+.christmas-hero .hero-copy { padding: clamp(28px, 4.2vw, 58px); padding-right: 20px; }
+.christmas-hero h1 { max-width: 580px; font-size: clamp(3rem, 5.1vw, 4.9rem); line-height: 1.04; letter-spacing: -.05em; }
+.christmas-hero h1 em { color: #e9c98c; font-weight: inherit; }
+.christmas-hero .hero-text { max-width: 430px; margin-top: 22px; color: #c3cdbb; font-size: .98rem; line-height: 1.8; }
+.christmas-hero .hero-actions { margin-top: 30px; gap: 10px; }
+.christmas-hero .button { padding: 12px 18px; font-size: .8rem; }
+.christmas-countdown {
+    display: grid;
+    width: min(100%, 410px);
+    margin-top: 30px;
+    padding: 18px 0;
+    border-top: 1px solid #dcc28e38;
+    border-bottom: 1px solid #dcc28e38;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.christmas-countdown > div { display: grid; justify-items: center; gap: 2px; }
+.christmas-countdown > div + div { border-left: 1px solid #dcc28e26; }
+.christmas-countdown strong { color: #fff1d6; font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.christmas-countdown span { color: #b9c6b0; font-size: .61rem; letter-spacing: .1em; text-transform: uppercase; }
+.countdown-caption { margin: 13px 0 0; color: #c3cbb7; font-size: .72rem; }
+.countdown-caption span { margin-left: 6px; color: #d6ad75; }
+.christmas-art { min-height: 540px; padding: 45px 36px 65px 10px; align-content: center; gap: 25px; background: none; }
+.christmas-postcard {
+    position: relative;
+    display: grid;
+    width: min(100%, 330px);
+    padding: 24px 14px 26px;
+    border: 8px solid #f1e7d2;
+    border-radius: 160px 160px 4px 4px;
+    justify-items: center;
+    color: #31513d;
+    background: #eee2c9;
+    box-shadow: 12px 20px 36px #04180e44;
+    transform: rotate(4deg);
+}
+.christmas-postcard::before { position: absolute; inset: 6px; border: 1px solid #8b9b772e; border-radius: 150px 150px 0 0; content: ""; pointer-events: none; }
+.postcard-heading { margin-top: 32px; color: #7f6846; font-size: .57rem; font-weight: 600; letter-spacing: .19em; text-transform: uppercase; }
+.christmas-tree { display: block; width: 100%; height: auto; margin-top: 5px; }
+.postcard-signature { color: #4f6047; font-family: var(--font-display); font-size: .95rem; font-style: italic; }
+.christmas-art-note { justify-self: center; color: #c5c8a9; font-family: var(--font-display); font-size: 1rem; font-style: italic; transform: rotate(-4deg); }
+.christmas-art-note span { color: #d9ae71; }
+
+.sky-message { border-radius: 24px; background: linear-gradient(110deg, #253f2a, #183529); }
+.sky-message-symbol { color: #e4c187; background: radial-gradient(circle, #d5b87b24, transparent 65%); text-shadow: 0 0 30px #d5b87b33; }
+.sky-message h2, .section-intro h2, .cosmic-page-heading h1 { color: #f4ead5; }
+.sky-message-constellation span { color: #e8ce98; text-shadow: 0 0 18px #e8ce9833; }
+.sky-message-constellation::before { background: linear-gradient(25deg, transparent 49.5%, #c6b37835 50%, transparent 50.5%); }
+.section-intro { margin-top: 65px; }
+.section-intro h2 { font-size: clamp(2rem, 4.8vw, 3.2rem); }
+.cosmic-feature { border-color: var(--line); border-radius: 20px; background: linear-gradient(135deg, #234633aa, #153326dd); box-shadow: var(--shadow-sm); }
+.cosmic-feature::after { color: #d9be8710; }
+.cosmic-feature:hover { border-color: #dec59170; box-shadow: 0 18px 42px #051a1455; }
+.cosmic-feature-icon { color: #e7c991; background: #d5b57c14; box-shadow: none; }
+.cosmic-feature small, .cosmic-feature-arrow { color: #d6bb83; }
+.cosmic-feature-birthday { border-color: var(--line); background: linear-gradient(130deg, #4d3426aa, #1d3729); }
+.cosmic-feature-birthday .cosmic-feature-icon { color: #edc991; background: #cda6741a; }
+.back-link:hover { color: #efd4a1; }
+
+/* Existing memories, games and letters keep their behavior and assets. */
+.album-lock-star { color: #dfc48e; background: radial-gradient(circle, #c8ac6f22, transparent 68%); }
+.album-lock-star.is-ready { color: #f5dfac; text-shadow: 0 0 34px #debb6a88; }
+.anniversary-quiz label, .quiz-feedback { color: #e0cc9f; }
+.quiz-answer-row input { border-color: var(--line); color: var(--ink); background: #0b261e; }
+.quiz-answer-row input:focus { border-color: #d9bc82; }
+.quiz-answer-row input::placeholder { color: #9caf98; }
+.constellation-map { border-color: var(--line); background: radial-gradient(ellipse at 50% 25%, #60774726, transparent 65%), #102c23; }
+.constellation-lines polyline { stroke: #dbc58d55; }
+.memory-star, .memory-star strong, .memory-star-shape { color: #f5dfac; }
+.memory-star-shape { text-shadow: 0 0 20px #dfbd7370; }
+.memory-star small { color: #b1c1a5; }
+.memory-dialog { border-color: var(--line); background: #153326; }
+.memory-dialog::backdrop { background: #03130de0; }
+.memory-close { color: #fff2d4; background: #153326e0; }
+.memory-photo-wrap { background: #0b211b; }
+.memory-position { color: #dec38e; }
+.anniversary-finale-intro > span { color: #efd4a1; background: radial-gradient(circle, #dfbd7326, transparent 70%); }
+.game-stats > span, .game-mode-switch { border-color: var(--line); background: #0c291eaa; }
+.game-stats small { color: #adc09e; }
+.game-stats strong { color: #ffefce; }
+.game-mode-switch button[aria-pressed="true"] { color: #1c3727; background: #e6cc98; box-shadow: none; }
+.game-sound-toggle:hover { color: var(--ink); background: #eed4a012; }
+.game-board { border-color: #d1b77c36; background: #0c291e; box-shadow: inset 0 2px 18px #04140e44; }
+.game-cell { border-color: #f1dcad0c; background: #a1b98a16; }
+.star-tile { background: radial-gradient(circle, #d2bc7133, #2a5034 70%); box-shadow: inset 0 0 14px #d7c4810a; }
+.star-tile span { color: #f5e1b4; text-shadow: 0 0 16px #e5c47688; }
+.star-tile small { color: #f5e7c9ce; }
+.star-tile.tile-level-2 { background: radial-gradient(circle, #d4b57544, #35603b 70%); }
+.star-tile.tile-level-3 { background: radial-gradient(circle, #d4b57555, #536438 70%); }
+.star-tile.tile-level-4 { background: radial-gradient(circle, #e9c88166, #7c5c32 70%); }
+.star-tile.tile-level-5 { background: radial-gradient(circle, #e5ba7577, #8b4933 70%); }
+.star-tile.tile-level-6 { background: radial-gradient(circle, #f1bd8c88, #963f33 70%); }
+.star-tile.tile-level-7 { background: radial-gradient(circle, #f8d5a188, #aa4d3e 72%); }
+.star-tile.tile-level-8 { background: radial-gradient(circle, #fff0be88, #9a6941 72%); }
+.star-tile.tile-level-9 { background: radial-gradient(circle, #fff0be99, #a37b36 72%); }
+.star-tile.tile-level-10 { background: radial-gradient(circle, #fff3cfaa, #b68e4b 72%); }
+.star-tile.tile-level-11, .star-tile.tile-level-12 { background: radial-gradient(circle, #fff7e1, #dabd7f 20%, #7d6036 80%); box-shadow: 0 0 35px #d8b97566; }
+.game-panel[data-game-mode="cupcakes"] .star-tile { background: #fff; }
+.game-over { background: #102a20ed; }
+.game-over > span { color: #e9ca91; }
+.clue-item { border-color: var(--line); background: #0d291e99; }
+.clue-item > span { color: #b2bc94; background: #ccba7715; }
+.clue-item p { color: #a9bb9c; }
+.clue-item.is-unlocked { border-color: #dfc48055; background: #53633838; }
+.clue-item.is-unlocked > span { color: #f4d89e; background: #c4a56522; }
+.clue-item.is-unlocked p { color: #c5d1b6; }
+.game-toast { border-color: var(--line); color: #f8edd5; background: #193e31f5; }
+
+.letter-cover,
+.letter-racing .letter-cover,
+.letter-love .letter-cover,
+.letter-anniversary .letter-cover,
+.letter-birthday-galaxy .letter-cover {
+    border-color: #dcc28e42;
+    color: #f6ead1;
+    background: radial-gradient(ellipse at 25% 10%, #c2a56815, transparent 65%), linear-gradient(135deg, #2b4c35, #143426);
+}
+.letter-cover::before { background: linear-gradient(32deg, transparent 49%, #d4bc7f18 50% 51%, transparent 52%), linear-gradient(-32deg, transparent 49%, #d4bc7f18 50% 51%, transparent 52%); }
+.letter-cover small, .letter-birthday-galaxy .letter-cover small { color: #c2ceaf; }
+.letter-stamp, .letter-birthday-galaxy .letter-stamp { border-color: #d9bc8266; color: #f2d596; background: #c6a86a20; box-shadow: 0 0 28px #ba9a5e15; }
+.letter-birthday-galaxy .letter-cover::before { background-image: radial-gradient(circle, #e7d3a9aa 0 1px, transparent 1.7px); }
+.letter-birthday-galaxy .letter-cover::after { border-color: #dcc28e28; }
+.letter-birthday-galaxy .letter-cover strong, .galaxy-letter-stars span { color: #f1dfb7; }
+.letter-paper, .letter-anniversary .letter-paper { color: #293e30; background: #f7f0df; }
+.letter-paper .letter-copy, .letter-paper .letter-date, .letter-paper .playlist-card > p:last-child { color: #53614f; }
+.letter-paper .eyebrow, .letter-paper .letter-signature, .anniversary-emphasis { color: #496241; }
+.letter-paper .icon-button { border-color: #31543c30; color: #294632; background: #fff8e9; }
+.playlist-card { border-color: #31543c26; background: #e0e8d955; }
+.letter-birthday-galaxy .letter-paper { border-color: var(--line); color: var(--ink); background: radial-gradient(ellipse at 20% 0, #a4a05a1a, transparent 60%), #193c2c; }
+.letter-birthday-galaxy .letter-paper h2 { color: #f7ecd4; }
+.letter-birthday-galaxy .letter-paper .letter-copy { color: #d6dec8; }
+.letter-birthday-galaxy .letter-paper .letter-date, .birthday-soundtrack-copy small { color: #d6bd85; }
+.birthday-soundtrack { border-color: var(--line); color: var(--ink); background: #294b3533; }
+.birthday-soundtrack-star { color: #e2c286; background: #b799581a; }
+.birthday-soundtrack-copy strong { color: #f1e5c9; }
+.birthday-soundtrack-actions button, .letter-birthday-galaxy .letter-paper .icon-button { border-color: var(--line); color: #f6e9ce; background: #112e22; }
+.birthday-soundtrack-actions button:hover { border-color: #dac08a66; background: #31513a; }
+.letter-birthday-galaxy .birthday-forever-line { border-color: #d9bc8240; color: #f1e4c8; background: linear-gradient(110deg, #45603c40, #23422e); }
+.letter-birthday-galaxy .letter-paper .letter-signature { color: #d6c08d; }
+.site-footer { padding-bottom: 110px; color: #b2c1a7; }
+.site-footer span { color: #e6bc86; }
+.noscript-message { background: #254b35; }
+
+/* Small, persistent music control. Letter soundtracks take priority. */
+.christmas-music-player { position: fixed; z-index: 60; right: 22px; bottom: 20px; }
+.christmas-music-player button { display: flex; min-height: 58px; padding: 10px 16px 10px 10px; border: 1px solid #d4bd8155; border-radius: 16px; align-items: center; gap: 12px; color: #f4e6c6; background: #143426f5; box-shadow: 0 8px 30px #04140d55; cursor: pointer; backdrop-filter: blur(12px); }
+.music-player-icon { display: grid; width: 36px; height: 36px; border: 1px solid #d4bd8133; border-radius: 50%; place-items: center; color: #e5c78b; background: #d4bd8112; font-size: 1.2rem; }
+.christmas-music-player button > span:nth-child(2) { display: grid; text-align: left; }
+.christmas-music-player strong { font-size: .74rem; font-weight: 600; }
+.christmas-music-player small { max-width: 220px; color: #bdcbb0; font-size: .63rem; }
+.music-player-action { margin-left: 5px; font-size: .65rem; font-weight: 600; }
+.christmas-music-player button:disabled { cursor: default; }
+.entry-pending .christmas-music-player { visibility: hidden; }
+
+/* Snow is decorative, light on mobile, and respects reduced motion. */
+.christmas-snow { position: fixed; inset: 0; z-index: 55; overflow: hidden; pointer-events: none; }
+.christmas-snow i { position: absolute; top: -12px; left: var(--x); width: 3px; height: 3px; border-radius: 50%; background: #fff5d9; opacity: 0; animation: christmas-snowfall var(--duration, 17s) var(--delay, 0s) linear infinite; }
+.christmas-snow i:nth-child(1) { --x: 4%; --delay: -2s; --duration: 18s; }
+.christmas-snow i:nth-child(2) { --x: 12%; --delay: -9s; --duration: 21s; }
+.christmas-snow i:nth-child(3) { --x: 23%; --delay: -5s; --duration: 16s; }
+.christmas-snow i:nth-child(4) { --x: 30%; --delay: -14s; --duration: 22s; }
+.christmas-snow i:nth-child(5) { --x: 38%; --delay: -7s; --duration: 19s; }
+.christmas-snow i:nth-child(6) { --x: 47%; --delay: -12s; --duration: 24s; }
+.christmas-snow i:nth-child(7) { --x: 55%; --delay: -4s; --duration: 17s; }
+.christmas-snow i:nth-child(8) { --x: 64%; --delay: -18s; --duration: 23s; }
+.christmas-snow i:nth-child(9) { --x: 73%; --delay: -8s; --duration: 18s; }
+.christmas-snow i:nth-child(10) { --x: 80%; --delay: -11s; --duration: 21s; }
+.christmas-snow i:nth-child(11) { --x: 89%; --delay: -3s; --duration: 20s; }
+.christmas-snow i:nth-child(12) { --x: 96%; --delay: -15s; --duration: 25s; }
+@keyframes christmas-snowfall { 0% { opacity: 0; transform: translate(0, 0); } 8%, 85% { opacity: .35; } 100% { opacity: 0; transform: translate(35px, 102vh); } }
+
+@media (max-width: 1050px) {
+    .christmas-hero .hero-copy { padding: 36px 22px 36px 32px; }
+    .christmas-art { padding-right: 24px; }
+}
+@media (max-width: 800px) {
+    .site-nav { border-color: var(--line); background: #112e23fa; }
+    .site-nav a { color: #d2dbc4; }
+    .christmas-hero { grid-template-columns: 1fr; }
+    .christmas-hero .hero-copy { padding: 38px 32px 20px; }
+    .christmas-hero h1 { max-width: 550px; font-size: clamp(3rem, 8vw, 4.3rem); }
+    .christmas-hero .hero-text { max-width: 540px; }
+    .christmas-art { min-height: 0; padding: 25px 42px 38px; }
+    .christmas-postcard { width: 270px; padding: 16px 12px 22px; }
+    .postcard-heading { margin-top: 20px; }
+    .christmas-art-note { font-size: .9rem; }
+}
+@media (max-width: 620px) {
+    .page-section { padding-top: 25px; }
+    .season-heading { margin-bottom: 13px; }
+    .season-heading .eyebrow { max-width: 210px; font-size: .58rem; }
+    .season-edition { font-size: .58rem; text-align: right; }
+    .christmas-hero { border-radius: 18px; }
+    .christmas-hero .hero-copy { padding: 30px 22px 14px; }
+    .christmas-hero h1 { font-size: clamp(2.7rem, 11vw, 4rem); }
+    .christmas-hero .hero-text { margin-top: 18px; font-size: .9rem; }
+    .christmas-countdown { margin-top: 24px; padding: 15px 0; }
+    .christmas-countdown strong { font-size: 2.25rem; }
+    .christmas-countdown span { font-size: .54rem; }
+    .christmas-hero .hero-actions { margin-top: 24px; }
+    .christmas-hero .button { min-height: 44px; padding: 10px 13px; font-size: .74rem; }
+    .christmas-art { padding: 28px 34px 32px; }
+    .sky-message { border-radius: 18px; }
+    .entry-card { padding: 48px 26px 36px; border-radius: 140px 140px 24px 24px; }
+    .entry-card::before { border-radius: 128px 128px 14px 14px; }
+    .entry-card h1 { font-size: clamp(2.8rem, 11vw, 4rem); }
+    .entry-card > .eyebrow { font-size: .65rem; }
+    .entry-card > p:not(.eyebrow) { font-size: .93rem; }
+    .entry-emblem { width: 54px; height: 54px; margin-bottom: 20px; }
+    .christmas-music-player { right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); }
+    .christmas-music-player button { min-height: 52px; gap: 9px; padding: 8px 12px 8px 8px; }
+    .christmas-music-player small { max-width: 190px; }
+    .christmas-snow i:nth-child(even) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .christmas-snow { display: none; }
+}

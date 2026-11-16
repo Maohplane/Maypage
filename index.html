@@ -3,40 +3,44 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Un cielo especial creado para May, lleno de estrellas, recuerdos y pequeños secretos.">
-    <meta name="theme-color" content="#06142d">
+    <meta name="description" content="Una Navidad para May: contando los días para diciembre, con música, juegos y todos nuestros recuerdos.">
+    <meta name="theme-color" content="#102e28">
     <title>Para May</title>
     <link rel="icon" href="logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="styles.css?v=20260804-1">
     <link rel="stylesheet" href="cosmic.css?v=20260804-3">
-    <script src="script.js?v=20260804-3" defer></script>
-    <script src="experiences.js?v=20260725-1" defer></script>
+    <link rel="stylesheet" href="christmas.css?v=20261116-1">
+    <script src="script.js?v=20261116-1" defer></script>
+    <script src="experiences.js?v=20261116-1" defer></script>
+    <script src="christmas.js?v=20261116-1" defer></script>
 </head>
 <body class="entry-pending">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="christmas-snow" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
     <div class="entry-gate" data-entry-gate role="dialog" aria-modal="true" aria-labelledby="entry-title">
         <div class="entry-sky" aria-hidden="true">
             <span></span><span></span><span></span><span></span><span></span>
         </div>
         <div class="entry-card">
-            <span class="entry-emblem" aria-hidden="true">✦</span>
-            <p class="eyebrow">Hoy toda la galaxia celebra contigo</p>
-            <h1 id="entry-title">Feliz cumpleaños, May</h1>
-            <p>Tu carta y un cielo entero de estrellas están esperándote aquí.</p>
+            <span class="entry-emblem" aria-hidden="true">❄︎</span>
+            <p class="eyebrow">Una temporada para quererte bonito</p>
+            <h1 id="entry-title">Ya casi es<br><em>Navidad, May.</em></h1>
+            <p>Luces cálidas, un poquito de música y nuestro rincón de siempre, vestido de Navidad.</p>
             <button class="button button-primary entry-button" type="button" data-enter-site>
-                Abrir tu carta <span aria-hidden="true">✦</span>
+                Entrar <span aria-hidden="true">→</span>
             </button>
+            <small class="entry-music-note">Con música navideña suave · puedes pausarla cuando quieras</small>
         </div>
     </div>
 
-    <header class="site-header">
+    <header class="site-header" inert>
         <div class="nav-shell">
-            <a class="brand" href="#cumple" aria-label="Ir a la carta de cumpleaños">
-                <span class="brand-star" aria-hidden="true">✦</span>
+            <a class="brand" href="#inicio" aria-label="Ir al inicio navideño">
+                <span class="brand-star" aria-hidden="true">❄︎</span>
                 <span>
                     <strong>Para May</strong>
-                    <small>Nuestro pequeño universo</small>
+                    <small>Nuestra pequeña Navidad</small>
                 </span>
             </a>
 
@@ -48,39 +52,66 @@
             </button>
 
             <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
-                <a href="#cumple">Cumpleaños</a>
                 <a href="#inicio">Inicio</a>
                 <a href="#album">Nuestro cielo</a>
                 <a href="#constelaciones">Constelaciones</a>
                 <a href="#carro">Carta</a>
                 <a href="#secret">Primer mes</a>
+                <a href="#cumple">Cumpleaños</a>
             </nav>
         </div>
     </header>
 
-    <main id="contenido">
+    <main id="contenido" inert>
         <section class="page-section home-section" id="inicio" data-page>
-            <div class="hero card-surface">
+            <div class="season-heading">
+                <p class="eyebrow"><span aria-hidden="true">✦</span> Nuestra temporada favorita empieza aquí</p>
+                <span class="season-edition">Navidad · 2026</span>
+            </div>
+            <div class="hero card-surface christmas-hero">
                 <div class="hero-copy">
-                    <p class="eyebrow">Nuestro pequeño universo</p>
-                    <h1>Bienvenida, cutie <span aria-hidden="true">✦</span></h1>
-                    <p class="hero-text">Este cielo guarda lo que hemos vivido, lo que siento por ti y todo lo bonito que todavía nos falta descubrir.</p>
+                    <p class="eyebrow" data-season-eyebrow>Para mi cutie, con mucho amor</p>
+                    <h1 data-season-title>Un poquito más cerca de <em>diciembre.</em></h1>
+                    <p class="hero-text" data-season-copy>Las luces ya están encendidas, May. Solo falta que llegue diciembre para vivir un poquito más de magia contigo.</p>
+                    <div class="christmas-countdown" role="timer" aria-label="Tiempo restante hasta el 1 de diciembre de 2026, a medianoche en Ciudad de México">
+                        <div><strong data-countdown="days">--</strong><span>Días</span></div>
+                        <div><strong data-countdown="hours">--</strong><span>Horas</span></div>
+                        <div><strong data-countdown="minutes">--</strong><span>Minutos</span></div>
+                        <div><strong data-countdown="seconds">--</strong><span>Segundos</span></div>
+                    </div>
+                    <p class="countdown-caption" data-season-status role="status">Nuestra cita: <time datetime="2026-12-01T00:00:00-06:00">1 de diciembre de 2026</time> <span aria-hidden="true">♡</span></p>
                     <div class="hero-actions">
                         <a class="button button-primary" href="#constelaciones">Jugar Constelaciones</a>
                         <a class="button button-secondary" href="#album">Ver nuestro cielo</a>
                     </div>
                 </div>
 
-                <div class="hero-art cosmic-hero-art" aria-hidden="true">
-                    <div class="cosmic-orbit cosmic-orbit-one"></div>
-                    <div class="cosmic-orbit cosmic-orbit-two"></div>
-                    <div class="cosmic-core">
-                        <span>✦</span>
-                        <small>May</small>
+                <div class="hero-art christmas-art" aria-hidden="true">
+                    <div class="christmas-postcard">
+                        <span class="postcard-heading">Un poquito de magia navideña</span>
+                        <svg class="christmas-tree" viewBox="0 0 360 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="pine" x1="80" y1="60" x2="280" y2="340" gradientUnits="userSpaceOnUse"><stop stop-color="#43735b"/><stop offset="1" stop-color="#173e32"/></linearGradient>
+                                <linearGradient id="ribbon" x1="110" y1="150" x2="250" y2="310" gradientUnits="userSpaceOnUse"><stop stop-color="#eed4a0"/><stop offset="1" stop-color="#c29148"/></linearGradient>
+                            </defs>
+                            <ellipse cx="180" cy="357" rx="123" ry="17" fill="#284b3c" opacity=".1"/>
+                            <path d="M168 292h24v61h-24z" fill="#8b6446"/>
+                            <path d="m180 58 69 108h-26l52 77h-29l56 82H58l56-82H85l52-77h-26L180 58Z" fill="url(#pine)"/>
+                            <path d="m180 58 69 108h-26l52 77h-29l56 82H180V58Z" fill="#173e32" opacity=".23"/>
+                            <path d="M144 135c12 17 45 27 81 29M120 201c30 30 83 36 140 36M89 284c49 34 115 35 191 22" stroke="url(#ribbon)" stroke-width="6" stroke-linecap="round"/>
+                            <path d="m180 29 6 16 17 1-13 11 4 17-14-10-14 10 4-17-13-11 17-1 6-16Z" fill="#c49b53"/>
+                            <g fill="#b74d49"><circle cx="164" cy="123" r="8"/><circle cx="207" cy="194" r="10"/><circle cx="140" cy="241" r="10"/><circle cx="237" cy="281" r="11"/><circle cx="183" cy="295" r="8"/></g>
+                            <g fill="#efd6a2"><circle cx="193" cy="146" r="5"/><circle cx="155" cy="184" r="6"/><circle cx="179" cy="223" r="5"/><circle cx="112" cy="289" r="6"/><circle cx="209" cy="260" r="5"/></g>
+                            <g stroke="#eed8b1" stroke-width="2" stroke-linecap="round"><path d="M135 216v8m-4-4h8M211 172v8m-4-4h8M166 263v8m-4-4h8M220 312v8m-4-4h8"/></g>
+                            <rect x="60" y="328" width="69" height="42" rx="3" fill="#a94340"/><path d="M91 328h8v42h-8z" fill="#e6c68d"/><path d="M56 326h77v10H56z" fill="#bf5550"/>
+                            <path d="M94 328c-29-4-24-24-10-15l10 15Zm0 0c29-4 24-24 10-15l-10 15Z" stroke="#d8b276" stroke-width="4"/>
+                            <rect x="228" y="318" width="63" height="52" rx="3" fill="#d6b880"/><path d="M254 318h9v52h-9z" fill="#a94340"/><path d="M223 316h73v11h-73z" fill="#e8cfa1"/>
+                            <path d="M259 318c-25-5-20-24-9-14l9 14Zm0 0c25-5 20-24 9-14l-9 14Z" stroke="#a94340" stroke-width="4"/>
+                            <g fill="#c49b53"><path d="m70 117 2 7 7 2-7 2-2 7-2-7-7-2 7-2 2-7ZM290 171l2 7 7 2-7 2-2 7-2-7-7-2 7-2 2-7ZM269 71l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Z"/><circle cx="91" cy="200" r="2"/><circle cx="288" cy="258" r="2"/><circle cx="120" cy="69" r="2"/></g>
+                        </svg>
+                        <span class="postcard-signature">Tú, yo y la magia de diciembre.</span>
                     </div>
-                    <span class="orbit-star orbit-star-one">✦</span>
-                    <span class="orbit-star orbit-star-two">✧</span>
-                    <span class="orbit-star orbit-star-three">✦</span>
+                    <span class="christmas-art-note">Para May, siempre. <span>♡</span></span>
                 </div>
             </div>
 
@@ -101,8 +132,8 @@
             </section>
 
             <div class="section-intro">
-                <p class="eyebrow">El cielo sigue creciendo</p>
-                <h2>Elige el rincón de nuestro universo que quieres visitar</h2>
+                <p class="eyebrow">Nuestros rincones de siempre</p>
+                <h2>Los recuerdos también<br>se visten de Navidad</h2>
             </div>
 
             <div class="home-grid">
@@ -499,9 +530,18 @@
         </section>
     </main>
 
-    <footer class="site-footer">
-        <p>Hecho por Miguel, con mucho amor para May <span aria-hidden="true">✦</span></p>
+    <footer class="site-footer" inert>
+        <p>Hecho por Miguel, con mucho amor para May <span aria-hidden="true">♡</span></p>
     </footer>
+
+    <div class="christmas-music-player" data-christmas-player inert>
+        <button type="button" data-christmas-music aria-pressed="false" aria-label="Reproducir música navideña">
+            <span class="music-player-icon" data-music-icon aria-hidden="true">♪</span>
+            <span><strong>Música navideña</strong><small data-music-status>Toca para escuchar</small></span>
+            <span class="music-player-action" data-music-action aria-hidden="true">Escuchar</span>
+        </button>
+    </div>
+    <audio id="christmas-soundtrack" data-seasonal-audio src="assets/sounds/christmas-wishes.mp3" preload="none" loop></audio>
 
     <noscript>
         <div class="noscript-message">Activa JavaScript para abrir las cartas y descubrir las sorpresas.</div>
