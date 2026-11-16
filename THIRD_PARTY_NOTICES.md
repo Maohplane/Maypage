@@ -1,5 +1,12 @@
 # Third-party notices
 
+## Christmas background music
+
+`assets/sounds/christmas-wishes.mp3` is an instrumental recording synthesized
+for this site from the traditional public-domain melody “We Wish You a Merry
+Christmas.” The arrangement uses soft bells and warm accompaniment. It does
+not use a third-party master recording or require an external streaming service.
+
 ## Birthday letter soundtrack
 
 The birthday letter uses “Butterflies (feat. AURORA)” by Tom Odell as background
