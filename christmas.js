@@ -43,9 +43,9 @@
     const status = document.querySelector("[data-music-status]");
     const action = document.querySelector("[data-music-action]");
     const letterAudio = [...document.querySelectorAll("audio:not([data-seasonal-audio])")];
+    // Add future songs here; the player cycles through the active tracks.
     const tracks = [
-        { src: audio.getAttribute("src"), title: "We Wish You a Merry Christmas · Instrumental" },
-        { src: "assets/sounds/take-me-home-4-christmas.mp3", title: "take me home (4 christmas) · Olivia Rodrigo" }
+        { src: audio.getAttribute("src"), title: "We Wish You a Merry Christmas · Instrumental" }
     ];
     const MUSIC_PREFERENCE = "maypage-christmas-music";
     let activeTrack = 0;

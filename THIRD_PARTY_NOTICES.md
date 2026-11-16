@@ -7,10 +7,11 @@ for this site from the traditional public-domain melody “We Wish You a Merry
 Christmas.” The arrangement uses soft bells and warm accompaniment. It does
 not use a third-party master recording or require an external streaming service.
 
-The second track, `assets/sounds/take-me-home-4-christmas.mp3`, is “take me
+The inactive asset `assets/sounds/take-me-home-4-christmas.mp3` is “take me
 home (4 christmas)” by Olivia Rodrigo. The recording was provided by the site
 owner and encoded at 128 kbps for web playback. All rights remain with its
-respective rights holders. The two Christmas tracks play in order and repeat.
+respective rights holders. It is not included in the active playlist. Currently
+only the instrumental repeats; the playlist supports adding more songs later.
 
 ## Birthday letter soundtrack
 
