@@ -43,7 +43,12 @@
     const status = document.querySelector("[data-music-status]");
     const action = document.querySelector("[data-music-action]");
     const letterAudio = [...document.querySelectorAll("audio:not([data-seasonal-audio])")];
+    const tracks = [
+        { src: audio.getAttribute("src"), title: "We Wish You a Merry Christmas · Instrumental" },
+        { src: "assets/sounds/take-me-home-4-christmas.mp3", title: "take me home (4 christmas) · Olivia Rodrigo" }
+    ];
     const MUSIC_PREFERENCE = "maypage-christmas-music";
+    let activeTrack = 0;
     let musicWanted = true;
     let playPending = false;
     let playbackFailed = false;
@@ -73,7 +78,7 @@
             ? "Música navideña pausada mientras suena tu carta"
             : playing ? "Pausar música navideña" : "Reproducir música navideña");
         status.textContent = letterPlaying ? "Ahora suena la música de tu carta"
-            : playing ? "Sonando suavecito"
+            : playing ? tracks[activeTrack].title
             : playbackFailed ? "Toca para volver a intentar"
             : musicWanted ? "Toca para escuchar" : "En pausa";
         action.textContent = letterPlaying ? "" : playing ? "Pausar" : "Escuchar";
@@ -113,6 +118,13 @@
     });
     audio.addEventListener("play", renderMusic);
     audio.addEventListener("pause", renderMusic);
+    audio.addEventListener("ended", () => {
+        activeTrack = (activeTrack + 1) % tracks.length;
+        audio.src = tracks[activeTrack].src;
+        audio.load();
+        playbackFailed = false;
+        syncMusic();
+    });
     audio.addEventListener("error", () => {
         playbackFailed = true;
         renderMusic();
