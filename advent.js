@@ -277,7 +277,11 @@
     setMotion(motionEnabled);
     if (preview) {
         $("[data-advent-preview]").hidden = false;
-        $("[data-preview-date]").addEventListener("change", () => { for (const d of [dialog, treeDialog, giftDialog, letterDialog]) if (d.open) d.close(); refresh(); });
+        $("[data-preview-date]").addEventListener("change", () => {
+            lastDay = dayKey();
+            for (const d of [dialog, treeDialog, giftDialog, letterDialog]) if (d.open) d.close();
+            refresh();
+        });
     }
     function greet() {
         if (preview || state.welcomed || root.hidden || location.hash !== "#inicio" || !document.body.classList.contains("site-entered")) return;
