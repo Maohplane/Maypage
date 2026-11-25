@@ -28,6 +28,7 @@
             document.querySelector("[data-season-copy]").textContent = "Ya llegó el mes de las luces, los abrazos y las pequeñas cosas bonitas. Qué suerte vivir otra Navidad contigo, May.";
             document.querySelector("[data-season-status]").textContent = "Que empiece la magia de compartir diciembre contigo. ♡";
             countdown?.setAttribute("aria-label", "La cuenta regresiva terminó: diciembre ya está aquí");
+            document.dispatchEvent(new Event("maypage:december"));
         }
         return totalSeconds;
     }
@@ -44,7 +45,7 @@
     const action = document.querySelector("[data-music-action]");
     const letterAudio = [...document.querySelectorAll("audio:not([data-seasonal-audio])")];
     // Add future songs here; the player cycles through the active tracks.
-    const tracks = [
+    const tracks = window.MayChristmasPlaylist || [
         { src: audio.getAttribute("src"), title: "We Wish You a Merry Christmas · Instrumental" }
     ];
     const MUSIC_PREFERENCE = "maypage-christmas-music";

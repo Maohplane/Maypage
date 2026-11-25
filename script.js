@@ -51,7 +51,7 @@
         window.scrollTo({ top: 0, behavior: "auto" });
 
         if (moveFocus) {
-            const heading = document.querySelector(`#${activeId} h1`);
+            const heading = [...document.querySelectorAll(`#${activeId} h1`)].find((element) => element.getClientRects().length);
             if (heading) {
                 heading.tabIndex = -1;
                 heading.focus({ preventScroll: true });

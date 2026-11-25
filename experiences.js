@@ -43,7 +43,7 @@
         document.body.classList.add("site-entered");
         document.querySelectorAll(".site-header, main, .site-footer, [data-christmas-player]").forEach((element) => { element.inert = false; });
         if (entryGate) entryGate.inert = true;
-        const heading = document.querySelector("[data-page]:not([hidden]) h1");
+        const heading = [...document.querySelectorAll("[data-page]:not([hidden]) h1")].find((element) => element.getClientRects().length);
         if (heading) {
             heading.tabIndex = -1;
             heading.focus({ preventScroll: true });
