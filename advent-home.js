@@ -1,10 +1,9 @@
 (() => {
     "use strict";
     const params = new URLSearchParams(location.search);
-    // Preserve links to the earlier preview while opening the dedicated page.
+    // Earlier preview links now open the real calendar without date overrides.
     if (params.get("adviento") === "preview") {
         const target = new URL("advent.html", location.href);
-        target.search = params.toString();
         location.replace(target.href);
         return;
     }
