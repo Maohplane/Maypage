@@ -2,6 +2,17 @@
 
 ## Christmas background music
 
+The active Christmas playlist contains four recordings provided by the site
+owner in the MayNavidad archive, encoded at 128 kbps for web playback:
+
+- “Jingle Bells (Remastered 1999)” — Frank Sinatra.
+- “The Season’s Back Again” — Jeff Meegan, David Tobin, Charley Harrison and Lydia Harrell.
+- “Baby, It’s Cold Outside” — Rick Reuther feat. Cherie Lynn.
+- “Mele Kalikimaka (Merry Christmas)” — Bing Crosby and The Andrews Sisters.
+
+All rights in these recordings remain with their respective rights holders.
+The following previously used tracks are retained as inactive assets.
+
 `assets/sounds/christmas-wishes.mp3` is an instrumental recording synthesized
 for this site from the traditional public-domain melody “We Wish You a Merry
 Christmas.” The arrangement uses soft bells and warm accompaniment. It does
@@ -11,7 +22,14 @@ The inactive asset `assets/sounds/take-me-home-4-christmas.mp3` is “take me
 home (4 christmas)” by Olivia Rodrigo. The recording was provided by the site
 owner and encoded at 128 kbps for web playback. All rights remain with its
 respective rights holders. It is not included in the active playlist. Currently
-only the instrumental repeats; the playlist supports adding more songs later.
+the owner-provided MayNavidad playlist is active instead.
+
+## Advent illustrations
+
+The original scene, character-expression and gift illustrations in
+`assets/advent/` were generated for this website and approved by the site owner.
+Gift depictions are illustrations, not official product photography.
+LEGO, Cookie Monster and Birkenstock belong to their respective rights holders.
 
 ## Birthday letter soundtrack
 
