@@ -9,7 +9,7 @@
 .advent-page-main .advent-heading h1 { font-size:clamp(2.7rem,5vw,4.8rem); }
 .advent-map-intro { margin:0 0 18px; color:#c8d4bd; font-size:1.0625rem; line-height:1.7; }
 .advent-map-tools { display:flex; margin-bottom:14px; gap:20px; justify-content:space-between; align-items:center; flex-wrap:wrap; }
-.advent-map-tools button, .advent-preview button { padding:10px 15px; min-height:44px; border:1px solid #d9bc8250; border-radius:999px; color:#f3dfb6; background:#214436; font-size:.9375rem; cursor:pointer; }
+.advent-map-tools button { padding:10px 15px; min-height:44px; border:1px solid #d9bc8250; border-radius:999px; color:#f3dfb6; background:#214436; font-size:.9375rem; cursor:pointer; }
 .advent-map-tools > span { color:#9fb99f; font-size:.875rem; }
 .advent-city-viewport { max-height:80svh; overflow:auto; border:1px solid #d4bb8250; border-radius:18px; background:#102f37; touch-action:pan-x pan-y; scrollbar-color:#57735e #152e28; }
 .advent-city-map { position:relative; width:100%; isolation:isolate; }
@@ -63,12 +63,6 @@
 .advent-flame-art .flame-inner { animation-delay:-.8s; }
 .advent-fire i { animation:advent-flame-visible 1.05s ease-in-out infinite alternate; }
 @keyframes advent-flame-visible { from { transform:scale(.91,1.02) rotate(-5deg); } to { transform:scale(1.08,.86) rotate(5deg); } }
-.advent-wait { max-width:900px; margin:auto; padding:22px 0; text-align:center; }
-.advent-wait h1 { margin:0 0 24px; color:#f6ead0; font:400 clamp(3rem,6vw,5rem)/1.05 var(--font-display); }
-.advent-wait h1 em { color:#e6c58b; font-weight:400; }
-.advent-wait > p:not(.eyebrow) { max-width:580px; margin:16px auto; color:#c7d2b9; font-size:1.0625rem; line-height:1.8; }
-.advent-wait .christmas-countdown { margin:28px auto; }
-.advent-wait > img { display:block; width:100%; margin-top:26px; border-radius:18px; }
 .advent-document .advent-experience[data-motion="on"] .advent-map-lights i { animation:advent-map-glow 3.8s ease-in-out infinite alternate!important; }
 .advent-document .advent-experience[data-motion="on"] .advent-scene-lights i { animation:advent-twinkle 3s var(--light-delay) ease-in-out infinite!important; }
 .advent-document .advent-experience[data-motion="on"] .advent-portrait.is-talking { animation:advent-elf-talk .45s ease-in-out infinite alternate!important; }
@@ -100,7 +94,4 @@
     .advent-location-toolbar small { font-size:.75rem; }
     .advent-location-body { padding:16px 15px 18px; }
     .advent-memory-drawer > summary { font-size:1.35rem; }
-    .advent-preview { padding:12px; font-size:.875rem; }
-    .advent-preview input { max-width:170px; }
-    .advent-preview > span { width:100%; }
 }

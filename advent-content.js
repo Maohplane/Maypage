@@ -44,11 +44,12 @@ window.MayAdventContent = {
     ],
     // The final letter will be supplied by Miguel; do not invent its contents.
     finalLetter: null,
+    // The first clue is available now; each next clue starts on the previous gift's date.
     chapters: [
-        { id: "rooftop", name: "Las azoteas", day: 1, clueDay: 1, description: "Una ciudad llena de pequeños secretos.", gift: "Gomitas de chile", scene: [0, 0] },
-        { id: "window", name: "La ventana", day: 8, clueDay: 2, description: "Hay algo en esa ventana que me resulta familiar…", gift: "Pijama de Comegalletas", scene: [100, 0] },
-        { id: "forest", name: "El campo de árboles", day: 15, clueDay: 9, description: "Entre tantos árboles, uno está esperando que lo encuentres.", gift: "LEGO · Ramo de Flores Fantasía en Rosa", scene: [0, 100] },
-        { id: "apartment", name: "Nuestra Navidad", day: 25, clueDay: 16, description: "Después de tanto camino, llegamos a casa.", gift: "Birkenstock Boston azules", scene: [100, 100] }
+        { id: "rooftop", name: "Las azoteas", day: 1, clueDay: null, description: "Una ciudad llena de pequeños secretos.", gift: "Gomitas de chile", scene: [0, 0] },
+        { id: "window", name: "La ventana", day: 8, clueDay: 1, description: "Hay algo en esa ventana que me resulta familiar…", gift: "Pijama de Comegalletas", scene: [100, 0] },
+        { id: "forest", name: "El campo de árboles", day: 15, clueDay: 8, description: "Entre tantos árboles, uno está esperando que lo encuentres.", gift: "LEGO · Ramo de Flores Fantasía en Rosa", scene: [0, 100] },
+        { id: "apartment", name: "Nuestra Navidad", day: 25, clueDay: 15, description: "Después de tanto camino, llegamos a casa.", gift: "Birkenstock Boston azules", scene: [100, 100] }
     ],
     conversations: {
         rooftop: [

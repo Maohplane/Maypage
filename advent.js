@@ -4,9 +4,7 @@
     const content = window.MayAdventContent;
     if (!root || !content) return;
     const $ = (selector) => root.querySelector(selector);
-    const preview = new URLSearchParams(location.search).get("adviento") === "preview";
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const storageKey = preview ? "may-advent-preview-2026-v1" : "may-advent-2026-v1";
+    const storageKey = "may-advent-2026-v1";
     const dateFormatter = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Mexico_City", year: "numeric", month: "2-digit", day: "2-digit" });
     const faces = { hello: 0, wink: 1, thinking: 2, surprised: 3, sad: 4, excited: 5, tender: 6, talking: 7 };
     const faceDescriptions = { hello: "El duende sonríe", wink: "El duende guiña un ojo", thinking: "El duende está pensando", surprised: "El duende está sorprendido", sad: "El duende te anima a volver a intentarlo", excited: "El duende está emocionado", tender: "El duende sonríe con cariño", talking: "El duende está hablando" };
@@ -23,12 +21,11 @@
     } catch { /* The adventure also works when storage is blocked. */ }
     function save() { try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch {} }
     function dayKey() {
-        if (preview) return $("[data-preview-date]").value || "2026-12-01";
         const parts = Object.fromEntries(dateFormatter.formatToParts(new Date()).map(({ type, value }) => [type, value]));
         return `${parts.year}-${parts.month}-${parts.day}`;
     }
     function dateFor(day) { return `2026-12-${String(day).padStart(2, "0")}`; }
-    function available(chapter) { return dayKey() >= dateFor(chapter.clueDay); }
+    function available(chapter) { return chapter.clueDay === null || dayKey() >= dateFor(chapter.clueDay); }
     function released(index) { return dayKey() >= dateFor(content.chapters[index].day); }
     function setFace(face) {
         const index = faces[face] ?? 0;
@@ -44,9 +41,8 @@
     const letterDialog = $("[data-advent-letter]");
     const locationDialog = $("[data-location-dialog]");
     let conversation = [], conversationIndex = 0, finishConversation = null, typeTimer = 0, typed = "", fullText = "";
-    let explicitMotion = null;
-    try { const saved = localStorage.getItem("may-advent-motion-v2"); if (saved === "on" || saved === "off") explicitMotion = saved === "on"; } catch {}
-    let motionEnabled = explicitMotion === null ? !reducedMotion.matches : explicitMotion;
+    // Every visit starts with the effects on; pausing applies to this visit.
+    let motionEnabled = true;
     function stopTyping() { window.clearInterval(typeTimer); typeTimer = 0; $("[data-elf-portrait]").classList.remove("is-talking"); }
     function finishTyping() {
         stopTyping(); typed = fullText; $("[data-dialog-text]").textContent = fullText;
@@ -259,7 +255,7 @@
             button.dataset.locked = String(!unlocked);
             button.setAttribute("aria-haspopup", "dialog");
             button.setAttribute("aria-label", `${mapPlaces[index].name}. Regalo del ${chapter.day} de diciembre. ${unlocked ? "Entrar" : `Disponible desde el ${chapter.clueDay} de diciembre`}`);
-            if (unlocked) button.classList.add(state.claimed[index] ? "is-claimed" : "is-ready");
+            if (unlocked) button.classList.add(state.claimed[index] && released(index) ? "is-claimed" : "is-ready");
             const [left, top, width, height] = mapPlaces[index].bounds;
             Object.assign(button.style, { left: `${left}%`, top: `${top}%`, width: `${width}%`, height: `${height}%` });
             const tag = document.createElement("span"); tag.className = "advent-map-tag"; tag.setAttribute("aria-hidden", "true");
@@ -278,17 +274,11 @@
         $("[data-map-zoom]").textContent = zoom ? "Ver ciudad completa" : "Acercar ciudad";
     });
     function refresh() {
-        const active = preview || dayKey() >= dateFor(1);
-        const countdownShell = document.querySelector("[data-advent-countdown]");
-        const moveFocus = active && countdownShell.contains(document.activeElement);
-        root.hidden = !active;
-        countdownShell.hidden = active;
-        document.body.classList.toggle("advent-season-active", active);
-        if (!active) return;
+        root.hidden = false;
+        document.body.classList.add("advent-season-active");
         if (!available(content.chapters[state.chapter])) state.chapter = 0;
         renderChapters(); renderScene(); renderShelf();
         root.dispatchEvent(new Event("advent:render"));
-        if (moveFocus) { const heading = $("#advent-title"); heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
     }
     let weatherIndex = 0;
     const weather = ["quiet", "flurries", "quiet", "gust", "flurries", "quiet"];
@@ -297,31 +287,14 @@
         const current = weather[++weatherIndex % weather.length];
         root.dataset.weather = current; $("[data-advent-scene]").dataset.weather = current;
     }, 11000);
-    function setMotion(enabled, remember = false) {
+    function setMotion(enabled) {
         motionEnabled = enabled; root.dataset.motion = enabled ? "on" : "off";
-        if (remember) { explicitMotion = enabled; try { localStorage.setItem("may-advent-motion-v2", enabled ? "on" : "off"); } catch {} }
         $("[data-advent-motion]").setAttribute("aria-pressed", String(enabled)); $("[data-advent-motion]").textContent = enabled ? "Pausar movimiento" : "Activar movimiento";
         if (!enabled && typeTimer) finishTyping();
         root.dispatchEvent(new Event("advent:motion"));
     }
-    $("[data-advent-motion]").addEventListener("click", () => setMotion(!motionEnabled, true));
-    reducedMotion.addEventListener("change", () => { if (explicitMotion === null) setMotion(!reducedMotion.matches); });
+    $("[data-advent-motion]").addEventListener("click", () => setMotion(!motionEnabled));
     setMotion(motionEnabled);
-    if (preview) {
-        $("[data-advent-preview]").hidden = false;
-        const requested = new URLSearchParams(location.search).get("fecha");
-        if (requested && /^2026-12-(0[1-9]|[12][0-9]|3[01])$/.test(requested)) $("[data-preview-date]").value = requested;
-        $("[data-preview-reset]").addEventListener("click", () => {
-            for (const d of [dialog, treeDialog, giftDialog, letterDialog, locationDialog]) if (d.open) d.close();
-            state = { chapter: 0, clues: [false, false, false, false], claimed: [false, false, false, false], treeSolved: false, attempts: {}, welcomed: false };
-            save(); refresh();
-        });
-        $("[data-preview-date]").addEventListener("change", () => {
-            lastDay = dayKey();
-            for (const d of [dialog, treeDialog, giftDialog, letterDialog, locationDialog]) if (d.open) d.close();
-            refresh();
-        });
-    }
     function greet() {
         if (state.welcomed || root.hidden || !document.body.classList.contains("site-entered")) return;
         state.welcomed = true; save();

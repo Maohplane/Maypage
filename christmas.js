@@ -23,10 +23,13 @@
 
         if (totalSeconds === 0 && !decemberArrived) {
             decemberArrived = true;
-            document.querySelector("[data-season-eyebrow]").textContent = "Nuestra temporada ya comenzó";
-            document.querySelector("[data-season-title]").innerHTML = "Diciembre llegó, <em>cutie.</em>";
-            document.querySelector("[data-season-copy]").textContent = "Ya llegó el mes de las luces, los abrazos y las pequeñas cosas bonitas. Qué suerte vivir otra Navidad contigo, May.";
-            document.querySelector("[data-season-status]").textContent = "Que empiece la magia de compartir diciembre contigo. ♡";
+            const seasonTitle = document.querySelector("[data-season-title]");
+            if (seasonTitle) {
+                document.querySelector("[data-season-eyebrow]").textContent = "Nuestra temporada ya comenzó";
+                seasonTitle.innerHTML = "Diciembre llegó, <em>cutie.</em>";
+                document.querySelector("[data-season-copy]").textContent = "Ya llegó el mes de las luces, los abrazos y las pequeñas cosas bonitas. Qué suerte vivir otra Navidad contigo, May.";
+                document.querySelector("[data-season-status]").textContent = "Que empiece la magia de compartir diciembre contigo. ♡";
+            }
             countdown?.setAttribute("aria-label", "La cuenta regresiva terminó: diciembre ya está aquí");
             document.dispatchEvent(new Event("maypage:december"));
         }
