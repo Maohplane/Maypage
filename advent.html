@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" data-advent-document>
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Nuestra pequeña Navidad: una ciudad de secretos, un duende y cuatro sorpresas para May."><meta name="theme-color" content="#102e28">
+    <title>Nuestra pequeña Navidad · Para May</title>
+    <link rel="icon" href="logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="styles.css?v=20260804-1"><link rel="stylesheet" href="cosmic.css?v=20260804-3"><link rel="stylesheet" href="christmas.css?v=20261116-1">
+    <link rel="stylesheet" href="advent.css?v=20261125-1"><link rel="stylesheet" href="advent-map.css?v=20261125-3">
+    <script src="christmas-playlist.js?v=20261125-1" defer></script><script src="christmas.js?v=20261125-1" defer></script>
+    <script src="advent-content.js?v=20261125-3" defer></script><script src="advent.js?v=20261125-3" defer></script><script src="advent-motion.js?v=20261125-3" defer></script><script src="advent-entry.js?v=20261125-3" defer></script>
+</head>
+<body class="entry-pending advent-document">
+    <a class="skip-link" href="#calendario">Saltar a la ciudad</a>
+    <div class="entry-gate" data-entry-gate role="dialog" aria-modal="true" aria-labelledby="entry-title"><div class="entry-card"><span class="entry-emblem" aria-hidden="true">✦</span><p class="eyebrow">Un rincón solo para ti</p><h1 id="entry-title">Nuestra pequeña<br><em>Navidad.</em></h1><p>Una ciudad encendida, un duende y unos cuantos secretos que llevan tu nombre.</p><button class="button button-primary entry-button" type="button" data-enter-site>Encender la Navidad</button><small class="entry-music-note">Con tu música de Navidad · puedes pausarla cuando quieras</small></div></div>
+    <header class="advent-page-header" data-advent-shell inert><a class="brand" href="./"><span class="brand-star" aria-hidden="true">✦</span><span><strong>Para May</strong><small>Nuestro pequeño universo</small></span></a><a class="advent-return-home" href="./">Volver al inicio</a></header>
+    <main class="advent-page-main" id="calendario" data-advent-shell inert>
+        <section class="advent-wait" data-advent-countdown aria-labelledby="advent-wait-title">
+                <p class="eyebrow" data-season-eyebrow>Las luces están casi listas</p><h1 id="advent-wait-title" data-season-title>Nuestra pequeña <em>Navidad.</em></h1>
+                <p data-season-copy>Unos cuantos secretos te esperan. Este rincón abre el 1 de diciembre, May.</p>
+                <div class="christmas-countdown" role="timer" aria-label="Tiempo hasta el 1 de diciembre de 2026 en Ciudad de México"><div><strong data-countdown="days">--</strong><span>Días</span></div><div><strong data-countdown="hours">--</strong><span>Horas</span></div><div><strong data-countdown="minutes">--</strong><span>Minutos</span></div><div><strong data-countdown="seconds">--</strong><span>Segundos</span></div></div>
+                <p data-season-status>Nos vemos aquí el 1 de diciembre. ♡</p><img src="assets/advent/city-map.webp" width="1536" height="1024" alt="Una ciudad navideña de noche" decoding="async">
+            </section>
+        <section class="advent-experience" data-advent-root hidden aria-labelledby="advent-title">
+                <div class="advent-preview" data-advent-preview hidden>
+                    <strong>Vista previa</strong>
+                    <label>Fecha de prueba <input type="date" min="2026-11-30" max="2026-12-31" value="2026-12-01" data-preview-date></label>
+                    <span>El progreso de esta vista se guarda por separado.</span><button type="button" data-preview-reset>Reiniciar prueba</button>
+                </div>
+                <div class="advent-heading">
+                    <div><p class="eyebrow">Cuatro regalos. Pequeños secretos. Tú y yo.</p><h1 id="advent-title">Nuestra pequeña <em>Navidad.</em></h1></div>
+                    <button class="advent-motion" type="button" data-advent-motion aria-pressed="true">Pausar movimiento</button>
+                </div>
+                <p class="advent-map-intro">Toca un rincón de la ciudad. Cada uno guarda una pequeña sorpresa para ti.</p>
+                <div class="advent-map-tools"><button type="button" data-map-zoom>Acercar ciudad</button><span>Azotea · Ventana · Granero · En casa</span></div>
+                <div class="advent-city-viewport" data-map-viewport>
+                    <div class="advent-city-map" data-advent-map>
+                        <img class="advent-city-image" src="assets/advent/city-map.webp" width="1536" height="1024" alt="Ciudad nocturna ilustrada: un duende en la azotea, una ventana con galletas, un granero entre árboles y la puerta de un edificio.">
+                        <canvas class="advent-snow-canvas" data-map-snow aria-hidden="true"></canvas>
+                        <div class="advent-map-lights" aria-hidden="true"><i style="left:12%;top:61%"></i><i style="left:34%;top:66%"></i><i style="left:61%;top:60%"></i><i style="left:84%;top:51%"></i></div>
+                        <div class="advent-map-places" data-advent-chapters aria-label="Lugares de nuestra Navidad"></div>
+                    </div>
+                </div>
+                <dialog class="advent-location-dialog" data-location-dialog aria-labelledby="advent-location-title">
+                    <div class="advent-location-toolbar"><button type="button" data-location-close>Volver a la ciudad</button><div><small data-location-date></small><h2 id="advent-location-title" data-location-title>Las azoteas</h2></div></div>
+                    <div class="advent-scene-shell">
+                        <div class="advent-scene" data-advent-scene data-scene="rooftop" data-weather="quiet" role="group" aria-label="Las azoteas">
+                            <div class="advent-scenery"><img data-scene-image loading="lazy" src="assets/advent/rooftop-full.webp" width="1536" height="1024" alt="" decoding="async"></div>
+                            <canvas class="advent-snow-canvas" data-scene-snow aria-hidden="true"></canvas>
+                            <div class="advent-scene-lights" data-scene-lights aria-hidden="true"></div>
+                            <div class="advent-fire" aria-hidden="true"><svg class="advent-flame-art" viewBox="0 0 200 220"><g fill="#6d3d27" stroke="#3a251b" stroke-width="3"><path d="m26 201 140-17 5 16-140 17Z"/><path d="m35 182 138 22-3 15-139-22Z"/></g><path class="flame-layer flame-outer" d="M32 201C5 171 34 146 38 117c16 10 17 26 24 31C44 102 100 85 102 18c44 34 46 68 42 97 16-8 21-22 24-39 32 41 48 91 8 125Z" fill="#df742f" stroke="#a84b24" stroke-width="3"/><path class="flame-layer flame-middle" d="M52 202c-21-29 13-49 20-81 8 17 16 26 22 27-7-38 27-49 25-81 29 34 17 56 23 74 14-10 19-23 22-36 25 42 23 72-3 97Z" fill="#f7ad3e"/><path class="flame-layer flame-inner" d="M80 202c-13-21 9-32 14-54 8 9 10 16 11 22 7-27 22-27 22-53 24 35 26 65 5 85Z" fill="#ffdb82"/></svg></div>
+                            <div class="advent-hotspots" data-advent-hotspots></div>
+                        </div>
+                    </div>
+                    <div class="advent-location-body"><p class="advent-place-description" data-location-copy></p><div class="advent-actions" data-advent-actions></div><p class="advent-notice" data-advent-notice role="status"></p></div>
+                </dialog>
+                <details class="advent-memory-drawer"><summary>Mis regalos descubiertos <span data-shelf-count>0 de 4</span></summary><section class="advent-collection" aria-labelledby="advent-collection-title">
+                    <div class="advent-collection-heading"><div><p class="eyebrow">Pequeñas cosas, grandes sonrisas</p><h2 id="advent-collection-title">Cosas descubiertas</h2></div><span data-collection-count>0 de 4</span></div>
+                    <div class="advent-shelf" data-advent-shelf></div>
+                </section></details>
+
+                <dialog class="advent-dialog" data-advent-dialog aria-labelledby="advent-dialog-title">
+                    <button class="advent-dialog-close" type="button" data-dialog-close aria-label="Cerrar conversación">×</button>
+                    <div class="advent-portrait-panel"><div class="advent-portrait" data-elf-portrait role="img" aria-label="El duende sonríe"></div><span>Tu duende navideño</span></div>
+                    <div class="advent-dialog-copy"><p class="eyebrow" data-dialog-eyebrow>Un secreto entre nosotros</p><h2 id="advent-dialog-title">Psst… May.</h2><p class="advent-dialog-text" data-dialog-text></p><p class="sr-only" data-dialog-announcement aria-live="polite" aria-atomic="true"></p><div class="advent-dialog-footer"><span data-dialog-progress></span><button class="button button-primary" type="button" data-dialog-next>Continuar</button></div></div>
+                </dialog>
+
+                <dialog class="advent-tree-dialog" data-tree-dialog aria-labelledby="advent-tree-title">
+                    <button class="advent-dialog-close" type="button" data-tree-close aria-label="Cerrar el campo de árboles">×</button>
+                    <div class="advent-tree-heading"><p class="eyebrow">Hay uno que viene con nosotros</p><h2 id="advent-tree-title">Mira con calma, cutie.</h2><p data-tree-status>Solo puedes escoger un árbol al día.</p></div>
+                    <div class="advent-tree-tools"><span>Desliza por el campo para explorar.</span><button type="button" data-tree-zoom>Ver campo completo</button></div>
+                    <div class="advent-tree-viewport" data-tree-viewport><div class="advent-tree-field" data-tree-field role="group" aria-label="Campo con 36 árboles de distintos diseños"><div class="advent-tree-snow" aria-hidden="true"></div></div></div>
+                    <div class="advent-tree-choice" data-tree-choice hidden><span data-tree-choice-text></span><button class="button button-primary" type="button" data-tree-confirm>Elegir este árbol</button></div>
+                </dialog>
+                <dialog class="advent-gift-dialog" data-gift-dialog aria-labelledby="advent-gift-title">
+                    <button class="advent-dialog-close" type="button" data-gift-close aria-label="Cerrar regalo">×</button>
+                    <p class="eyebrow">Un poquito más de Navidad contigo</p><div class="advent-gift-art" data-gift-art role="img"></div><h2 id="advent-gift-title"></h2><p>Otro pequeño recuerdo que ya es nuestro. ♡</p><button class="button button-primary" type="button" data-gift-done>Guardar en nuestra repisa</button>
+                </dialog>
+                <dialog class="advent-letter-dialog" data-advent-letter aria-labelledby="advent-letter-title"><button class="advent-dialog-close" type="button" data-advent-letter-close aria-label="Cerrar carta">×</button><p class="eyebrow">25 de diciembre de 2026</p><h2 id="advent-letter-title">Una carta para May</h2><div data-advent-letter-copy></div></dialog>
+            </section>
+    </main>
+    <footer class="advent-page-footer" data-advent-shell inert>Hecho por tu rati, con mucho amor. ♡</footer>
+    <div class="christmas-music-player" data-christmas-player inert><button type="button" data-christmas-music aria-pressed="false" aria-label="Reproducir música navideña"><span class="music-player-icon" aria-hidden="true">♪</span><span><strong>Música navideña</strong><small data-music-status>Toca para escuchar</small></span><span class="music-player-action" data-music-action aria-hidden="true">Escuchar</span></button></div>
+    <audio id="christmas-soundtrack" data-seasonal-audio src="assets/sounds/jingle-bells.mp3" preload="none"></audio>
+    <noscript><p class="noscript-message">Activa JavaScript para explorar la ciudad y abrir tus sorpresas.</p></noscript>
+</body></html>
