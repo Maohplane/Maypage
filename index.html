@@ -10,13 +10,12 @@
     <link rel="stylesheet" href="styles.css?v=20260804-1">
     <link rel="stylesheet" href="cosmic.css?v=20260804-3">
     <link rel="stylesheet" href="christmas.css?v=20261116-1">
-    <link rel="stylesheet" href="advent.css?v=20261125-1">
+    <link rel="stylesheet" href="advent-home.css?v=20261125-3">
     <script src="script.js?v=20261116-1" defer></script>
     <script src="experiences.js?v=20261116-1" defer></script>
     <script src="christmas-playlist.js?v=20261125-1" defer></script>
     <script src="christmas.js?v=20261125-1" defer></script>
-    <script src="advent-content.js?v=20261125-1" defer></script>
-    <script src="advent.js?v=20261125-2" defer></script>
+    <script src="advent-home.js?v=20261125-3" defer></script>
 </head>
 <body class="entry-pending">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -122,54 +121,7 @@
 
             </div>
 
-            <section class="advent-experience" data-advent-root hidden aria-labelledby="advent-title">
-                <div class="advent-preview" data-advent-preview hidden>
-                    <strong>Vista previa</strong>
-                    <label>Fecha de prueba <input type="date" min="2026-11-30" max="2026-12-31" value="2026-12-01" data-preview-date></label>
-                    <span>El progreso de esta vista se guarda por separado.</span>
-                </div>
-                <div class="advent-heading">
-                    <div><p class="eyebrow">Cuatro regalos. Pequeños secretos. Tú y yo.</p><h1 id="advent-title">Nuestra pequeña <em>Navidad.</em></h1></div>
-                    <button class="advent-motion" type="button" data-advent-motion aria-pressed="true">Pausar movimiento</button>
-                </div>
-                <div class="advent-chapters" data-advent-chapters aria-label="Lugares de nuestra Navidad"></div>
-                <div class="advent-scene-shell">
-                    <div class="advent-scene" data-advent-scene data-scene="rooftop" data-weather="quiet" role="group" aria-label="Las azoteas de nuestra ciudad">
-                        <div class="advent-scenery" aria-hidden="true"></div>
-                        <div class="advent-scene-lights" data-scene-lights aria-hidden="true"></div>
-                        <div class="advent-snow" data-advent-snow aria-hidden="true"></div>
-                        <div class="advent-steam" aria-hidden="true"><i></i><i></i><i></i></div>
-                        <div class="advent-fire" aria-hidden="true"><i></i><i></i><i></i></div>
-                        <div class="advent-hotspots" data-advent-hotspots></div>
-                    </div>
-                    <div class="advent-location"><div><strong data-location-title>Las azoteas</strong><p data-location-copy>Una ciudad llena de pequeños secretos.</p></div><span data-weather-label aria-hidden="true">Nieve suave</span></div>
-                </div>
-                <div class="advent-actions" data-advent-actions></div>
-                <p class="advent-notice" data-advent-notice role="status"></p>
-                <section class="advent-collection" aria-labelledby="advent-collection-title">
-                    <div class="advent-collection-heading"><div><p class="eyebrow">Pequeñas cosas, grandes sonrisas</p><h2 id="advent-collection-title">Cosas descubiertas</h2></div><span data-collection-count>0 de 4</span></div>
-                    <div class="advent-shelf" data-advent-shelf></div>
-                </section>
-
-                <dialog class="advent-dialog" data-advent-dialog aria-labelledby="advent-dialog-title">
-                    <button class="advent-dialog-close" type="button" data-dialog-close aria-label="Cerrar conversación">×</button>
-                    <div class="advent-portrait-panel"><div class="advent-portrait" data-elf-portrait role="img" aria-label="El duende sonríe"></div><span>Tu duende navideño</span></div>
-                    <div class="advent-dialog-copy"><p class="eyebrow" data-dialog-eyebrow>Un secreto entre nosotros</p><h2 id="advent-dialog-title">Psst… May.</h2><p class="advent-dialog-text" data-dialog-text></p><p class="sr-only" data-dialog-announcement aria-live="polite" aria-atomic="true"></p><div class="advent-dialog-footer"><span data-dialog-progress></span><button class="button button-primary" type="button" data-dialog-next>Continuar</button></div></div>
-                </dialog>
-
-                <dialog class="advent-tree-dialog" data-tree-dialog aria-labelledby="advent-tree-title">
-                    <button class="advent-dialog-close" type="button" data-tree-close aria-label="Cerrar el campo de árboles">×</button>
-                    <div class="advent-tree-heading"><p class="eyebrow">Hay uno que viene con nosotros</p><h2 id="advent-tree-title">Mira con calma, cutie.</h2><p data-tree-status>Solo puedes escoger un árbol al día.</p></div>
-                    <div class="advent-tree-tools"><span>Desliza por el campo para explorar.</span><button type="button" data-tree-zoom>Ver campo completo</button></div>
-                    <div class="advent-tree-viewport" data-tree-viewport><div class="advent-tree-field" data-tree-field role="group" aria-label="Campo con 36 árboles de distintos diseños"><div class="advent-tree-snow" aria-hidden="true"></div></div></div>
-                    <div class="advent-tree-choice" data-tree-choice hidden><span data-tree-choice-text></span><button class="button button-primary" type="button" data-tree-confirm>Elegir este árbol</button></div>
-                </dialog>
-                <dialog class="advent-gift-dialog" data-gift-dialog aria-labelledby="advent-gift-title">
-                    <button class="advent-dialog-close" type="button" data-gift-close aria-label="Cerrar regalo">×</button>
-                    <p class="eyebrow">Un poquito más de Navidad contigo</p><div class="advent-gift-art" data-gift-art role="img"></div><h2 id="advent-gift-title"></h2><p>Otro pequeño recuerdo que ya es nuestro. ♡</p><button class="button button-primary" type="button" data-gift-done>Guardar en nuestra repisa</button>
-                </dialog>
-                <dialog class="advent-letter-dialog" data-advent-letter aria-labelledby="advent-letter-title"><button class="advent-dialog-close" type="button" data-advent-letter-close aria-label="Cerrar carta">×</button><p class="eyebrow">25 de diciembre de 2026</p><h2 id="advent-letter-title">Una carta para May</h2><div data-advent-letter-copy></div></dialog>
-            </section>
+            <section class="christmas-calendar-portal card-surface" data-calendar-portal hidden aria-labelledby="calendar-portal-title"><img src="assets/advent/city-preview.webp" width="960" height="640" alt="Una ciudad navideña ilustrada de noche" loading="lazy"><div><p class="eyebrow">Los secretos ya te están esperando</p><h1 id="calendar-portal-title">Nuestra pequeña <em>Navidad.</em></h1><p>Una ciudad para explorar y cuatro sorpresas para ti, May.</p><a class="button button-primary" href="advent.html">Entrar a nuestra Navidad</a></div></section>
 
             <section class="sky-message card-surface" aria-labelledby="sky-message-title">
                 <span class="sky-message-symbol" aria-hidden="true">✦</span>

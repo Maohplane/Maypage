@@ -42,8 +42,11 @@
     const treeDialog = $("[data-tree-dialog]");
     const giftDialog = $("[data-gift-dialog]");
     const letterDialog = $("[data-advent-letter]");
+    const locationDialog = $("[data-location-dialog]");
     let conversation = [], conversationIndex = 0, finishConversation = null, typeTimer = 0, typed = "", fullText = "";
-    let motionEnabled = !reducedMotion.matches;
+    let explicitMotion = null;
+    try { const saved = localStorage.getItem("may-advent-motion-v2"); if (saved === "on" || saved === "off") explicitMotion = saved === "on"; } catch {}
+    let motionEnabled = explicitMotion === null ? !reducedMotion.matches : explicitMotion;
     function stopTyping() { window.clearInterval(typeTimer); typeTimer = 0; $("[data-elf-portrait]").classList.remove("is-talking"); }
     function finishTyping() {
         stopTyping(); typed = fullText; $("[data-dialog-text]").textContent = fullText;
@@ -56,7 +59,7 @@
         $("[data-dialog-text]").textContent = "";
         $("[data-dialog-announcement]").textContent = text;
         $("[data-dialog-progress]").textContent = `${conversationIndex + 1} de ${conversation.length}`;
-        if (!motionEnabled || reducedMotion.matches) { finishTyping(); return; }
+        if (!motionEnabled) { finishTyping(); return; }
         $("[data-dialog-next]").textContent = "Mostrar todo";
         $("[data-elf-portrait]").classList.add("is-talking");
         const letters = Array.from(text); let index = 0;
@@ -127,7 +130,9 @@
             const status = document.createElement("small"); status.textContent = claimed ? "Ya es parte de nuestra Navidad" : released(index) && state.clues[index] ? "Tu regalo ya te está esperando" : "Un pequeño secreto";
             button.append(art, title, status); button.addEventListener("click", () => revealGift(index)); shelf.append(button);
         });
-        $("[data-collection-count]").textContent = `${state.claimed.filter((value, i) => value && released(i)).length} de 4`;
+        const count = `${state.claimed.filter((value, i) => value && released(i)).length} de 4`;
+        $("[data-collection-count]").textContent = count;
+        $("[data-shelf-count]").textContent = count;
     }
     function showStocking() {
         if (dayKey() < dateFor(25)) { speak([["tender", "Esta bota guarda algo para el 25 de diciembre. Hasta entonces, su carta se queda calentita junto a la chimenea. ♡"]]); return; }
@@ -201,10 +206,10 @@
         else notice("Toca al duende y explora los pequeños detalles. Esta Navidad está hecha para ti. ♡");
     }
     const hotspotData = {
-        rooftop: [["elf", "Hablar con el duende de la azotea", 18, 5, 35, 65]],
-        window: [["cookie", "Explorar las galletas de la ventana", 49, 53, 28, 19]],
-        forest: [["elf", "Hablar con el duende del campo", 24, 47, 24, 50], ["tree", "Explorar los árboles", 50, 16, 43, 64]],
-        apartment: [["elf", "Hablar con el duende junto al árbol", 47, 27, 27, 70], ["gift", "El regalo bajo el árbol", 25, 70, 24, 29], ["stocking", "La carta en la bota de la chimenea", 76, 28, 20, 37]]
+        rooftop: [["elf", "Hablar con el duende de la azotea", 18, 7, 36, 69]],
+        window: [["cookie", "Explorar las galletas de la ventana", 47, 59, 29, 17]],
+        forest: [["tree", "Explorar los árboles", 0, 0, 100, 100]],
+        apartment: [["elf", "Hablar con el duende junto al árbol", 40, 23, 32, 70], ["gift", "El regalo bajo el árbol", 25, 68, 17, 26], ["stocking", "La carta en la bota de la chimenea", 73, 26, 14, 34]]
     };
     const lightPositions = {
         rooftop: [[3,75],[13,79],[23,73],[33,79],[47,43],[66,28],[89,32]],
@@ -214,7 +219,11 @@
     };
     function renderScene() {
         const chapter = content.chapters[state.chapter]; const scene = $("[data-advent-scene]");
-        scene.dataset.scene = chapter.id; scene.style.setProperty("--scene-x", `${chapter.scene[0]}%`); scene.style.setProperty("--scene-y", `${chapter.scene[1]}%`); scene.setAttribute("aria-label", chapter.name);
+        scene.dataset.scene = chapter.id; scene.setAttribute("aria-label", chapter.name);
+        const sceneImage = $("[data-scene-image]");
+        const images = { rooftop: "rooftop-full.webp", window: "window-full.webp", forest: "tree-field.webp", apartment: "apartment-full.webp" };
+        sceneImage.src = `assets/advent/${images[chapter.id]}`;
+        $("[data-location-date]").textContent = `Regalo del ${chapter.day} de diciembre`;
         $("[data-location-title]").textContent = chapter.name; $("[data-location-copy]").textContent = chapter.description;
         const hotspots = $("[data-advent-hotspots]"); hotspots.replaceChildren();
         for (const [action, label, left, top, width, height] of hotspotData[chapter.id]) {
@@ -226,17 +235,48 @@
         lightPositions[chapter.id].forEach(([left, top], index) => { const light = document.createElement("i"); light.style.left = `${left}%`; light.style.top = `${top}%`; light.style.setProperty("--light-delay", `${-index * .7}s`); lights.append(light); });
         renderActions();
     }
+    const mapPlaces = [
+        { name: "Azotea", bounds: [12, 24, 18, 28] },
+        { name: "Ventana", bounds: [33, 60, 15, 17] },
+        { name: "Granero", bounds: [79, 43, 18, 19] },
+        { name: "En casa", bounds: [55, 71, 14, 23] }
+    ];
+    function openChapter(index) {
+        const chapter = content.chapters[index];
+        if (!available(chapter)) {
+            speak([["thinking", `Todavía estoy preparando este rincón. Ven a buscarme aquí a partir del ${chapter.clueDay} de diciembre. ♡`]]);
+            return;
+        }
+        state.chapter = index; save(); renderChapters(); renderScene();
+        if (!locationDialog.open) locationDialog.showModal();
+        root.dispatchEvent(new Event("advent:scene"));
+    }
     function renderChapters() {
-        const chapters = $("[data-advent-chapters]"); chapters.replaceChildren();
+        const places = $("[data-advent-chapters]"); places.replaceChildren();
         content.chapters.forEach((chapter, index) => {
-            const button = document.createElement("button"); button.type = "button"; button.className = "advent-chapter"; button.dataset.chapter = chapter.id;
-            button.setAttribute("aria-pressed", String(index === state.chapter)); button.disabled = !available(chapter);
-            const day = document.createElement("strong"); day.textContent = String(chapter.day).padStart(2, "0");
-            const copy = document.createElement("span"); copy.textContent = chapter.name;
-            const date = document.createElement("small"); date.textContent = available(chapter) ? "Regalo de diciembre" : `Pistas desde el ${chapter.clueDay} de dic.`; copy.append(date); button.append(day, copy);
-            button.addEventListener("click", () => { state.chapter = index; save(); renderChapters(); renderScene(); }); chapters.append(button);
+            const button = document.createElement("button"); button.type = "button"; button.className = "advent-map-place"; button.dataset.chapter = chapter.id;
+            const unlocked = available(chapter);
+            button.dataset.locked = String(!unlocked);
+            button.setAttribute("aria-haspopup", "dialog");
+            button.setAttribute("aria-label", `${mapPlaces[index].name}. Regalo del ${chapter.day} de diciembre. ${unlocked ? "Entrar" : `Disponible desde el ${chapter.clueDay} de diciembre`}`);
+            if (unlocked) button.classList.add(state.claimed[index] ? "is-claimed" : "is-ready");
+            const [left, top, width, height] = mapPlaces[index].bounds;
+            Object.assign(button.style, { left: `${left}%`, top: `${top}%`, width: `${width}%`, height: `${height}%` });
+            const tag = document.createElement("span"); tag.className = "advent-map-tag"; tag.setAttribute("aria-hidden", "true");
+            const date = document.createElement("strong"); date.textContent = String(chapter.day).padStart(2, "0");
+            const name = document.createElement("span"); name.textContent = mapPlaces[index].name; tag.append(date, name); button.append(tag);
+            button.addEventListener("click", () => openChapter(index)); places.append(button);
         });
     }
+    $("[data-location-close]").addEventListener("click", () => locationDialog.close());
+    locationDialog.addEventListener("close", () => root.dispatchEvent(new Event("advent:scene")));
+    $("[data-map-zoom]").addEventListener("click", () => {
+        const viewport = $("[data-map-viewport]");
+        const zoom = viewport.dataset.zoom !== "on";
+        viewport.style.setProperty("--map-zoom-width", `${Math.min(1536, Math.max(1000, viewport.clientWidth * 1.35))}px`);
+        viewport.dataset.zoom = zoom ? "on" : "off";
+        $("[data-map-zoom]").textContent = zoom ? "Ver ciudad completa" : "Acercar ciudad";
+    });
     function refresh() {
         const active = preview || dayKey() >= dateFor(1);
         const countdownShell = document.querySelector("[data-advent-countdown]");
@@ -247,46 +287,44 @@
         if (!active) return;
         if (!available(content.chapters[state.chapter])) state.chapter = 0;
         renderChapters(); renderScene(); renderShelf();
+        root.dispatchEvent(new Event("advent:render"));
         if (moveFocus) { const heading = $("#advent-title"); heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
     }
-    const snow = $("[data-advent-snow]");
-    for (let i = 0; i < 54; i++) {
-        const flake = document.createElement("i");
-        flake.className = i < 24 ? "far" : i > 43 ? "near" : "middle";
-        flake.style.setProperty("--flake-x", `${(i * 61.79) % 108 - 6}%`);
-        flake.style.setProperty("--flake-size", `${i < 24 ? 1.5 : i > 43 ? 4 : 2.5}px`);
-        flake.style.setProperty("--flake-time", `${9 + (i * 7.3) % 14}s`);
-        flake.style.setProperty("--flake-delay", `${-(i * 3.7) % 24}s`); snow.append(flake);
-    }
-    new ResizeObserver((entries) => { $("[data-advent-scene]").style.setProperty("--snow-distance", `${entries[0].contentRect.height + 42}px`); }).observe($("[data-advent-scene]"));
     let weatherIndex = 0;
-    const weather = ["quiet", "quiet", "flurries", "gust", "quiet", "flurries"];
-    const weatherLabels = { quiet: "Nieve suave", flurries: "Copos que van y vienen", gust: "Una pequeña ráfaga" };
+    const weather = ["quiet", "flurries", "quiet", "gust", "flurries", "quiet"];
     window.setInterval(() => {
-        if (root.hidden || document.hidden || location.hash !== "#inicio" || !motionEnabled) return;
+        if (root.hidden || document.hidden || !motionEnabled) return;
         const current = weather[++weatherIndex % weather.length];
-        $("[data-advent-scene]").dataset.weather = current; $("[data-weather-label]").textContent = weatherLabels[current];
+        root.dataset.weather = current; $("[data-advent-scene]").dataset.weather = current;
     }, 11000);
-    function setMotion(enabled) {
+    function setMotion(enabled, remember = false) {
         motionEnabled = enabled; root.dataset.motion = enabled ? "on" : "off";
+        if (remember) { explicitMotion = enabled; try { localStorage.setItem("may-advent-motion-v2", enabled ? "on" : "off"); } catch {} }
         $("[data-advent-motion]").setAttribute("aria-pressed", String(enabled)); $("[data-advent-motion]").textContent = enabled ? "Pausar movimiento" : "Activar movimiento";
         if (!enabled && typeTimer) finishTyping();
+        root.dispatchEvent(new Event("advent:motion"));
     }
-    $("[data-advent-motion]").addEventListener("click", () => setMotion(!motionEnabled));
-    reducedMotion.addEventListener("change", () => setMotion(!reducedMotion.matches));
+    $("[data-advent-motion]").addEventListener("click", () => setMotion(!motionEnabled, true));
+    reducedMotion.addEventListener("change", () => { if (explicitMotion === null) setMotion(!reducedMotion.matches); });
     setMotion(motionEnabled);
     if (preview) {
         $("[data-advent-preview]").hidden = false;
+        const requested = new URLSearchParams(location.search).get("fecha");
+        if (requested && /^2026-12-(0[1-9]|[12][0-9]|3[01])$/.test(requested)) $("[data-preview-date]").value = requested;
+        $("[data-preview-reset]").addEventListener("click", () => {
+            for (const d of [dialog, treeDialog, giftDialog, letterDialog, locationDialog]) if (d.open) d.close();
+            state = { chapter: 0, clues: [false, false, false, false], claimed: [false, false, false, false], treeSolved: false, attempts: {}, welcomed: false };
+            save(); refresh();
+        });
         $("[data-preview-date]").addEventListener("change", () => {
             lastDay = dayKey();
-            for (const d of [dialog, treeDialog, giftDialog, letterDialog]) if (d.open) d.close();
+            for (const d of [dialog, treeDialog, giftDialog, letterDialog, locationDialog]) if (d.open) d.close();
             refresh();
         });
     }
     function greet() {
-        if (preview || state.welcomed || root.hidden || location.hash !== "#inicio" || !document.body.classList.contains("site-entered")) return;
+        if (state.welcomed || root.hidden || !document.body.classList.contains("site-entered")) return;
         state.welcomed = true; save();
-        window.setTimeout(() => { if (!root.hidden && location.hash === "#inicio" && !document.querySelector("dialog[open]")) speak([["hello", "Bienvenida a nuestro pequeño rincón de Navidad, May. Aquí cada lugar guarda algo para ti."], ["wink", "Cuando quieras, ven a buscarme a la azotea. Tengo el primer secreto de tu Navidad. ♡"]]); }, 850);
     }
     document.addEventListener("maypage:december", () => { refresh(); greet(); });
     document.addEventListener("maypage:entered", greet);
